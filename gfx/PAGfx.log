@@ -1,0 +1,19 @@
+PAGfx Converter v0.9 -- by Mollusk -- resurrected by fincs -- forum.palib.info
+If you have suggestions, problems or anything please mail me at mollusk@palib.info
+
+Converting PAGfx.ini
+Transparent Color: Magenta
+
+1 sprites:
+  perso : 256colors, 32x384, Pal : perso_Pal, -> perso_Sprite
+
+1 backgrounds:
+  bg0 : EasyBg, 256x192, Pal : bg0_Pal, 193 tiles -> bg0_Tiles and bg0_Map
+
+2 palettes:
+  perso_Pal, 35 colors
+  bg0_Pal, 251 colors
+
+Converted in 0 minutes and 0 seconds
+
+Finished!
