@@ -9,11 +9,7 @@ void AF_GameInit()
 	PA_DeleteBg(ECRAN_HAUT, AFRODS_LAYER_BG);
 	PA_DeleteBg(ECRAN_BAS, AFRODS_LAYER_BG);
 	
-	// on charge le sprite du personnage
-	PA_LoadSpritePal(ECRAN_BAS, // Screen
-				AFRODS_PAL_PERSO, // Palette number
-				(void*)perso_Pal);	// Palette name
-
+	
 	// initialisation de la position (pour l'instant, 50,50)
 	G_Env.Perso.position.x = 50;
 	G_Env.Perso.position.y = 50;
@@ -21,7 +17,7 @@ void AF_GameInit()
 	// on crée le sprite à l'écran
 	PA_CreateSprite(ECRAN_BAS, // Screen
 				AFRODS_SPRITE_PERSO, // Sprite number
-				(void*)perso_Sprite, // Sprite name
+				(void*)spr_perso_Sprite, // Sprite name
 				OBJ_SIZE_32X32, // Sprite size
 				1, // 256 color mode
 				AFRODS_PAL_PERSO, // Sprite palette number
@@ -30,6 +26,10 @@ void AF_GameInit()
 
 void AF_GameEvents()
 {
+	// pour l'instant on quitte le jeu en faisant Start
+	if (Pad.Newpress.Start)
+		AF_GameExit();
+	
 	// Animation code...
 	if(Pad.Newpress.Up)
 		PA_StartSpriteAnim(ECRAN_BAS, AFRODS_SPRITE_PERSO, 0, 2, 6);
@@ -53,4 +53,13 @@ void AF_GameEvents()
 	// On redessine le sprite
 	PA_SetSpriteXY(ECRAN_BAS, AFRODS_SPRITE_PERSO, G_Env.Perso.position.x, G_Env.Perso.position.y);
 
+}
+
+void AF_GameExit()
+{
+	// on supprime le sprite du perso
+	PA_DeleteSprite(ECRAN_BAS, AFRODS_SPRITE_PERSO);
+	
+	// retour au splash
+	AF_SplashInit();
 }

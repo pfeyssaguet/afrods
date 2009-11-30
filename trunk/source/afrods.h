@@ -16,6 +16,9 @@
 // Déclarations globales
 #include "externs.h"
 
+// Module de l'écran d'accueil
+#include "splash.h"
+
 // Module du menu principal
 #include "menu.h"
 
