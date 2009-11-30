@@ -7,4 +7,6 @@ void AF_MenuInit();
 
 void AF_MenuEvents();
 
+void AF_MenuLaunchGame();
+
 #endif

@@ -7,4 +7,6 @@ void AF_GameInit();
 
 void AF_GameEvents();
 
+void AF_GameExit();
+
 #endif

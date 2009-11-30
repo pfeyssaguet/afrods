@@ -4,15 +4,23 @@ If you have suggestions, problems or anything please mail me at mollusk@palib.in
 Converting PAGfx.ini
 Transparent Color: Magenta
 
-1 sprites:
-  perso : 256colors, 32x384, Pal : perso_Pal, -> perso_Sprite
+2 sprites:
+  spr_perso : 256colors, 32x384, Pal : palPerso_Pal, -> spr_perso_Sprite
+  spr_menu : 256colors, 64x192, Pal : palMenu_Pal, -> spr_menu_Sprite
 
-1 backgrounds:
-  bg0 : EasyBg, 256x192, Pal : bg0_Pal, 193 tiles -> bg0_Tiles and bg0_Map
+4 backgrounds:
+  bg_splash_top : EasyBg, 256x192, Pal : bg_splash_top_Pal, 765 tiles -> bg_splash_top_Tiles and bg_splash_top_Map
+  bg_splash_bottom : EasyBg, 256x192, Pal : bg_splash_bottom_Pal, 768 tiles -> bg_splash_bottom_Tiles and bg_splash_bottom_Map
+  bg_menu_top : EasyBg, 256x192, Pal : bg_menu_top_Pal, 765 tiles -> bg_menu_top_Tiles and bg_menu_top_Map
+  bg_menu_bottom : EasyBg, 256x192, Pal : bg_menu_bottom_Pal, 768 tiles -> bg_menu_bottom_Tiles and bg_menu_bottom_Map
 
-2 palettes:
-  perso_Pal, 35 colors
-  bg0_Pal, 251 colors
+6 palettes:
+  palPerso_Pal, 35 colors
+  palMenu_Pal, 70 colors
+  bg_splash_top_Pal, 249 colors
+  bg_splash_bottom_Pal, 256 colors
+  bg_menu_top_Pal, 249 colors
+  bg_menu_bottom_Pal, 256 colors
 
 Converted in 0 minutes and 0 seconds
 
