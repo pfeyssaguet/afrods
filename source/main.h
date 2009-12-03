@@ -3,6 +3,11 @@
 
 #include "afrods.h"
 
+#include "splash.h"
+#include "menu.h"
+#include "game.h"
+#include "save.h"
+
 // Function: main()
 int main(int, char **);
 

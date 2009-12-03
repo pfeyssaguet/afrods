@@ -3,9 +3,12 @@
 
 #include "afrods.h"
 
+
 void AF_GameInit();
 
 void AF_GameEvents();
+
+void AF_GameClean();
 
 void AF_GameExit();
 

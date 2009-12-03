@@ -1,0 +1,13 @@
+AfroDS
+----------
+
+v0.1
++ splash screen
+- menu principal
+- menu création de perso
+- choix de la classe
+- choix de la race
+- choix d'une apparence
+- choix du nom avec le clavier
+- sauvegarde d'un personnage
+- chargement de la liste des persos dans le menu

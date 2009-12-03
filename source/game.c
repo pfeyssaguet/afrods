@@ -4,6 +4,7 @@ void AF_GameInit()
 {
 	// on indique qu'on est dans le module game
 	G_Env.Module = AFRODS_MODULE_GAME;
+	G_Env.ModuleStop = FALSE;
 	
 	// on nettoie les écrans
 	PA_DeleteBg(ECRAN_HAUT, AFRODS_LAYER_BG);
@@ -55,11 +56,13 @@ void AF_GameEvents()
 
 }
 
-void AF_GameExit()
-{
+void AF_GameClean() {
 	// on supprime le sprite du perso
 	PA_DeleteSprite(ECRAN_BAS, AFRODS_SPRITE_PERSO);
-	
-	// retour au splash
-	AF_SplashInit();
+}
+
+void AF_GameExit()
+{
+	// on indique qu'on veut sortir
+	G_Env.ModuleStop = TRUE;
 }
