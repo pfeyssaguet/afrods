@@ -4,6 +4,12 @@
 // La PA_Lib
 #include <PA9.h>
 
+// La lib pour l'accès FAT
+#include <fat.h>
+
+// La lib de cardme
+//#include "cardme.h"
+
 // Les graphismes qui viennnent de PAGfx
 #include "all_gfx.h"
 
@@ -15,14 +21,5 @@
 
 // Déclarations globales
 #include "externs.h"
-
-// Module de l'écran d'accueil
-#include "splash.h"
-
-// Module du menu principal
-#include "menu.h"
-
-// Module principal du jeu
-#include "game.h"
 
 #endif

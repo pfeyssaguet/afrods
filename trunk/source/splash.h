@@ -7,4 +7,6 @@ void AF_SplashInit();
 
 void AF_SplashEvents();
 
+void AF_SplashClean();
+
 #endif
