@@ -10,8 +10,10 @@ Splash::Splash()
 void Splash::moduleEvents() {
 	// en cas d'appui sur Start ou A, on sort du splash screen
 	if (Pad.Newpress.Start || Pad.Newpress.A) {
-		// on indique qu'on est plus sur le splash
+		// on indique qu'on veut sortir
 		m_bIsStopped = true;
+		// pour aller dans le module Menu
+		G_Env.NextModule = AFRODS_MODULE_MENU;
 	}
 }
 

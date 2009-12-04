@@ -4,6 +4,7 @@
 #include "splash.h"
 #include "menu.h"
 #include "game.h"
+#include "newchar.h"
 #include "save.h"
 #include "externs.h"
 #include <PA9.h>

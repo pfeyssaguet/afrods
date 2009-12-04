@@ -11,19 +11,10 @@ Save::Save() {
 	// Chargement des persos depuis la sauvegarde
 	loadPersos();
 }
-/*
-AF_SavePerso * Save::getPersos() {
-	//return m_persos;
-	return m_characters;
-}
-*/
 
 void Save::loadPersos() {
 	// pour l'instant j'ajoute quelques persos bidons pour test
 	// TODO Save : il faut charger les persos depuis une sauvegarde !
-	//AF_SavePersoAdd("deuspi");
-	//AF_SavePersoAdd("yoda");
-//	AF_SavePersoAdd("nob");
 	m_characters.push_back(Character("deuspi"));
 	m_characters.push_back(Character("yoda"));
 	m_characters.push_back(Character("nob"));
@@ -60,68 +51,6 @@ vector<Character> Save::getCharacters() {
 	return m_characters;
 }
 
-/*
-int Save::AF_SavePersoCount() {
-	AF_SavePerso * iter = m_persos;
-	int i = 0;
-
-	while (iter != NULL)
-	{
-		iter = iter->next;
-		i++;
-	}
-
-	return i;
-}
-
-void Save::AF_SavePersoAdd(char * sNom) {
-	// on crée un nouvel élément
-	AF_SavePerso* nouveau = malloc(sizeof(AF_SavePerso));
-	nouveau->sName = malloc((strlen(sNom) + 1) * sizeof(char));
-	strcpy(nouveau->sName, sNom);
-
-	// c'est parti vive les listes chaînées :p
-	nouveau->prev = NULL;
-	nouveau->next = NULL;
-
-	// si la liste était vide c'est facile...
-	if (m_persos == NULL) {
-		m_persos = nouveau;
-		return;
-	}
-
-	// recherche du dernier élément
-	AF_SavePerso * last = m_persos;
-	while (last->next != NULL)
-		last = last->next;
-
-	// on rajoute directement le nouvel élément à last
-	last->next = nouveau;
-	nouveau->prev = last;
-}
-
-void Save::AF_SavePersoClear()
-{
-	AF_SavePerso * tmp;
-	AF_SavePerso * tmp2;
-
-	while (m_persos != NULL)
-	{
-		tmp = m_persos->next;
-		tmp2 = m_persos;
-
-		// on nettoie la chaîne du nom du perso
-		free(tmp2->sName);
-		tmp2->sName = NULL;
-
-		// on nettoie l'élément en lui-même
-		free(tmp2);
-		tmp2 = NULL;
-
-		m_persos = tmp;
-	}
-}
-*/
 /*
 void AF_SaveInitFAT() {
 	 PA_InitText(ECRAN_HAUT, 2);
@@ -165,6 +94,5 @@ void AF_SaveTestCardMe() {
 
 		 PA_WaitForVBL();
 	 }
-
 }
  */
