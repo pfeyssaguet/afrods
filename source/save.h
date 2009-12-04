@@ -1,19 +1,22 @@
 #ifndef __SAVE_H__
 #define __SAVE_H__
 
-#include "afrods.h"
+#include "character.h"
+#include <vector>
 
+class Save {
+	public:
+		Save();
 
-void AF_SaveInit();
+		void loadPersos();
+		int getNbCharacters();
+		std::vector<Character> getCharacters();
 
-int AF_SaveGetNbPersos();
+	private:
 
-void AF_SaveLoadPersos();
+		std::vector<Character> m_characters;
+		//AF_SavePerso * m_persos;
+};
 
-int AF_SavePersoCount();
-
-void AF_SavePersoAdd(char * sNom);
-
-void AF_SavePersoClear();
 
 #endif
