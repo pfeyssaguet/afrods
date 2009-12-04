@@ -206,5 +206,9 @@ void Menu::moduleEvents() {
 void Menu::launchModule() {
 	// on indique qu'on veut sortir
 	m_bIsStopped = true;
+
+	// pour aller dans le module Game
+	//G_Env.NextModule = AFRODS_MODULE_GAME;
+	G_Env.NextModule = AFRODS_MODULE_NEWCHAR;
 }
 

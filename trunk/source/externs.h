@@ -13,8 +13,8 @@ typedef struct AF_Env
 	/** Les données de sauvegarde */
 	Save * save;
 
-	/** Permet d'indiquer le dernier module par lequel on est passé */
-	AFRODS_MODULE LastModule;
+	/** Permet d'indiquer le prochain module à charger */
+	AFRODS_MODULE NextModule;
 
 	/** Permet d'indiquer le module actuel, pour savoir si on est dans le menu ou en jeu */
 	Module * currentModule;

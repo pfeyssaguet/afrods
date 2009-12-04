@@ -25,14 +25,13 @@ int main(int argc, char ** argv) {
 void AF_MainInit()
 {
 	// Initialisation du background pour le texte
+	PA_InitText(ECRAN_HAUT, AFRODS_LAYER_TEXT);
 	PA_InitText(ECRAN_BAS, AFRODS_LAYER_TEXT);
-	//PA_SetBgPrio(ECRAN_BAS, AFRODS_LAYER_TEXT, 0);
 
 	// Initialisation du module splash
-	G_Env.LastModule = AFRODS_MODULE_SPLASH;
 	G_Env.currentModule = new Splash();
 
-	// Initialisation du module de sauvegarde
+	// Initialisation de la sauvegarde
 	G_Env.save = new Save();
 }
 
@@ -45,22 +44,22 @@ void AF_MainEvents()
 		// on appelle le destructeur
 		delete G_Env.currentModule;
 
-		// en fonction du module précédent, on choisit le module courant
-		switch (G_Env.LastModule)
+		// on charge le prochain module
+		switch (G_Env.NextModule)
 		{
-			case AFRODS_MODULE_SPLASH:
-				G_Env.LastModule = AFRODS_MODULE_MENU;
-				G_Env.currentModule = new Menu();
+			case AFRODS_MODULE_NEWCHAR:
+				G_Env.currentModule = new NewChar();
 				break;
 
 			case AFRODS_MODULE_MENU:
-				G_Env.LastModule = AFRODS_MODULE_GAME;
-				G_Env.currentModule = new Game();
+				G_Env.currentModule = new Menu();
 				break;
 
 			case AFRODS_MODULE_GAME:
-				// on retourne au splash screen
-				G_Env.LastModule = AFRODS_MODULE_SPLASH;
+				G_Env.currentModule = new Game();
+				break;
+
+			case AFRODS_MODULE_SPLASH:
 				G_Env.currentModule = new Splash();
 				break;
 		}

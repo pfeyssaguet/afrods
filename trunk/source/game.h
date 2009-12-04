@@ -4,6 +4,7 @@
 #include "module.h"
 #include "character.h"
 #include "constants.h"
+#include "externs.h"
 #include "all_gfx.h"
 #include <PA9.h>
 
