@@ -1,15 +1,22 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include "afrods.h"
+#include "module.h"
+#include "character.h"
+#include "constants.h"
+#include "all_gfx.h"
+#include <PA9.h>
 
+class Game : public Module {
+	public:
+		Game();
+		~Game();
+		void moduleEvents();
 
-void AF_GameInit();
+		void quit();
 
-void AF_GameEvents();
-
-void AF_GameClean();
-
-void AF_GameExit();
+	private:
+		Character m_activeChar;
+};
 
 #endif

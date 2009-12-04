@@ -11,3 +11,4 @@ v0.1
 - choix du nom avec le clavier
 - sauvegarde d'un personnage
 - chargement de la liste des persos dans le menu
+- faire apparaître quelque part la version

@@ -1,12 +1,17 @@
 #ifndef __SPLASH_H__
 #define __SPLASH_H__
 
-#include "afrods.h"
+#include "module.h"
+#include "constants.h"
+#include "externs.h"
+#include "all_gfx.h"
+#include <PA9.h>
 
-void AF_SplashInit();
-
-void AF_SplashEvents();
-
-void AF_SplashClean();
+class Splash : public Module {
+	public:
+		Splash();
+		~Splash();
+		void moduleEvents();
+};
 
 #endif

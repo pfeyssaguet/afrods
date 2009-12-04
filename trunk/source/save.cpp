@@ -1,24 +1,33 @@
 #include "save.h"
 #include <fat.h>
 
-void AF_SaveInit() {
-	// Initialisation de la liste des persos à NULL
-	G_Env.Save.persos = NULL;
+using namespace std;
 
+Save::Save() {
 	// Initialisation du système de filesystem (c'est pas gagné)
 	//AF_SaveInitFAT();
 	//AF_SaveTestCardMe();
 
 	// Chargement des persos depuis la sauvegarde
-	AF_SaveLoadPersos();
+	loadPersos();
 }
+/*
+AF_SavePerso * Save::getPersos() {
+	//return m_persos;
+	return m_characters;
+}
+*/
 
-void AF_SaveLoadPersos() {
+void Save::loadPersos() {
 	// pour l'instant j'ajoute quelques persos bidons pour test
 	// TODO Save : il faut charger les persos depuis une sauvegarde !
-	AF_SavePersoAdd("deuspi");
-	AF_SavePersoAdd("yoda");
+	//AF_SavePersoAdd("deuspi");
+	//AF_SavePersoAdd("yoda");
 //	AF_SavePersoAdd("nob");
+	m_characters.push_back(Character("deuspi"));
+	m_characters.push_back(Character("yoda"));
+	m_characters.push_back(Character("nob"));
+
 /*
 	FILE* imgFile = fopen(AFRODS_SAVE_FILENAME, "rb");
 
@@ -43,8 +52,17 @@ void AF_SaveLoadPersos() {
 */
 }
 
-int AF_SavePersoCount() {
-	AF_SavePerso * iter = G_Env.Save.persos;
+int Save::getNbCharacters() {
+	return m_characters.size();
+}
+
+vector<Character> Save::getCharacters() {
+	return m_characters;
+}
+
+/*
+int Save::AF_SavePersoCount() {
+	AF_SavePerso * iter = m_persos;
 	int i = 0;
 
 	while (iter != NULL)
@@ -56,7 +74,7 @@ int AF_SavePersoCount() {
 	return i;
 }
 
-void AF_SavePersoAdd(char * sNom) {
+void Save::AF_SavePersoAdd(char * sNom) {
 	// on crée un nouvel élément
 	AF_SavePerso* nouveau = malloc(sizeof(AF_SavePerso));
 	nouveau->sName = malloc((strlen(sNom) + 1) * sizeof(char));
@@ -67,13 +85,13 @@ void AF_SavePersoAdd(char * sNom) {
 	nouveau->next = NULL;
 
 	// si la liste était vide c'est facile...
-	if (G_Env.Save.persos == NULL) {
-		G_Env.Save.persos = nouveau;
+	if (m_persos == NULL) {
+		m_persos = nouveau;
 		return;
 	}
 
 	// recherche du dernier élément
-	AF_SavePerso * last = G_Env.Save.persos;
+	AF_SavePerso * last = m_persos;
 	while (last->next != NULL)
 		last = last->next;
 
@@ -82,15 +100,15 @@ void AF_SavePersoAdd(char * sNom) {
 	nouveau->prev = last;
 }
 
-void AF_SavePersoClear()
+void Save::AF_SavePersoClear()
 {
 	AF_SavePerso * tmp;
 	AF_SavePerso * tmp2;
 
-	while (G_Env.Save.persos != NULL)
+	while (m_persos != NULL)
 	{
-		tmp = G_Env.Save.persos->next;
-		tmp2 = G_Env.Save.persos;
+		tmp = m_persos->next;
+		tmp2 = m_persos;
 
 		// on nettoie la chaîne du nom du perso
 		free(tmp2->sName);
@@ -100,10 +118,10 @@ void AF_SavePersoClear()
 		free(tmp2);
 		tmp2 = NULL;
 
-		G_Env.Save.persos = tmp;
+		m_persos = tmp;
 	}
 }
-
+*/
 /*
 void AF_SaveInitFAT() {
 	 PA_InitText(ECRAN_HAUT, 2);
