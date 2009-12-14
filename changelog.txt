@@ -8,7 +8,7 @@ v0.1
 - choix de la classe
 - choix de la race
 - choix d'une apparence
-- choix du nom avec le clavier
++ choix du nom avec le clavier
 - sauvegarde d'un personnage
-- chargement de la liste des persos dans le menu
++ chargement de la liste des persos dans le menu
 - faire apparaître quelque part la version

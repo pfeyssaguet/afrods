@@ -1,5 +1,7 @@
 #include "module.h"
 
+using namespace AfroDS;
+
 Module::Module() : m_bIsStopped(false) {
 
 }
