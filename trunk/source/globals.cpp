@@ -1,3 +1,3 @@
 #include "externs.h"
 
-AF_Env G_Env;
+Env AfroDS::G_Env;

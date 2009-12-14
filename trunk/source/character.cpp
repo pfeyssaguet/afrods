@@ -1,54 +1,99 @@
-/*
- * character.cpp
- *
- *  Created on: 3 déc. 2009
- *      Author: deuspi
- */
-
 #include "character.h"
 
-using namespace std;
+using namespace AfroDS;
 
-Character::Character() {
+/**
+ * Constructeur par défaut
+ */
+Character::Character() : m_move_speed(1) {
 
 }
 
-Character::Character(string sName) {
+/**
+ * Constructeur initialisant le nom
+ * @param std::string sName nom du personnage
+ */
+Character::Character(const std::string sName) : m_move_speed(1) {
 	m_sName = sName;
 }
 
-string Character::getName() {
+/**
+ * Renvoie le nom du personnage
+ * @return std::string nom du personnage
+ */
+std::string Character::getName() const {
 	return m_sName;
 }
-void Character::setName(string sName) {
+
+/**
+ * Définit le nom du personnage
+ * @param std::string sName nom du personnage
+ */
+void Character::setName(const std::string sName) {
 	m_sName = sName;
 }
 
-void Character::setPosX(int x) {
-	m_position.x = x;
-}
-
-void Character::setPosY(int y) {
-	m_position.y = y;
-}
-
-void Character::setPosXY(int x, int y) {
-	m_position.x = x;
-	m_position.y = y;
-}
-
-void Character::setPos(AF_Coords pos) {
-	m_position = pos;
-}
-
-int Character::getPosX() {
+/**
+ * Renvoie la position X
+ * @return int position X
+ */
+int Character::getPosX() const {
 	return m_position.x;
 }
 
-int Character::getPosY() {
+/**
+ * Définit la position X
+ * @param int x position X
+ */
+void Character::setPosX(const int x) {
+	m_position.x = x;
+}
+
+/**
+ * Renvoie la position Y
+ * @return int position Y
+ */
+int Character::getPosY() const {
 	return m_position.y;
 }
 
-AF_Coords Character::getPos() {
+/**
+ * Définit la position Y
+ * @param int y position Y
+ */
+void Character::setPosY(const int y) {
+	m_position.y = y;
+}
+
+/**
+ * Renvoie la position avec un type personnalisé
+ * @return AF_Coords position
+ */
+Coords Character::getPos() const {
 	return m_position;
+}
+
+/**
+ * Définit la position avec un type personnalisé
+ * @param AF_Coords pos position
+ */
+void Character::setPos(const Coords pos) {
+	m_position = pos;
+}
+
+/**
+ * Définit les positions de X et Y
+ * @param int x position X
+ * @param int y position Y
+ */
+void Character::setPosXY(const int x, const int y) {
+	m_position.x = x;
+	m_position.y = y;
+}
+
+/**
+ * Renvoie la vitesse de déplacement du personnage
+ */
+int Character::getMoveSpeed() const {
+	return m_move_speed;
 }

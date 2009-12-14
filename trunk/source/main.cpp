@@ -1,14 +1,31 @@
 #include "main.h"
+#include "splash.h"
+#include "menu.h"
+#include "game.h"
+#include "newchar.h"
+#include "save.h"
+#include "externs.h"
+#include "all_gfx.h"
+#include <PA9.h>
 
 int main(int argc, char ** argv) {
 	// on initialise la PA_Lib
 	PA_Init();
 	PA_InitVBL();
 
+	// FIXME Main : virer cette vieille feinte ! on attend un peu pour éviter le bug du stylus déjà pressé
+	PA_WaitForVBL();
+	PA_WaitForVBL();
+	PA_WaitForVBL();
+	PA_WaitForVBL();
+	PA_WaitForVBL();
+	PA_WaitForVBL();
+
+	// Initialisations principales
 	AF_MainInit();
 
 	// Boucle principale
-	while (1) {
+	while (true) {
 		// on lance les événements
 		AF_MainEvents();
 
@@ -22,21 +39,12 @@ int main(int argc, char ** argv) {
 /**
  * Initialisation du module principal
  */
-void AF_MainInit()
-{
-	// Initialisation du background pour le texte
-	PA_InitText(ECRAN_HAUT, AFRODS_LAYER_TEXT);
-	PA_InitText(ECRAN_BAS, AFRODS_LAYER_TEXT);
-
+void AF_MainInit() {
 	// Initialisation du module splash
 	G_Env.currentModule = new Splash();
-
-	// Initialisation de la sauvegarde
-	G_Env.save = new Save();
 }
 
-void AF_MainEvents()
-{
+void AF_MainEvents() {
 	// d'abord on traite les événements du module en cours
 	G_Env.currentModule->moduleEvents();
 
@@ -64,5 +72,4 @@ void AF_MainEvents()
 				break;
 		}
 	}
-
 }
