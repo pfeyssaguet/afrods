@@ -1,0 +1,7 @@
+Bugs connnus
+----------------
+
+- quand on quitte le module Game, il arrive qu'on freeze
+- quand on lance le jeu par le module Splash et qu'on arrive au module Game, freeze
+- quand on sort d'un combat dans le donjon aléatoire, le sprite du perso est faux jusqu'à ce qu'on se déplace
+- quand on descend 1 étage dans le donjon aléatoire, si on remonte, on est mal placé, et on ne peut plus sortir car la map de la ville n'est plus connectée au donjon

@@ -1,29 +1,24 @@
-#ifndef __GAME_H__
-#define __GAME_H__
+#ifndef __GAME_H_
+#define __GAME_H_
 
-#include "map.h"
-#include "module.h"
-#include "character.h"
-
-#define AFRODS_GAME_OFFSET_ICONS_X 216
-#define AFRODS_GAME_OFFSET_ICONS_Y 8
-#define AFRODS_GAME_OFFSET_ICONS_SPACE 0
-
+#include "context.h"
 
 namespace AfroDS {
 
-	class Game : public AfroDS::Module {
+	class Game {
 		public:
-			Game();
-			~Game();
-			void moduleEvents();
+			void init();
+			void run();
+
+			static Game * getInstance();
 
 		private:
-			void initMenu();
-			bool moveChar();
-			void quit();
-			AfroDS::Character m_activeChar;
-			AfroDS::Map m_activeMap;
+			Game();
+
+			Context * m_context;
+
+			/** Le Singleton */
+			static Game * m_Instance;
 	};
 
 }

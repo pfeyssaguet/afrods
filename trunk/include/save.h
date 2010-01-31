@@ -1,8 +1,11 @@
 #ifndef __SAVE_H__
 #define __SAVE_H__
 
-#include "character.h"
+#include "characterplayer.h"
 #include <vector>
+
+// nom du fichier de sauvegarde
+#define AFRODS_SAVE_FILENAME "/AfroDS.dat"
 
 namespace AfroDS {
 
@@ -12,9 +15,9 @@ namespace AfroDS {
 	class Save {
 		public:
 			/**
-			 * Constructeur par défaut
+			 * Méthode d'accès au singleton
 			 */
-			Save();
+			static Save * getInstance();
 
 			/**
 			 * Charge les personnages depuis la sauvegarde
@@ -36,18 +39,34 @@ namespace AfroDS {
 			 * Crée un nouveau personnage
 			 * @param Character newchar personnage à créer
 			 */
-			void addCharacter(Character newchar);
+			void addCharacter(CharacterPlayer * newchar);
 
 			/**
 			 * Récupère le personnage n° N
 			 * @param int iNumPerso numéro du personnage
 			 * @return Character personnage
 			 */
-			AfroDS::Character getCharacter(int iNumPerso);
+			CharacterPlayer * getCharacter(int iNumPerso);
 
+			/**
+			 * Crée un perso de test pour utiliser directement en jeu
+			 */
+			CharacterPlayer * getDemoCharacter();
+
+			/**
+			 * Crée une liste de persos de test pour utiliser dans le menu
+			 */
+			void createDemoCharacters();
 		private:
+			/**
+			 * Constructeur par défaut, privé car singleton
+			 */
+			Save();
+
 			/** liste des personnages sauvegardés */
-			std::vector<AfroDS::Character> m_characters;
+			std::vector<CharacterPlayer *> m_characters;
+
+			static Save * m_Instance;
 	};
 
 }

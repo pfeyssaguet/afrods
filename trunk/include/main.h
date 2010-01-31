@@ -1,11 +1,7 @@
 #ifndef __MAIN_H__
-#define __MAIN__
+#define __MAIN_H__
 
-// Function: main()
-int main(int, char **);
-
-void AF_MainInit();
-
-void AF_MainEvents();
+int main(int argc, char ** argv);
+void Vblank();
 
 #endif

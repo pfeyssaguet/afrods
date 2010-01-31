@@ -1,26 +1,56 @@
 #ifndef __CHARACTER_H__
 #define __CHARACTER_H__
 
+#include "item.h"
+#include "itemweapon.h"
+#include "itemarmor.h"
 #include "types.h"
+
 #include <string>
+#include <map>
+#include <vector>
+
+#define StatModifier(stat) (((stat) / 2) - 5)
 
 namespace AfroDS {
+	/**
+	 * Les diffï¿½rents slots d'ï¿½quipement
+	 * - Tï¿½te : casque ou chapeau
+	 * - Dos : cape
+	 * - Corps : armure
+	 * - Main droite : arme
+	 * - Main gauche : bouclier ou indispo si arme ï¿½ 2 mains
+	 * - Pieds : bottes
+	 * - Mains : gants
+	 * - Doigt droit : anneau
+	 * - Doigt gauche : anneau
+	 * - Cou : amulette
+	 * - Taille : ceinture
+	 * le dernier ï¿½lï¿½ment SLOT_SIZE sert ï¿½ connaï¿½tre le nombre de slots
+	 * ou ï¿½ indiquer un item sans slot (non ï¿½quipable)
+	 */
+	enum EquipmentSlot {
+		SLOT_HELMET,
+		SLOT_CLOAK,
+		SLOT_ARMOR,
+		SLOT_RIGHT_WEAPON,
+		SLOT_LEFT_WEAPON,
+		SLOT_BOOTS,
+		SLOT_GLOVES,
+		SLOT_RIGHT_RING,
+		SLOT_LEFT_RING,
+		SLOT_NECKLACE,
+		SLOT_BELT,
+		SLOT_SIZE // un faux slot qui permet de compter le nombre de slots, et aussi d'indiquer qu'un item ne s'ï¿½quipe pas
+	};
+
 
 	/**
-	 * Représente un personnage
+	 * Reprï¿½sente un personnage
 	 */
 	class Character {
 		public:
-			/**
-			 * Constructeur par défaut
-			 */
-			Character();
-
-			/**
-			 * Constructeur initialisant le nom
-			 * @param std::string sName nom du personnage
-			 */
-			Character(const std::string sName);
+			virtual ~Character();
 
 			/**
 			 * Renvoie le nom du personnage
@@ -29,68 +59,144 @@ namespace AfroDS {
 			std::string getName() const;
 
 			/**
-			 * Définit le nom du personnage
+			 * Dï¿½finit le nom du personnage
 			 * @param std::string sName nom du personnage
 			 */
 			void setName(const std::string sName);
 
 			/**
-			 * Renvoie la position X
-			 * @return int position X
+			 * Renvoie les stats de base du personnage, sans bonus
+			 * @return Stats stats de base du perso
 			 */
-			int getPosX() const;
+			Stats getBaseStats() const;
+
+			long getCurrentHp() const;
+			void setCurrentHp(const int hp);
+			long getCurrentMp() const;
+			void setCurrentMp(const int mp);
+			long getMaxHp() const;
+			long getMaxMp() const;
+
+			void addMoney(const long money);
+			void subMoney(const long money);
+			long getMoney() const;
 
 			/**
-			 * Définit la position X
-			 * @param int x position X
+			 * Ajoute un item dans l'ï¿½quipement
+			 * @param EquipmentSlot slot slot dans lequel ï¿½quiper l'item
+			 * @param Item * item item ï¿½ ï¿½quiper (pointeur)
 			 */
-			void setPosX(const int x);
+			void addItemToEquipment(const EquipmentSlot slot, Item * item);
 
 			/**
-			 * Renvoie la position Y
-			 * @return int position Y
+			 * Renvoie l'item d'ï¿½quipement correspondant au slot demandï¿½
+			 * @param EquipmentSlot slot slot demandï¿½
+			 * @return Item * item d'ï¿½quipement (pointeur)
 			 */
-			int getPosY() const;
+			Item * getEquipmentItem(const EquipmentSlot slot) const;
+
+			int attack(Character * target);
+
+			int getBonusAttack() const;
+			int getArmorClass() const;
 
 			/**
-			 * Définit la position Y
-			 * @param int y position Y
+			 * Ajoute un item dans l'inventaire
+			 * @param Item item l'item ï¿½ ajouter
 			 */
-			void setPosY(const int y);
+			void addItemToInventory(Item * item);
 
 			/**
-			 * Renvoie la position avec un type personnalisé
-			 * @return AF_Coords position
+			 * Renvoie l'item nï¿½ N de l'inventaire
+			 * @param int iNumItem numï¿½ro de l'item ï¿½ rï¿½cupï¿½rer
+			 * @return Item item rï¿½cupï¿½rï¿½
 			 */
-			AfroDS::Coords getPos() const;
+			Item * getInventoryItem(const int iNumItem);
+
+			Item * getInventoryItem(const int iNumItem, bool extract);
+
+			void deleteInventoryItem(const int iNumItem);
 
 			/**
-			 * Définit la position avec un type personnalisé
-			 * @param AF_Coords pos position
+			 * Renvoie le nombre d'items dans l'inventaire
+			 * @return int nombre d'items
 			 */
-			void setPos(const Coords pos);
+			unsigned int getInventorySize() const;
 
 			/**
-			 * Définit les positions de X et Y
-			 * @param int x position X
-			 * @param int y position Y
+			 * Equipe un item de l'inventaire si possible, et renvoie true en cas de succï¿½s
+			 * @param unsigned int iNumItem numï¿½ro de l'item d'inventaire
+			 * @return bool false en cas d'ï¿½chec
 			 */
-			void setPosXY(const int x, const int y);
+			bool equipItem(const unsigned int iNumItem);
 
 			/**
-			 * Renvoie la vitesse de déplacement du personnage
+			 * Retire un item d'ï¿½quipement et le remet dans l'inventaire
+			 * @param EquipmentSlot slot slot d'ï¿½quipement ï¿½ vider
+			 * @return bool false en cas d'ï¿½chec
 			 */
-			int getMoveSpeed() const;
+			bool unequipItem(const EquipmentSlot slot);
 
-		private:
+			void activateInventoryItem(const unsigned int iNumItem);
+
+			bool activateItem(Item * item);
+
+			/**
+			 * Renvoie les stats du personnage, avec les bonus et modificateurs appliquï¿½s
+			 * @return Stats stats du personnage
+			 */
+			virtual Stats getStats() const = 0;
+
+			virtual int rollAttack() const;
+
+			/**
+			 * Mï¿½thode statique utilitaire permettant de traduire un slot
+			 * en string pour l'afficher dans le menu (comme un toString() pour
+			 * l'enum EquipmentSlot)
+			 * @param EquipmentSlot slot ï¿½ traduire
+			 * @return std::string chaï¿½ne de caractï¿½re
+			 */
+			static std::string translateSlot(const EquipmentSlot slot, const bool shortName);
+
+			static std::string translateSlot(const EquipmentSlot slot);
+
+			static int XpToLevel(const long xp);
+
+			static long XpForNextLevel(const long xp);
+
+		protected:
+			/**
+			 * Constructeur initialisant le nom
+			 * @param std::string sName nom du personnage
+			 */
+			Character(const std::string sName = "");
+
 			/** Nom du personnage */
 			std::string m_sName;
 
-			/** Position */
-			AfroDS::Coords m_position;
+			/** Stats de base */
+			Stats m_baseStats;
 
-			/** Vitesse de déplacement */
-			int m_move_speed;
+			/** Pts de vie max */
+			long m_maxHp;
+
+			/** Pts de vie courants */
+			long m_currentHp;
+
+			/** Pts de mana max */
+			long m_maxMp;
+
+			/** Pts de mana courants */
+			long m_currentMp;
+
+			/** Argent */
+			long m_money;
+
+			/** Inventaire */
+			std::vector<Item *> m_inventory;
+
+			/** Equipement */
+			std::map<EquipmentSlot, Item *> m_equipment;
 	};
 
 }
