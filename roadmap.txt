@@ -1,0 +1,37 @@
+AfroDS
+----------
+Fonctionnalités prévues, version par version
+
+v0.1
+----------
+* module splash :
+  + splash screen en haut et en bas
+  - faire apparaître quelque part la version
+
+* module menu :
+  + chargement de la liste des persos dans le menu
+  - accès au module "newchar" (création de perso)
+
+* module newchar :
+  - recréer le module
+  - choix de la classe
+  - choix de la race
+  - choix d'une apparence
+  - choix du nom avec le clavier
+
+* module game :
+  - sauvegarde d'un personnage
+  - collision des PNJ
+
+* module battle :
+  + menu "attack" : pour utiliser les armes
+  - menu "magic" : pouvoir utiliser des sorts
+  - menu "items" : pouvoir utiliser un item
+  - attaque à main nue : pour l'instant 1D3 tout le temps
+  - séquence de combat à mettre en place avec timers
+
+* module shop :
+  - achat d'items
+  - vente d'items
+  - dépôt d'items à la banque
+  

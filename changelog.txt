@@ -1,14 +1,24 @@
 AfroDS
 ----------
 
-v0.1
-+ splash screen
+31/01/2010 - version libnds
+- migration en libnds : refonte de tout
+- module splash screen
+- module menu : choix des persos
+- module game : déplacement du perso sur une map
+  * on peut entrer/sortir du mode sélection avec Start
+  * en mode sélection, on peut basculer entre l'inventaire et l'équipement avec R/L
+  * en mode sélection, on peut équiper, retirer ou utiliser un item avec A (suivant le contexte)
+  * en mode map, on peut lancer un combat en appuyant sur X
+  * en mode map, on peut entrer dans une maison en allant sur la porte et en appuyant sur A
+
+- module battle : gestion du combat
+  * bouton A pour valider les choix
+  * bouton Start pour gagner automatiquement le combat
+
+15/12/2009 - version PAlib
+- splash screen
 - menu principal
-- menu création de perso
-- choix de la classe
-- choix de la race
-- choix d'une apparence
-+ choix du nom avec le clavier
-- sauvegarde d'un personnage
-+ chargement de la liste des persos dans le menu
-- faire apparaître quelque part la version
+- choix du nom avec le clavier
+- chargement de la liste des persos dans le menu
+

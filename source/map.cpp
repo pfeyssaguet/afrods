@@ -1,5 +1,8 @@
 #include "map.h"
-#include "all_gfx.h"
+#include "debug.h"
+
+#include <nds.h>
+#include <stdio.h>
 
 using namespace AfroDS;
 
@@ -8,144 +11,319 @@ using namespace AfroDS;
  * Constructeur de map
  */
 Map::Map() {
-	// chargement du background
-	//u32 Blank[130000>>2];
-	//PA_EasyBgLoad(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, bg_game_tiles);
-	//PA_LoadSimpleBg(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, bg_game_tiles_Tiles, Blank, BG_256X256, 0, 1);
-	// on charge la palette des tiles
-	PA_LoadBgPal(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, (void *)bg_game_tiles_Pal);
-
-	PA_LoadLargeBg(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, bg_game_tiles_Tiles, bg_game_tiles_Map, 1, 128, 128);
-
-	// chargement de la map en mémoire
-	loadMap();
 }
 
 /**
- * Renvoie les coordonnées de départ du perso dans la map
+ * Chargement des graphismes. Les graphismes doivent
+ * d'abord avoir ï¿½tï¿½ dï¿½finis
  */
-Coords Map::getStartingPos() {
+void Map::loadGraphics() {
+	m_visible = true;
+	// on crï¿½e un background
+	m_bgFloor = bgInit(AFRODS_LAYER_GAME_TOP_MAP_FLOOR, BgType_Text8bpp, m_bgSize, 0, 1);
+	bgSetPriority(m_bgFloor, AFRODS_LAYER_GAME_TOP_MAP_FLOOR);
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+	dmaCopy(m_FloorTiles, bgGetGfxPtr(m_bgFloor), m_FloorTilesLen);
+#else
+	//dmaCopy(bg_world0_colTiles, bgGetGfxPtr(m_bgFloor), bg_world0_colTilesLen);
+	dmaCopy(m_ColTiles, bgGetGfxPtr(m_bgFloor), m_ColTilesLen);
+#endif
+
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+	if (m_AboveTiles != NULL) {
+		// on crï¿½e un 2e background pour l'autre layer
+		m_bgAbove = bgInit(AFRODS_LAYER_GAME_TOP_MAP_ABOVE, BgType_Text8bpp, m_bgSize, 24, 4);
+		bgSetPriority(m_bgAbove, AFRODS_LAYER_GAME_TOP_MAP_ABOVE);
+		dmaCopy(m_AboveTiles, bgGetGfxPtr(m_bgAbove), m_AboveTilesLen);
+	}
+#endif
+	// on copie les maps des 2 layers
+	//dmaCopy(m_FloorMap, bgGetMapPtr(m_bgFloor), m_FloorMapLen);
+	//dmaCopy(m_AboveMap, bgGetMapPtr(m_bgAbove), m_AboveMapLen);
+
+	if (m_bgSize == BgSize_T_512x512) {
+		u16* map = (u16*)bgGetMapPtr(m_bgFloor);
+		//draw top half
+		for(int iy = 0; iy < 32; iy++) {
+
+	#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+			dmaCopy(m_FloorMap + iy * 64, map + iy * 32,  32 * 2);
+			dmaCopy(m_FloorMap + iy * 64 + 32, map + (32 * 32) + iy * 32,  32 * 2);
+	#else
+			dmaCopy(m_CollisionMap + iy * 64, map + iy * 32,  32 * 2);
+			dmaCopy(m_CollisionMap + iy * 64 + 32, map + (32 * 32) + iy * 32,  32 * 2);
+	#endif
+			}
+
+		map += 32 * 32 * 2;
+
+		//draw bottom half
+		for(int iy = 0; iy < 32; iy++) {
+			//copy one line at a time
+	#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+			dmaCopy(m_FloorMap + (iy + 32) * 64, map + iy * 32,  32 * 2);
+			dmaCopy(m_FloorMap + (iy + 32) * 64 + 32, map + (32 * 32) + iy * 32,  32 * 2);
+	#else
+			dmaCopy(m_CollisionMap + (iy + 32) * 64, map + iy * 32,  32 * 2);
+			dmaCopy(m_CollisionMap + (iy + 32) * 64 + 32, map + (32 * 32) + iy * 32,  32 * 2);
+	#endif
+		}
+
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+		if (m_AboveTiles != NULL) {
+			map = (u16*)bgGetMapPtr(m_bgAbove);
+			//draw top half
+			for(int iy = 0; iy < 32; iy++) {
+				dmaCopy(m_AboveMap + iy * 64, map + iy * 32,  32 * 2);
+				dmaCopy(m_AboveMap + iy * 64 + 32, map + (32 * 32) + iy * 32,  32 * 2);
+			}
+
+			map += 32 * 32 * 2;
+
+			//draw bottom half
+			for(int iy = 0; iy < 32; iy++) {
+				//copy one line at a time
+				dmaCopy(m_AboveMap + (iy + 32) * 64, map + iy * 32,  32 * 2);
+				dmaCopy(m_AboveMap + (iy + 32) * 64 + 32, map + (32 * 32) + iy * 32,  32 * 2);
+			}
+		}
+#endif
+
+	} else {
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+		dmaCopy(m_FloorMap, bgGetMapPtr(m_bgFloor), m_FloorMapLen);
+		if (m_AboveTiles != NULL) {
+			dmaCopy(m_AboveMap, bgGetMapPtr(m_bgAbove), m_AboveMapLen);
+		}
+#else
+		dmaCopy(m_CollisionMap, bgGetMapPtr(m_bgFloor), m_FloorMapLen);
+#endif
+	}
+
+	// comme on a dï¿½cidï¿½ d'utiliser des palettes ï¿½tendues on doit le faire ici aussi
+	vramSetBankE(VRAM_E_LCD);
+
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+	dmaCopy(m_FloorPal, VRAM_E_EXT_PALETTE[AFRODS_LAYER_GAME_TOP_MAP_FLOOR], m_FloorPalLen);
+	if (m_AboveTiles != NULL) {
+		dmaCopy(m_AbovePal, VRAM_E_EXT_PALETTE[AFRODS_LAYER_GAME_TOP_MAP_ABOVE], m_AbovePalLen);
+	}
+#else
+	dmaCopy(m_ColPal, VRAM_E_EXT_PALETTE[AFRODS_LAYER_GAME_TOP_MAP_FLOOR], m_ColPalLen);
+#endif
+
+	vramSetBankE(VRAM_E_BG_EXT_PALETTE);
+
+	// on s'assure quand mï¿½me qu'on utilise les palettes ï¿½tendues
+	REG_DISPCNT |= DISPLAY_BG_EXT_PALETTE;
+	setVisible(false);
+
+	// si la map est trop petite, on calcule un offset
+	if (m_Size.x * 16 < AFRODS_SCREEN_WIDTH)
+		m_Offset.x = -1 * ((15 - m_Size.x)*16) / 2 - AFRODS_MAP_OFFSET_PIXELS_X;
+	else if (m_Size.x * 16 == AFRODS_SCREEN_WIDTH)
+		m_Offset.x = 0;
+	else
+		m_Offset.x = AFRODS_MAP_OFFSET_PIXELS_X;
+
+	if (m_Size.y * 16 < AFRODS_SCREEN_HEIGHT)
+		m_Offset.y = -1 * ((11 - m_Size.y)*16) / 2 - AFRODS_MAP_OFFSET_PIXELS_Y;
+	else if (m_Size.y * 16 == AFRODS_SCREEN_HEIGHT)
+		m_Offset.y = 0;
+	else
+		m_Offset.y = AFRODS_MAP_OFFSET_PIXELS_Y;
+}
+
+Map::~Map() {
+	setVisible(false);
+
+	// on vire les sprites s'il y en a
+	while (!m_sprites.empty()) {
+		delete m_sprites.at(0).sprite;
+		m_sprites.erase(m_sprites.begin());
+	}
+}
+
+void Map::update() {
+	for (unsigned int i = 0 ; i < m_sprites.size() ; i++) {
+		MapSprite mapSprite = m_sprites.at(i);
+		Sprite * sprite = mapSprite.sprite;
+		Coords pos = mapSprite.pos;
+		pos.x = pos.x * 16 - (m_ScrollingOffset.x + m_Offset.x) - AFRODS_GAME_OFFSET_CENTER_CHAR_X;
+		pos.y = pos.y * 16 - (m_ScrollingOffset.y + m_Offset.y) - AFRODS_GAME_OFFSET_CENTER_CHAR_Y;
+		if (pos.x < 0 - (AFRODS_CHAR_WIDTH - 1) ||
+			pos.y < 0 - (AFRODS_CHAR_HEIGHT - 1) ||
+			pos.x > AFRODS_SCREEN_WIDTH ||
+			pos.y > AFRODS_SCREEN_HEIGHT) {
+			sprite->setVisible(false);
+		} else {
+			sprite->setVisible(m_visible);
+			sprite->setPos(pos);
+		}
+		sprite->update();
+	}
+}
+
+Coords Map::getOffset() const {
+	return m_Offset;
+}
+
+int Map::getBgId() const {
+	return m_bgFloor;
+}
+
+void Map::scrollX(int x) {
+	m_ScrollingOffset.x = x;
+	bgSetScroll(m_bgFloor, m_ScrollingOffset.x + m_Offset.x, m_ScrollingOffset.y + m_Offset.y);
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+	if (m_AboveTiles != NULL) {
+		bgSetScroll(m_bgAbove, m_ScrollingOffset.x + m_Offset.x, m_ScrollingOffset.y + m_Offset.y);
+	}
+#endif
+}
+
+void Map::scrollY(int y) {
+	m_ScrollingOffset.y = y;
+	bgSetScroll(m_bgFloor, m_ScrollingOffset.x + m_Offset.x, m_ScrollingOffset.y + m_Offset.y);
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+	if (m_AboveTiles != NULL) {
+		bgSetScroll(m_bgAbove, m_ScrollingOffset.x + m_Offset.x, m_ScrollingOffset.y + m_Offset.y);
+	}
+#endif
+}
+
+void Map::scroll(int x, int y) {
+	m_ScrollingOffset.x = x;
+	m_ScrollingOffset.y = y;
+	bgSetScroll(m_bgFloor, m_ScrollingOffset.x + m_Offset.x, m_ScrollingOffset.y + m_Offset.y);
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+	if (m_AboveTiles != NULL) {
+		bgSetScroll(m_bgAbove, m_ScrollingOffset.x + m_Offset.x, m_ScrollingOffset.y + m_Offset.y);
+	}
+#endif
+}
+
+/**
+ * Renvoie les coordonnï¿½es de dï¿½part du perso dans la map
+ */
+Coords Map::getStartingPos() const {
 	return m_StartingPos;
 }
 
 /**
  * Renvoie la taille de la map
  */
-Coords Map::getSize() {
+Coords Map::getSize() const {
 	return m_Size;
 }
 
 /**
  * Renvoie la largeur de la map
  */
-int Map::getWidth() {
+int Map::getWidth() const {
 	return m_Size.x;
 }
 
 /**
  * Renvoie la hauteur de la map
  */
-int Map::getHeight() {
+int Map::getHeight() const {
 	return m_Size.y;
 }
 
 /**
- * Permet de charger la map dans son tableau
+ * Charge la map dans la mï¿½moire vidï¿½o
  */
-void Map::loadMap() {
-	// on initialise la taille de la map
-	m_Size.x = AFRODS_MAP_X;
-	m_Size.y = AFRODS_MAP_Y;
+void Map::setVisible(bool visible) {
+	if (m_visible == visible)
+		return;
 
-	// on boucle sur tout le tableau
-	AF_Tile tile;
-	for (s16 y = 0 ; y < m_Size.y ; y++) {
-		for (s16 x = 0 ; x < m_Size.x ; x++) {
-			// on calcule le tile à afficher
-			if (x == 0 || y == 0 || x == m_Size.x-1 || y == m_Size.y-1) {
-			//if (x %2 == 0 || y % 2 == 0) {
+	m_visible = visible;
 
-				// un mur
-				tile.Graphics.x = 5;
-				tile.Graphics.y = 1;
-			} else {
-				// du sol
-				tile.Graphics.x = 14;
-				tile.Graphics.y = 1;
-			}
-
-			// on le met dans le tableau
-			m_iTiles[x][y] = tile;
+	// on l'affiche proprement
+	if (m_visible) {
+		bgShow(m_bgFloor);
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+		if (m_AboveTiles != NULL) {
+			bgShow(m_bgAbove);
 		}
+#endif
+	} else {
+		bgHide(m_bgFloor);
+#ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
+		if (m_AboveTiles != NULL) {
+			bgHide(m_bgAbove);
+		}
+#endif
 	}
 
-	// on charge la position de départ
-	m_StartingPos.x = 4;
-	m_StartingPos.y = 4;
-}
-
-/**
- * Affiche la fraction visible de la map à l'écran,
- * en fonction des coordonnées d'origine (du centre)
- */
-void Map::prepareTiles() {
-	for (s16 y2 = 0 ; y2 < AFRODS_MAP_MAX_TILES_Y ; y2++) {
-		for (s16 x2 = 0 ; x2 < AFRODS_MAP_MAX_TILES_X ; x2++) {
-			// si on a une tile...
-			if (x2 < m_Size.x && y2 < m_Size.y) {
-				// on affiche la tile
-				showTile(x2, y2, m_iTiles[x2][y2].Graphics.x, m_iTiles[x2][y2].Graphics.y);
-				//showTile(x2, y2, 0, 0);
-			} else {
-				// sinon on affiche du vide
-				showTile(x2, y2, 0, 0);
-			}
+	if (m_visible == false) {
+		for (unsigned int i = 0 ; i < m_sprites.size() ; i++) {
+			Sprite * sprite = m_sprites.at(i).sprite;
+			sprite->setVisible(false);
 		}
 	}
 }
 
-/**
- * Affiche une tile à l'écran
- * @param s16 x position X de la tile sur la map
- * @param s16 y position Y de la tile sur la map
- * @param s16 tilex position X de la tile dans son tileset
- * @param s16 tiley position Y de la tile dans son tileset
- */
-void Map::showTile(s16 x, s16 y, s16 tilex, s16 tiley) {
-	// on a des tiles de 16x16
-	// la NDS utilise des tiles de 8x8
-	// on doit passer d'un repère de coordonnées à l'autre
-	s16 iTile = (tilex + tiley * AFRODS_MAP_NBTILES_PER_LINE)*2;
+bool Map::canMove(const Coords coords) const {
+#ifdef AFRODS_DEBUG_NOCLIP
+	return true;
+#endif
 
+	if (coords.x < 0 || coords.y < 0 || coords.x > getWidth() * 16 || coords.y > getHeight() * 16)
+		return false;
 
-	PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2, y*2, bg_game_tiles_Map[iTile]);
-	PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2+1, y*2, bg_game_tiles_Map[iTile + 1]);
-	PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2, y*2+1, bg_game_tiles_Map[iTile + AFRODS_MAP_NBTILES_PER_LINE]);
-	PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2+1, y*2+1, bg_game_tiles_Map[iTile + AFRODS_MAP_NBTILES_PER_LINE + 1]);
-return;
+	// on doit convertir les coordonnï¿½es de pixels en tiles
+	int iTile1 = (coords.x + AFRODS_MAP_OFFSET_CHAR_LEFT)/8 + ((coords.y + AFRODS_MAP_OFFSET_CHAR_TOP)/8 * getWidth() * 2);
+	int iTile2 = ((coords.x + (AFRODS_CHAR_WIDTH - 1) - AFRODS_MAP_OFFSET_CHAR_RIGHT)/8 + ((coords.y + AFRODS_MAP_OFFSET_CHAR_TOP)/8 * getWidth() * 2));
+	int iTile3 = (coords.x + AFRODS_MAP_OFFSET_CHAR_LEFT)/8 + ((coords.y + (AFRODS_CHAR_HEIGHT - 1) - AFRODS_MAP_OFFSET_CHAR_BOTTOM)/8 * getWidth() * 2);
+	int iTile4 = ((coords.x + (AFRODS_CHAR_WIDTH - 1) - AFRODS_MAP_OFFSET_CHAR_RIGHT)/8 + ((coords.y + (AFRODS_CHAR_HEIGHT - 1) - AFRODS_MAP_OFFSET_CHAR_BOTTOM)/8 * getWidth() * 2));
 
-	// on veut commencer à la moitié du 1er tile
-	// étant donné qu'on a des tiles en 16x16 et qu'on travaille en 8x8,
-	// on saute la 1ère et la dernière ligne,
-	// et on saute la 1ère et la dernière colonne
-
-	// en haut à gauche : pas sur la 1ère ligne ni la 1ère colonne
-	if (y != 0 && x != 0) {
-		PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2-1, y*2-1, bg_game_tiles_Map[iTile]);
+	// on regarde les 2 tiles correspondantes
+	if (m_CollisionMap[iTile1] != 2 || m_CollisionMap[iTile2] != 2 || m_CollisionMap[iTile3] != 2 || m_CollisionMap[iTile4] != 2) {
+		return false;
 	}
 
-	// en haut à droite : pas sur la 1ère ligne ni la dernière colonne
-	if (y != 0 && x != AFRODS_MAP_NBTILES_VISIBLE_X) {
-		PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2+1-1, y*2-1, bg_game_tiles_Map[iTile + 1]);
+	// on regarde s'il n'y a pas un PNJ ï¿½ cet endroit-lï¿½
+	// TODO collision des PNJ
+	if (false) {
+		return false;
 	}
 
-	// en bas à gauche : pas sur la dernière ligne ni sur la 1ère colonne
-	if (y != AFRODS_MAP_NBTILES_VISIBLE_Y && x != 0) {
-		PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2-1, y*2+1-1, bg_game_tiles_Map[iTile + AFRODS_MAP_NBTILES_PER_LINE]);
-	}
+	return true;
+}
 
-	// en bas à droite : pas sur la dernière ligne ni sur la dernière colonne
-	if (y != AFRODS_MAP_NBTILES_VISIBLE_Y && x != AFRODS_MAP_NBTILES_VISIBLE_X) {
-		PA_SetLargeMapTile(ECRAN_HAUT, AFRODS_LAYER_TOP_BG, x*2+1-1, y*2+1-1, bg_game_tiles_Map[iTile + AFRODS_MAP_NBTILES_PER_LINE + 1]);
+bool Map::isOnWarp(const Coords coords) const {
+	int x = (coords.x + AFRODS_MAP_OFFSET_CHAR_LEFT)/16;
+	int y = (coords.y + AFRODS_MAP_OFFSET_CHAR_TOP)/16;
+
+//	if ((coords.x + AFRODS_MAP_OFFSET_CHAR_LEFT) % 16 > 0) x++;
+//	if ((coords.y + AFRODS_MAP_OFFSET_CHAR_TOP)%16 == 0) y++;
+
+	if (m_tabTilesFloor[x][y].warp)
+		return true;
+	else
+		return false;
+}
+
+void Map::addWarp(const MapWarp warp) {
+	// on met le warp dans le vector
+	m_warps.push_back(warp);
+
+	// on indique sur la tile qu'il y a un warp
+	m_tabTilesFloor[warp.pos1.x][warp.pos1.y].warp = true;
+}
+
+MapWarp Map::findWarp(const Coords coords) const {
+	MapWarp warp;
+	// on parcourt les warps pour chercher celui qui correspond aux coordonnÃ©es
+	for (unsigned int i = 0 ; i < m_warps.size() ; i++) {
+		warp = m_warps.at(i);
+
+		// si les coordonnÃ©es sont identiques on renvoie le warp
+		if (warp.pos1 == coords) {
+			return warp;
+		}
 	}
+	return warp;
 }

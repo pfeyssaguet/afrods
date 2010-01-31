@@ -2,10 +2,22 @@
 
 using namespace AfroDS;
 
-Module::Module() : m_bIsStopped(false) {
+Module::Module(Context * context) : m_context(context) {
 
 }
 
-bool Module::isStopped() {
-	return m_bIsStopped;
+Context * Module::getContext() const {
+	return m_context;
+}
+
+void Module::moduleEvents() {
+
+}
+
+void Module::modulePause() {
+
+}
+
+void Module::moduleResume() {
+
 }

@@ -1,22 +1,35 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
+#include "constants.h"
+
 namespace AfroDS {
+
+	// constantes pour identifier les modules
+	enum ModuleType {MODULE_NONE, MODULE_SPLASH, MODULE_MENU, MODULE_NEWCHAR, MODULE_GAME, MODULE_BATTLE, MODULE_GAMEOVER, MODULE_SHOP};
+
+	class Context;
 
 	class Module {
 		public:
 			/** Constructeur et Destructeur */
-			Module();
+			Module(Context * context);
+
 			virtual ~Module() {};
 
-			/** Méthode de mise à jour du module */
-			virtual void moduleEvents() {};
+			/** Mï¿½thode de mise ï¿½ jour du module */
+			virtual void moduleEvents();
 
-			/** Accesseur pour savoir si le module demande à être stoppé */
-			bool isStopped();
+			/** Mï¿½thode pour mettre un module en pause */
+			virtual void modulePause();
+
+			/** Mï¿½thode pour sortir de pause */
+			virtual void moduleResume();
+
+			Context * getContext() const;
 
 		protected:
-			bool m_bIsStopped;
+			Context * m_context;
 	};
 
 }
