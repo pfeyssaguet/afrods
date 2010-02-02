@@ -15,11 +15,11 @@ Map::Map() {
 
 /**
  * Chargement des graphismes. Les graphismes doivent
- * d'abord avoir �t� d�finis
+ * d'abord avoir été définis
  */
 void Map::loadGraphics() {
 	m_visible = true;
-	// on cr�e un background
+	// on crée un background
 	m_bgFloor = bgInit(AFRODS_LAYER_GAME_TOP_MAP_FLOOR, BgType_Text8bpp, m_bgSize, 0, 1);
 	bgSetPriority(m_bgFloor, AFRODS_LAYER_GAME_TOP_MAP_FLOOR);
 #ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
@@ -31,7 +31,7 @@ void Map::loadGraphics() {
 
 #ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
 	if (m_AboveTiles != NULL) {
-		// on cr�e un 2e background pour l'autre layer
+		// on crée un 2e background pour l'autre layer
 		m_bgAbove = bgInit(AFRODS_LAYER_GAME_TOP_MAP_ABOVE, BgType_Text8bpp, m_bgSize, 24, 4);
 		bgSetPriority(m_bgAbove, AFRODS_LAYER_GAME_TOP_MAP_ABOVE);
 		dmaCopy(m_AboveTiles, bgGetGfxPtr(m_bgAbove), m_AboveTilesLen);
@@ -100,7 +100,7 @@ void Map::loadGraphics() {
 #endif
 	}
 
-	// comme on a d�cid� d'utiliser des palettes �tendues on doit le faire ici aussi
+	// comme on a décidé d'utiliser des palettes étendues on doit le faire ici aussi
 	vramSetBankE(VRAM_E_LCD);
 
 #ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
@@ -114,7 +114,7 @@ void Map::loadGraphics() {
 
 	vramSetBankE(VRAM_E_BG_EXT_PALETTE);
 
-	// on s'assure quand m�me qu'on utilise les palettes �tendues
+	// on s'assure quand même qu'on utilise les palettes étendues
 	REG_DISPCNT |= DISPLAY_BG_EXT_PALETTE;
 	setVisible(false);
 
@@ -204,7 +204,7 @@ void Map::scroll(int x, int y) {
 }
 
 /**
- * Renvoie les coordonn�es de d�part du perso dans la map
+ * Renvoie les coordonnées de départ du perso dans la map
  */
 Coords Map::getStartingPos() const {
 	return m_StartingPos;
@@ -232,7 +232,7 @@ int Map::getHeight() const {
 }
 
 /**
- * Charge la map dans la m�moire vid�o
+ * Charge la map dans la mémoire vidéo
  */
 void Map::setVisible(bool visible) {
 	if (m_visible == visible)
@@ -273,7 +273,7 @@ bool Map::canMove(const Coords coords) const {
 	if (coords.x < 0 || coords.y < 0 || coords.x > getWidth() * 16 || coords.y > getHeight() * 16)
 		return false;
 
-	// on doit convertir les coordonn�es de pixels en tiles
+	// on doit convertir les coordonnées de pixels en tiles
 	int iTile1 = (coords.x + AFRODS_MAP_OFFSET_CHAR_LEFT)/8 + ((coords.y + AFRODS_MAP_OFFSET_CHAR_TOP)/8 * getWidth() * 2);
 	int iTile2 = ((coords.x + (AFRODS_CHAR_WIDTH - 1) - AFRODS_MAP_OFFSET_CHAR_RIGHT)/8 + ((coords.y + AFRODS_MAP_OFFSET_CHAR_TOP)/8 * getWidth() * 2));
 	int iTile3 = (coords.x + AFRODS_MAP_OFFSET_CHAR_LEFT)/8 + ((coords.y + (AFRODS_CHAR_HEIGHT - 1) - AFRODS_MAP_OFFSET_CHAR_BOTTOM)/8 * getWidth() * 2);
@@ -284,7 +284,7 @@ bool Map::canMove(const Coords coords) const {
 		return false;
 	}
 
-	// on regarde s'il n'y a pas un PNJ � cet endroit-l�
+	// on regarde s'il n'y a pas un PNJ à cet endroit-là
 	// TODO collision des PNJ
 	if (false) {
 		return false;
@@ -316,11 +316,11 @@ void Map::addWarp(const MapWarp warp) {
 
 MapWarp Map::findWarp(const Coords coords) const {
 	MapWarp warp;
-	// on parcourt les warps pour chercher celui qui correspond aux coordonnées
+	// on parcourt les warps pour chercher celui qui correspond aux coordonnÃ©es
 	for (unsigned int i = 0 ; i < m_warps.size() ; i++) {
 		warp = m_warps.at(i);
 
-		// si les coordonnées sont identiques on renvoie le warp
+		// si les coordonnÃ©es sont identiques on renvoie le warp
 		if (warp.pos1 == coords) {
 			return warp;
 		}

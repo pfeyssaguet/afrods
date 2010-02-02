@@ -7,29 +7,29 @@
 
 #include <string>
 
-// constantes des numéros de menus
+// constantes des numÃ©ros de menus
 #define AFRODS_MENU_SELECTED_1 1
 #define AFRODS_MENU_SELECTED_2 2
 #define AFRODS_MENU_SELECTED_3 3
 #define AFRODS_MENU_SELECTED_4 4
 
-// constantes pour gérer les positions des items de menus
+// constantes pour gÃ©rer les positions des items de menus
 #define AFRODS_MENU_BOX_OFFSET_X 16
 #define AFRODS_MENU_BOX_OFFSET_Y 14
 #define AFRODS_MENU_BOX_SPACE 12
 #define AFRODS_MENU_BOX_WIDTH 192
 #define AFRODS_MENU_BOX_HEIGHT 32
 
-// constantes pour gérer les positions des flèches dans le menu
+// constantes pour gÃ©rer les positions des flÃ¨ches dans le menu
 #define AFRODS_MENU_ARROWS_X 220
 #define AFRODS_MENU_ARROW_UP_Y 55
 #define AFRODS_MENU_ARROW_DOWN_Y 150
 
-// offset vertical du perso à partir de la 2e ligne (négatif)
+// offset vertical du perso Ã  partir de la 2e ligne (nÃ©gatif)
 #define AFRODS_MENU_OFFSET_CHAR 4
 
 namespace AfroDS {
-	// frames pour les flèches du menu
+	// frames pour les flÃ¨ches du menu
 	enum FrameIconArrow {
 		FRAME_ICON_ARROW_UP_OFF = 1,
 		FRAME_ICON_ARROW_DOWN_OFF = 2,
@@ -46,20 +46,20 @@ namespace AfroDS {
 			virtual ~ModuleMenu();
 
 			/**
-			 * Gestion des événements du module Menu
+			 * Gestion des Ã©vÃ©nements du module Menu
 			 * Surcharge de Module::moduleEvents()
 			 */
 			void moduleEvents();
 
 		private:
 			/**
-			 * Affiche la liste des persos sur l'écran
+			 * Affiche la liste des persos sur l'Ã©cran
 			 */
 			void listChars();
 
 			/**
-			 * Sélectionne une entrée dans le menu
-			 * @param int numéro de l'entrée à sélectionner (1-4)
+			 * SÃ©lectionne une entrÃ©e dans le menu
+			 * @param int numÃ©ro de l'entrÃ©e Ã  sÃ©lectionner (1-4)
 			 */
 			void selectEntry(int);
 
@@ -70,18 +70,18 @@ namespace AfroDS {
 
 			/**
 			 * Affiche une ligne de texte dans le menu
-			 * @param int iEntry numéro de l'entrée de menu (1-4)
-			 * @param string sText chaîne à afficher
+			 * @param int iEntry numÃ©ro de l'entrÃ©e de menu (1-4)
+			 * @param string sText chaÃ®ne Ã  afficher
 			 */
 			void printEntry(int iEntry, GraphicsSprite graphics, std::string sText);
 
-			/** Le menu actuellement sélectionné */
+			/** Le menu actuellement sÃ©lectionnÃ© */
 			int m_iActiveMenu;
 
 			/** Nombre de menus en tout */
 			int m_iNbMenus;
 
-			/** Décalage du menu dans le cas où on a plus de 3 persos */
+			/** DÃ©calage du menu dans le cas oÃ¹ on a plus de 3 persos */
 			int m_iOffset;
 
 			int m_bgTop;

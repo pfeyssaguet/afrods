@@ -7,7 +7,7 @@
 
 namespace AfroDS {
 	/**
-	 * Les diff�rents types d'items
+	 * Les différents types d'items
 	 */
 	enum ItemType {
 		TYPE_WEAPON_SWORD,
@@ -25,7 +25,7 @@ namespace AfroDS {
 		TYPE_RING,
 		TYPE_NECKLACE,
 		TYPE_BELT,
-		// types non �quipables
+		// types non équipables
 		TYPE_POTION_HEAL,
 		TYPE_POTION_MANA,
 		TYPE_OTHER
@@ -63,7 +63,7 @@ namespace AfroDS {
 	class Item {
 		public:
 			/**
-			 * Constructeur par d�faut
+			 * Constructeur par défaut
 			 */
 			Item();
 
@@ -93,7 +93,7 @@ namespace AfroDS {
 			std::string getBonusString() const;
 
 			/**
-			 * D�finit le nom de l'item
+			 * Définit le nom de l'item
 			 * @param std::string sName nom de l'item
 			 */
 			void setName(const std::string sName);
@@ -139,13 +139,13 @@ namespace AfroDS {
 			/** Type de l'item */
 			ItemType m_Type;
 
-			/** Grande ic�ne de l'item */
+			/** Grande icône de l'item */
 			ItemLargeIcon m_LargeIcon;
 
 			/** Bonus de l'item */
 			Stats m_statBonus;
 
-			/** Valeur num�rique de l'item, dans le cas d'une potion.. */
+			/** Valeur numérique de l'item, dans le cas d'une potion.. */
 			int m_value;
 
 		private:

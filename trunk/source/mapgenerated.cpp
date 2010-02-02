@@ -9,7 +9,7 @@ int MapGenerated::s_depth = 0;
 
 MapGenerated::MapGenerated(const MapWarp warp) : Map() {
 
-	// on d�finit tous les graphismes pour les 2 layers
+	// on définit tous les graphismes pour les 2 layers
 	m_FloorTiles = bg_game_tilesTiles;
 	m_FloorTilesLen = bg_game_tilesTilesLen;
 	m_FloorPal = bg_game_tilesPal;
@@ -27,7 +27,7 @@ MapGenerated::MapGenerated(const MapWarp warp) : Map() {
 	m_ColPalLen = bg_game_tilesPalLen;
 #endif
 
-	// on alloue de la m�moire pour stocker tous les tiles
+	// on alloue de la mémoire pour stocker tous les tiles
 	m_FloorMapLen = AFRODS_MAP_MAX_TILES_X * AFRODS_MAP_MAX_TILES_Y * 4;
 	m_FloorMap = (unsigned short int *)malloc(m_FloorMapLen * sizeof(unsigned short int));
 
@@ -43,10 +43,10 @@ MapGenerated::MapGenerated(const MapWarp warp) : Map() {
 		m_initWarp = warp;
 	}
 
-	// on g�n�re une map
+	// on génère une map
 	generateMap();
 
-	// position de d�part dans la map
+	// position de départ dans la map
 	generateWarps(warp);
 
 	/*
@@ -59,7 +59,7 @@ MapGenerated::MapGenerated(const MapWarp warp) : Map() {
 	// on charge la map
 	loadMap();
 
-	// on charge les graphismes en m�moire
+	// on charge les graphismes en mémoire
 	loadGraphics();
 }
 
@@ -99,7 +99,7 @@ void MapGenerated::loadMap() {
 }
 
 /**
- * Permet de g�n�rer la map dans son tableau m_iTiles
+ * Permet de générer la map dans son tableau m_iTiles
  */
 void MapGenerated::generateMap() {
 	// on initialise la taille de la map
@@ -111,7 +111,7 @@ void MapGenerated::generateMap() {
 	MapTile tile;
 	for (s16 y = 0 ; y < m_Size.y ; y++) {
 		for (s16 x = 0 ; x < m_Size.x ; x++) {
-			// on calcule le tile � afficher
+			// on calcule le tile à afficher
 			/*
 			if (x == 0 || y == 0 || x == m_Size.x-1 || y == m_Size.y-1) {
 				// un mur
@@ -199,13 +199,13 @@ void MapGenerated::connectRooms() {
 
 
 Coords MapGenerated::findFreePos() {
-	/* on cherche une zone faite comme �a :
+	/* on cherche une zone faite comme ça :
 	 * xxx
 	 * xXx
 	 * .o.
 	 * - on veut mettre la porte sur le X
-	 * - un x repr�sente un mur
-	 * - un o repr�sente du sol
+	 * - un x représente un mur
+	 * - un o représente du sol
 	 *
 	 * on doit trouver une zone de ce genre
 	 */
@@ -231,7 +231,7 @@ Coords MapGenerated::findFreePos() {
 	}
 
 	if (!bFound) {
-		// si on n'a pas encore trouv�, on cherche partout sur la map
+		// si on n'a pas encore trouvé, on cherche partout sur la map
 		for (int x = 1 ; x < m_Size.x -1 ; x++) {
 			for (int y = 1 ; y <= m_Size.y - 1 ; y++) {
 				if (pos.x > 0 && pos.x < m_Size.y &&
@@ -255,7 +255,7 @@ Coords MapGenerated::findFreePos() {
 }
 
 void MapGenerated::generateWarps(const MapWarp initWarp) {
-	// on récupère une position pour la porte d'entrée
+	// on rÃ©cupÃ¨re une position pour la porte d'entrÃ©e
 	Coords pos = findFreePos();
 
 	if (s_depth == 0) {
@@ -267,10 +267,10 @@ void MapGenerated::generateWarps(const MapWarp initWarp) {
 	}
 	m_tabTilesFloor[pos.x][pos.y].warp = true;
 
-	// on se place sur la position de la 1ère porte
+	// on se place sur la position de la 1Ã¨re porte
 	m_StartingPos = pos;
 
-	// on génère un escalier qui descend
+	// on gÃ©nÃ¨re un escalier qui descend
 	pos = findFreePos();
 	if (s_depth == 0) {
 		addWarp(MapWarp(MAP_GENERATED, pos, MAP_GENERATED));
@@ -282,28 +282,28 @@ void MapGenerated::generateWarps(const MapWarp initWarp) {
 }
 
 /**
- * D�finit une tile dans la map
+ * Définit une tile dans la map
  * @param MapLayer layer true pour floor, false pour above
  * @param Coords pos position de la tile sur la map
- * @param MapTile tile tile dans le tileset, avec ses caract�ristiques de blocage
+ * @param MapTile tile tile dans le tileset, avec ses caractéristiques de blocage
  */
 void MapGenerated::setTile(MapLayer layer, Coords pos, MapTile tile) {
-	// on appelle l'autre m�thode
+	// on appelle l'autre méthode
 	setTile(layer, pos.x, pos.y, tile);
 }
 
 /**
- * D�finit une tile dans la map
+ * Définit une tile dans la map
  * @param MapLayer layer true pour floor, false pour above
  * @param s16 x position X de la tile sur la map
  * @param s16 y position Y de la tile sur la map
- * @param MapTile tile tile dans le tileset, avec ses caract�ristiques de blocage
+ * @param MapTile tile tile dans le tileset, avec ses caractéristiques de blocage
  */
 void MapGenerated::setTile(MapLayer layer, s16 x, s16 y, MapTile tile) {
 	// on a des tiles de 16x16
 	// la NDS utilise des tiles de 8x8
-	// on doit passer d'un rep�re de coordonn�es � l'autre
-	// d'o� les *2
+	// on doit passer d'un repère de coordonnées à l'autre
+	// d'où les *2
 #ifndef AFRODS_DEBUG_SHOW_COLLISION_MAP
 	s16 iTile = (tile.Graphics.x + tile.Graphics.y * AFRODS_MAP_NBTILES_PER_LINE*2)*2;
 #endif

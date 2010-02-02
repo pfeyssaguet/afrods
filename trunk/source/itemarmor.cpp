@@ -30,14 +30,14 @@ std::string ItemArmor::getLongName() const {
 	std::ostringstream os;
 	os << m_sName;
 
-	// si on a un facteur d'armure supérieur à 0, on le rajoute entre parenthèses
+	// si on a un facteur d'armure supÃ©rieur Ã  0, on le rajoute entre parenthÃ¨ses
 	if (m_armorFactor > 0) {
 		os << "(";
 		os << m_armorFactor;
 		os << ")";
 	}
 
-	// si on a un bonus on affiche le meilleur bonus entre parenthèses
+	// si on a un bonus on affiche le meilleur bonus entre parenthÃ¨ses
 	int bonus = getHigherBonus();
 	if (bonus > 0) {
 		os << "(+";
@@ -52,7 +52,7 @@ std::string ItemArmor::getDescription() const {
 	std::ostringstream os;
 	os << getName();
 
-	// si on a un facteur d'armure supérieur à 0, on le rajoute
+	// si on a un facteur d'armure supÃ©rieur Ã  0, on le rajoute
 	if (m_armorFactor > 0) {
 		os << '\n';
 		os << "Factor : ";

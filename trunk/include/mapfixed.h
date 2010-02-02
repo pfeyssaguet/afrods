@@ -7,7 +7,7 @@
 #define AFRODS_MAP_FIXED_X 32
 #define AFRODS_MAP_FIXED_Y 32
 
-// position de d�part du perso, pour l'instant une macro bidon...
+// position de départ du perso, pour l'instant une macro bidon...
 #define AFRODS_MAP_FIXED_STARTING_POS Coords(5, 3)
 //#define AFRODS_MAP_FIXED_STARTING_POS Coords(10, 21)
 
@@ -18,7 +18,7 @@
 
 #define AFRODS_MAP_WARP_HOUSE_3 Coords(22, 10)
 
-// un point de warp sur la map (sur la 1�re maison en bas)
+// un point de warp sur la map (sur la 1ère maison en bas)
 #define AFRODS_MAP_WARP_HOUSE_4 Coords(10, 20)
 // grotte
 #define AFRODS_MAP_WARP_CAVE Coords(28, 2)

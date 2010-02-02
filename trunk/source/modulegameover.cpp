@@ -31,7 +31,7 @@ void ModuleGameover::moduleEvents() {
 
 	// si on fait B, on doit retourner au splash
 	if (keysDown() & KEY_B) {
-		// on vide le module pausé
+		// on vide le module pausÃ©
 		m_context->setPausedModule(NULL);
 		m_context->switchModule(MODULE_SPLASH, false);
 	}

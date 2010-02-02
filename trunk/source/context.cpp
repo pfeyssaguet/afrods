@@ -26,7 +26,7 @@ void Context::setActiveChar(CharacterPlayer * player) {
 }
 
 void Context::setPausedModule(Module * module) {
-	// TODO faire une liste plut�t qu'un seul module en pause, pour les empiler
+	// TODO faire une liste plutôt qu'un seul module en pause, pour les empiler
 	if (m_PausedModule != NULL) {
 		delete m_PausedModule;
 	}
@@ -47,13 +47,13 @@ void Context::moduleEvents() {
 void Context::switchModule(const ModuleType type, const bool pause) {
 	// si on veut mettre le module en pause
 	if (pause) {
-		// on copie le module courant dans le module paus�
+		// on copie le module courant dans le module pausé
 		m_PausedModule = m_CurrentModule;
 
 		// on endort le module
 		m_PausedModule->modulePause();
 
-		// on vide le pointeur du module courant pour qu'il ne soit pas d�truit
+		// on vide le pointeur du module courant pour qu'il ne soit pas détruit
 		m_CurrentModule = NULL;
 	}
 

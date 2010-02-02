@@ -6,7 +6,7 @@
 using namespace AfroDS;
 
 /**
- * Constructeur par d�faut
+ * Constructeur par défaut
  */
 Item::Item() {
 }
@@ -179,8 +179,8 @@ ItemLargeIcon Item::getLargeIcon() const {
 }
 
 ItemSmallIcon Item::getSmallIcon() const {
-	// l'ic�ne "Small" est toujours la m�me en fonction du type d'item
-	// contrairement � l'ic�ne "Large"
+	// l'icône "Small" est toujours la même en fonction du type d'item
+	// contrairement à l'icône "Large"
 	switch (m_Type) {
 		case TYPE_ARMOR:
 			return SMALLICON_ARMOR;
@@ -238,7 +238,7 @@ ItemSmallIcon Item::getSmallIcon() const {
 }
 
 /**
- * D�finit le nom de l'item
+ * Définit le nom de l'item
  * @param std::string sName nom de l'item
  */
 void Item::setName(const std::string sName) {

@@ -43,14 +43,14 @@ namespace AfroDS {
 			bool hasMagic() const;
 
 			/**
-			 * Renvoie les stats du personnage, avec les bonus et modificateurs appliqués
+			 * Renvoie les stats du personnage, avec les bonus et modificateurs appliquÃ©s
 			 * @return Stats stats du personnage
 			 */
 			Stats getStats() const;
 
 			/**
-			 * Renvoie l'expérience du personnage
-			 * @return long expérience
+			 * Renvoie l'expÃ©rience du personnage
+			 * @return long expÃ©rience
 			 */
 			long getExperience() const;
 
@@ -61,7 +61,7 @@ namespace AfroDS {
 			int getPosX() const;
 
 			/**
-			 * Définit la position X
+			 * DÃ©finit la position X
 			 * @param int x position X
 			 */
 			void setPosX(const int x);
@@ -73,32 +73,32 @@ namespace AfroDS {
 			int getPosY() const;
 
 			/**
-			 * Définit la position Y
+			 * DÃ©finit la position Y
 			 * @param int y position Y
 			 */
 			void setPosY(const int y);
 
 			/**
-			 * Renvoie la position avec un type personnalisé
+			 * Renvoie la position avec un type personnalisÃ©
 			 * @return AF_Coords position
 			 */
 			Coords getPos() const;
 
 			/**
-			 * Définit la position avec un type personnalisé
+			 * DÃ©finit la position avec un type personnalisÃ©
 			 * @param AF_Coords pos position
 			 */
 			void setPos(const Coords pos);
 
 			/**
-			 * Définit les positions de X et Y
+			 * DÃ©finit les positions de X et Y
 			 * @param int x position X
 			 * @param int y position Y
 			 */
 			void setPos(const int x, const int y);
 
 			/**
-			 * Renvoie la vitesse de déplacement du personnage
+			 * Renvoie la vitesse de dÃ©placement du personnage
 			 */
 			int getMoveSpeed() const;
 
@@ -112,13 +112,13 @@ namespace AfroDS {
 			/** Classe */
 			CharacterClass m_charClass;
 
-			/** Expérience */
+			/** ExpÃ©rience */
 			long m_xp;
 
 			/** Position sur la map */
 			Coords m_position;
 
-			/** Vitesse de déplacement */
+			/** Vitesse de dÃ©placement */
 			int m_move_speed;
 	};
 

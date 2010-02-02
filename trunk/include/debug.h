@@ -3,15 +3,15 @@
 
 // OPTIONS DE DEBUG
 
-// activer le mode debug en d�commentant cette ligne
+// activer le mode debug en décommentant cette ligne
 #define AFRODS_DEBUG
 
 #ifdef AFRODS_DEBUG
 
-// afficher la map de collision � la place de la map Floor => fait bugger les map generated :s
+// afficher la map de collision à la place de la map Floor => fait bugger les map generated :s
 //#define AFRODS_DEBUG_SHOW_COLLISION_MAP
 
-// d�sactiver les collisions du personnage
+// désactiver les collisions du personnage
 //#define AFRODS_DEBUG_NOCLIP
 
 // vitesse du personnage (normalement AFRODS_CHAR_SPEED qui doit valoir 1)

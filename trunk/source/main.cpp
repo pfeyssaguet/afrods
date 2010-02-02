@@ -11,7 +11,7 @@ volatile int frame = 0;
 
 void Vblank() {
 	// fonction un peu bidon mais c'est pour test le fait d'appeler
-	// une fonction perso à chaque vblank (fin de rafraîchissement vertical)
+	// une fonction perso Ã  chaque vblank (fin de rafraÃ®chissement vertical)
 	frame++;
 }
 

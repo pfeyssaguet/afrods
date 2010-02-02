@@ -32,10 +32,10 @@ ModuleSplash::~ModuleSplash() {
 }
 
 /**
- * Gestion des �v�nements du module
+ * Gestion des événements du module
  */
 void ModuleSplash::moduleEvents() {
-	// si on touche l'�cran, on se dirige le module Menu
+	// si on touche l'écran, on se dirige le module Menu
 	if (keysDown()) {
 		if (keysDown() & KEY_TOUCH || keysDown() & KEY_START || keysDown() & KEY_A) {
 

@@ -7,56 +7,56 @@
 
 namespace AfroDS {
 	/**
-	 * Représente un sprite de bouton de menu dans le module Menu.
-	 * Le sprite est composé de 6 petits sprites de 32x32 les uns à côté des autres
+	 * ReprÃ©sente un sprite de bouton de menu dans le module Menu.
+	 * Le sprite est composÃ© de 6 petits sprites de 32x32 les uns Ã  cÃ´tÃ© des autres
 	 */
 	class SpriteMenuButton {
 		public:
 			/**
-			 * Constructeur : crée les 6 sous-sprites
-			 * @param Coords coords coordonnées d'origine du 1er sprite
+			 * Constructeur : crÃ©e les 6 sous-sprites
+			 * @param Coords coords coordonnÃ©es d'origine du 1er sprite
 			 */
 			SpriteMenuButton(Coords coords);
 
 			/**
-			 * Destructeur : détruit les 6 sous-sprites
+			 * Destructeur : dÃ©truit les 6 sous-sprites
 			 */
 			~SpriteMenuButton();
 
 			/**
-			 * Appelle les 6 méthodes updates des sous-sprites
+			 * Appelle les 6 mÃ©thodes updates des sous-sprites
 			 */
 			void update();
 
 			/**
-			 * Positionne les 6 sprites par rapport aux coordonnées du 1er
-			 * @param Coords coords coordonnées d'origine du 1er sprite
+			 * Positionne les 6 sprites par rapport aux coordonnÃ©es du 1er
+			 * @param Coords coords coordonnÃ©es d'origine du 1er sprite
 			 */
 			void setPos(Coords coords);
 
 			/**
-			 * Permet de savoir si les coordonnées demandées sont dans la zone du sprite
-			 * @param int x coordonnée X
-			 * @param int y coordonnée Y
-			 * @return bool true si les coordonnées sont dans la zone du sprite
+			 * Permet de savoir si les coordonnÃ©es demandÃ©es sont dans la zone du sprite
+			 * @param int x coordonnÃ©e X
+			 * @param int y coordonnÃ©e Y
+			 * @return bool true si les coordonnÃ©es sont dans la zone du sprite
 			 */
 			bool isInZone(int x, int y);
 
 			/**
-			 * Permet de savoir si les coordonnées demandées sont dans la zone du sprite
-			 * @param Coords coords coordonnées
-			 * @return bool true si les coordonnées sont dans la zone du sprite
+			 * Permet de savoir si les coordonnÃ©es demandÃ©es sont dans la zone du sprite
+			 * @param Coords coords coordonnÃ©es
+			 * @return bool true si les coordonnÃ©es sont dans la zone du sprite
 			 */
 			bool isInZone(Coords coords);
 
 			/**
-			 * Renvoie le numéro du 1er sprite.
-			 * Attention : les 5 suivants ne sont pas forcément adjacents.
-			 * @return short numéro du 1er sprite
+			 * Renvoie le numÃ©ro du 1er sprite.
+			 * Attention : les 5 suivants ne sont pas forcÃ©ment adjacents.
+			 * @return short numÃ©ro du 1er sprite
 			 */
 			short getFirstSpriteNum();
 		private:
-			/** Coordonnées du 1er sprite */
+			/** CoordonnÃ©es du 1er sprite */
 			Coords m_coords;
 
 			/** Vector contenant les 6 sprites */

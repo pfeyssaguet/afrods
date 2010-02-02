@@ -4,8 +4,8 @@
 using namespace AfroDS;
 
 /**
- * Constructeur : crée un sprite avec l'icône demandée
- * @param GameIconType type type d'icône
+ * Constructeur : crÃ©e un sprite avec l'icÃ´ne demandÃ©e
+ * @param GameIconType type type d'icÃ´ne
  */
 SpriteGameIcon::SpriteGameIcon(GameIconType type) : Sprite(SCREEN_SUB, SPRITE_GAME_ICONS), m_type(type) {
 	// on calcule la frame courante

@@ -10,12 +10,12 @@
 namespace AfroDS {
 
 	/**
-	 * Permet d'accéder aux données sauvegardées
+	 * Permet d'accÃ©der aux donnÃ©es sauvegardÃ©es
 	 */
 	class Save {
 		public:
 			/**
-			 * Méthode d'accès au singleton
+			 * MÃ©thode d'accÃ¨s au singleton
 			 */
 			static Save * getInstance();
 
@@ -36,34 +36,34 @@ namespace AfroDS {
 			int getNbCharacters();
 
 			/**
-			 * Crée un nouveau personnage
-			 * @param Character newchar personnage à créer
+			 * CrÃ©e un nouveau personnage
+			 * @param Character newchar personnage Ã  crÃ©er
 			 */
 			void addCharacter(CharacterPlayer * newchar);
 
 			/**
-			 * Récupère le personnage n° N
-			 * @param int iNumPerso numéro du personnage
+			 * RÃ©cupÃ¨re le personnage nÂ° N
+			 * @param int iNumPerso numÃ©ro du personnage
 			 * @return Character personnage
 			 */
 			CharacterPlayer * getCharacter(int iNumPerso);
 
 			/**
-			 * Crée un perso de test pour utiliser directement en jeu
+			 * CrÃ©e un perso de test pour utiliser directement en jeu
 			 */
 			CharacterPlayer * getDemoCharacter();
 
 			/**
-			 * Crée une liste de persos de test pour utiliser dans le menu
+			 * CrÃ©e une liste de persos de test pour utiliser dans le menu
 			 */
 			void createDemoCharacters();
 		private:
 			/**
-			 * Constructeur par défaut, privé car singleton
+			 * Constructeur par dÃ©faut, privÃ© car singleton
 			 */
 			Save();
 
-			/** liste des personnages sauvegardés */
+			/** liste des personnages sauvegardÃ©s */
 			std::vector<CharacterPlayer *> m_characters;
 
 			static Save * m_Instance;

@@ -19,8 +19,8 @@ Module * ModuleFactory::loadModule(Context * context, const ModuleType type) {
 			return new ModuleMenu(context);
 			break;
 		case MODULE_NEWCHAR:
-			// TODO impl�menter le module NEWCHAR !
-			// temporaire : on redirige le newchar sur le splash (bcp de choses � faire avant de refaire le newchar)
+			// TODO implémenter le module NEWCHAR !
+			// temporaire : on redirige le newchar sur le splash (bcp de choses à faire avant de refaire le newchar)
 			return new ModuleSplash(context);
 			break;
 		case MODULE_GAME:

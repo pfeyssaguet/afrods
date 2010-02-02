@@ -38,19 +38,19 @@ namespace AfroDS {
 			Coords findFreePos();
 
 			/**
-			 * D�finit une tile dans la map
+			 * Définit une tile dans la map
 			 * @param MapLayer layer true pour floor, false pour above
 			 * @param Coords pos position de la tile sur la map
-			 * @param MapTile tile tile dans le tileset, avec ses caract�ristiques de blocage
+			 * @param MapTile tile tile dans le tileset, avec ses caractéristiques de blocage
 			 */
 			void setTile(MapLayer layer, Coords pos, MapTile tile);
 
 			/**
-			 * D�finit une tile dans la map
+			 * Définit une tile dans la map
 			 * @param MapLayer layer true pour floor, false pour above
 			 * @param s16 x position X de la tile sur la map
 			 * @param s16 y position Y de la tile sur la map
-			 * @param MapTile tile tile dans le tileset, avec ses caract�ristiques de blocage
+			 * @param MapTile tile tile dans le tileset, avec ses caractéristiques de blocage
 			 */
 			void setTile(MapLayer layer, s16 x, s16 y, MapTile tile);
 

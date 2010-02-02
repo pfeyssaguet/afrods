@@ -138,11 +138,11 @@ void GraphicsEngine::registerSprite(GraphicsSprite sprite, SpriteDescription des
 }
 
 /**
- * Renvoie un sprite correspondant au type de monstre demand�
- * TODO d�placer cette m�thode GraphicsEngine::MonsterTypeToGraphicsSprite pour virer la d�pendance � charactermonster.h
+ * Renvoie un sprite correspondant au type de monstre demandé
+ * TODO déplacer cette méthode GraphicsEngine::MonsterTypeToGraphicsSprite pour virer la dépendance à charactermonster.h
  *
- * @param const MonsterType type type de monstre demand�
- * @return GraphicsSprite sprite demand�
+ * @param const MonsterType type type de monstre demandé
+ * @return GraphicsSprite sprite demandé
  */
 GraphicsSprite GraphicsEngine::MonsterTypeToGraphicsSprite(MonsterType type) {
 	switch (type) {
@@ -158,12 +158,12 @@ GraphicsSprite GraphicsEngine::MonsterTypeToGraphicsSprite(MonsterType type) {
 }
 
 /**
- * Renvoie un sprite correspondant � la classe de personnage demand�e, en mode battle ou en mode normal
- * TODO d�placer cette m�thode GraphicsEngine::CharacterClassToGraphicsSprite pour virer la d�pendance � characterplayer.h
+ * Renvoie un sprite correspondant à la classe de personnage demandée, en mode battle ou en mode normal
+ * TODO déplacer cette méthode GraphicsEngine::CharacterClassToGraphicsSprite pour virer la dépendance à characterplayer.h
  *
- * @param const CharacterClass charClass classe de personnage demand�e
+ * @param const CharacterClass charClass classe de personnage demandée
  * @param const bool battle true pour avoir le sprite en mode Battle
- * @return GraphicsSprite sprite demand�
+ * @return GraphicsSprite sprite demandé
  */
 GraphicsSprite GraphicsEngine::CharacterClassToGraphicsSprite(CharacterClass charClass, bool battle) {
 	if (battle) {
@@ -186,7 +186,7 @@ GraphicsSprite GraphicsEngine::CharacterClassToGraphicsSprite(CharacterClass cha
 				break;
 		}
 	} else {
-		// on retourne les sprites normaux (utilis�s sur la map, dans le menu...)
+		// on retourne les sprites normaux (utilisés sur la map, dans le menu...)
 		switch (charClass) {
 			case CLASS_WARRIOR:
 				return SPRITE_WARRIOR;
@@ -206,7 +206,7 @@ GraphicsSprite GraphicsEngine::CharacterClassToGraphicsSprite(CharacterClass cha
 		}
 	}
 
-	// par d�faut on retourne un sprite d'humain simple
+	// par défaut on retourne un sprite d'humain simple
 	return SPRITE_HUMAN;
 }
 
@@ -233,9 +233,9 @@ int GraphicsEngine::getSpritePaletteNum(short screen, GraphicsSprite sprite) {
 }
 
 /**
- * Renvoie un num�ro de sprite pour l'�cran demand�
- * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
- * @return unsigned short num�ro de sprite
+ * Renvoie un numéro de sprite pour l'écran demandé
+ * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+ * @return unsigned short numéro de sprite
  */
 unsigned short GraphicsEngine::pickSpriteNum(short screen) {
 	if (screen == SCREEN_MAIN) {
@@ -250,17 +250,17 @@ unsigned short GraphicsEngine::pickSpriteNum(short screen) {
 }
 
 /**
- * Remet un num�ro de sprite dans la liste pour l'�cran demand�
- * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
- * @param unsigned short num num�ro de sprite � rel�cher
+ * Remet un numéro de sprite dans la liste pour l'écran demandé
+ * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+ * @param unsigned short num numéro de sprite à relâcher
  */
 void GraphicsEngine::releaseSpriteNum(short screen, unsigned short num) {
-	// selon l'�cran demand� on met le num�ro dans l'une ou l'autre liste
+	// selon l'écran demandé on met le numéro dans l'une ou l'autre liste
 	if (screen == SCREEN_MAIN) {
-		// �cran main : on utilise m_pool_main
+		// écran main : on utilise m_pool_main
 		m_spritePoolMain.insert(num);
 	} else {
-		// �cran main : on utilise m_pool_sub
+		// écran main : on utilise m_pool_sub
 		m_spritePoolSub.insert(num);
 	}
 }
@@ -278,7 +278,7 @@ unsigned short GraphicsEngine::pickSpritePaletteNum(short screen) {
 }
 
 void GraphicsEngine::releaseSpritePaletteNum(short screen, unsigned short num) {
-	// selon l'�cran demand� on met le num�ro dans l'une ou l'autre liste
+	// selon l'écran demandé on met le numéro dans l'une ou l'autre liste
 	if (screen == SCREEN_MAIN) {
 		m_spritePoolPaletteMain.insert(num);
 	} else {
@@ -288,8 +288,8 @@ void GraphicsEngine::releaseSpritePaletteNum(short screen, unsigned short num) {
 
 /**
  * Charge une palette
- * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
- * @param GraphicsSprite sprite sprite � charger
+ * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+ * @param GraphicsSprite sprite sprite à charger
  */
 void GraphicsEngine::loadSpritePalette(short screen, GraphicsSprite sprite) {
 	if (m_spritePalettesNums[screen][sprite] == -1) {
@@ -303,7 +303,7 @@ void GraphicsEngine::loadSpritePalette(short screen, GraphicsSprite sprite) {
 	}
 
 	if (screen == SCREEN_MAIN) {
-		// on active les palettes �tendues des sprites pour cet �cran
+		// on active les palettes étendues des sprites pour cet écran
 		REG_DISPCNT |= DISPLAY_SPR_EXT_PALETTE;
 
 		// on copie la palette dans son slot
@@ -311,7 +311,7 @@ void GraphicsEngine::loadSpritePalette(short screen, GraphicsSprite sprite) {
 		dmaCopy(m_spritePalettes[sprite], VRAM_F_EXT_SPR_PALETTE[m_spritePalettesNums[screen][sprite]], m_spritePalettesLen[sprite]);
 		vramSetBankF(VRAM_F_SPRITE_EXT_PALETTE);
 	} else {
-		// on active les palettes �tendues des sprites pour cet �cran
+		// on active les palettes étendues des sprites pour cet écran
 		REG_DISPCNT_SUB |= DISPLAY_SPR_EXT_PALETTE;
 
 		// on copie la palette dans son slot
@@ -322,9 +322,9 @@ void GraphicsEngine::loadSpritePalette(short screen, GraphicsSprite sprite) {
 }
 
 /**
- * Renvoie la palette demand�e
- * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
- * @param GraphicsSprite sprite sprite � utiliser
+ * Renvoie la palette demandée
+ * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+ * @param GraphicsSprite sprite sprite à utiliser
  * @return unsigned short * palette
  */
 const unsigned short * GraphicsEngine::getSpritePalette(short screen, GraphicsSprite sprite) {
@@ -333,9 +333,9 @@ const unsigned short * GraphicsEngine::getSpritePalette(short screen, GraphicsSp
 }
 
 /**
- * Renvoie la taille de la palette demand�e
- * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
- * @param GraphicsSprite sprite sprite � utiliser
+ * Renvoie la taille de la palette demandée
+ * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+ * @param GraphicsSprite sprite sprite à utiliser
  * @return int taille de la palette
  */
 int GraphicsEngine::getSpritePaletteLen(short screen, GraphicsSprite sprite) {
@@ -394,7 +394,7 @@ void GraphicsEngine::initConsoles() {
 }
 
 /**
- * Lance les 2 fonctions oamUpdate, pour chaque �cran
+ * Lance les 2 fonctions oamUpdate, pour chaque écran
  */
 void GraphicsEngine::updateOam() {
 	updateOam(SCREEN_MAIN);
@@ -402,8 +402,8 @@ void GraphicsEngine::updateOam() {
 }
 
 /**
- * Lance la fonction oamUpdate sur l'�cran demand�
- * @param const short screen �cran demand�, SCREEN_MAIN ou SCREEN_SUB
+ * Lance la fonction oamUpdate sur l'écran demandé
+ * @param const short screen écran demandé, SCREEN_MAIN ou SCREEN_SUB
  */
 void GraphicsEngine::updateOam(const short screen) {
 	if (screen == SCREEN_MAIN) {

@@ -17,13 +17,13 @@ namespace AfroDS {
 
 			virtual ~Module() {};
 
-			/** M�thode de mise � jour du module */
+			/** Méthode de mise à jour du module */
 			virtual void moduleEvents();
 
-			/** M�thode pour mettre un module en pause */
+			/** Méthode pour mettre un module en pause */
 			virtual void modulePause();
 
-			/** M�thode pour sortir de pause */
+			/** Méthode pour sortir de pause */
 			virtual void moduleResume();
 
 			Context * getContext() const;

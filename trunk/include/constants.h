@@ -4,11 +4,11 @@
 // constante pour identifier la version
 #define AFRODS_VERSION "0.1"
 
-// constantes pour identifier les écrans
+// constantes pour identifier les Ã©crans
 #define SCREEN_MAIN 1
 #define SCREEN_SUB 0
 
-// constantes pour la taille d'un écran de NDS
+// constantes pour la taille d'un Ã©cran de NDS
 #define AFRODS_SCREEN_WIDTH 256
 #define AFRODS_SCREEN_HEIGHT 192
 

@@ -60,19 +60,19 @@ void CharacterPlayer::initCharacter() {
 
 
 /**
- * Renvoie les stats du personnage, avec les bonus et modificateurs appliqués
+ * Renvoie les stats du personnage, avec les bonus et modificateurs appliquÃ©s
  * @return Stats stats du personnage
  */
 Stats CharacterPlayer::getStats() const {
 	// on prend les stats de base
 	Stats stats = m_baseStats;
 
-	// on parcourt l'équipement pour ajouter les bonus aux stats de base
+	// on parcourt l'Ã©quipement pour ajouter les bonus aux stats de base
 	for (int i = SLOT_ARMOR ; i <= SLOT_BELT ; i++) {
 		EquipmentSlot slot = (EquipmentSlot)i;
 		// si on a un item dans le slot
 		if (m_equipment.find(slot)->second != NULL) {
-			// on récupère l'item et ses stats
+			// on rÃ©cupÃ¨re l'item et ses stats
 			//Item * item = m_equipment.at(slot);
 			Item * item = m_equipment.find(slot)->second;
 
@@ -90,7 +90,7 @@ Stats CharacterPlayer::getStats() const {
 			*/
 		}
 	}
-	// on renvoie les stats calculées
+	// on renvoie les stats calculÃ©es
 	return stats;
 }
 
@@ -135,8 +135,8 @@ bool CharacterPlayer::hasMagic() const {
 }
 
 /**
- * Renvoie l'expérience du personnage
- * @return long expérience
+ * Renvoie l'expÃ©rience du personnage
+ * @return long expÃ©rience
  */
 long CharacterPlayer::getExperience() const {
 	return m_xp;
@@ -151,7 +151,7 @@ int CharacterPlayer::getPosX() const {
 }
 
 /**
- * Définit la position X
+ * DÃ©finit la position X
  * @param int x position X
  */
 void CharacterPlayer::setPosX(const int x) {
@@ -167,7 +167,7 @@ int CharacterPlayer::getPosY() const {
 }
 
 /**
- * Définit la position Y
+ * DÃ©finit la position Y
  * @param int y position Y
  */
 void CharacterPlayer::setPosY(const int y) {
@@ -175,7 +175,7 @@ void CharacterPlayer::setPosY(const int y) {
 }
 
 /**
- * Renvoie la position avec un type personnalisé
+ * Renvoie la position avec un type personnalisÃ©
  * @return AF_Coords position
  */
 Coords CharacterPlayer::getPos() const {
@@ -183,7 +183,7 @@ Coords CharacterPlayer::getPos() const {
 }
 
 /**
- * Définit la position avec un type personnalisé
+ * DÃ©finit la position avec un type personnalisÃ©
  * @param AF_Coords pos position
  */
 void CharacterPlayer::setPos(const Coords pos) {
@@ -191,7 +191,7 @@ void CharacterPlayer::setPos(const Coords pos) {
 }
 
 /**
- * Définit les positions de X et Y
+ * DÃ©finit les positions de X et Y
  * @param int x position X
  * @param int y position Y
  */
@@ -201,7 +201,7 @@ void CharacterPlayer::setPos(const int x, const int y) {
 }
 
 /**
- * Renvoie la vitesse de déplacement du personnage
+ * Renvoie la vitesse de dÃ©placement du personnage
  */
 int CharacterPlayer::getMoveSpeed() const {
 	return m_move_speed;
@@ -215,7 +215,7 @@ int CharacterPlayer::rollAttack() const {
 	int damage = 0;
 	// on prend l'arme du slot de droite
 	if (m_equipment.find(SLOT_RIGHT_WEAPON)->second != NULL) {
-		// on récupère l'item et ses stats
+		// on rÃ©cupÃ¨re l'item et ses stats
 		Item * item = m_equipment.find(SLOT_RIGHT_WEAPON)->second;
 		ItemWeapon * weapon = (ItemWeapon *) item;
 
@@ -224,7 +224,7 @@ int CharacterPlayer::rollAttack() const {
 
 	// on prend l'arme du slot de gauche
 	if (m_equipment.find(SLOT_LEFT_WEAPON)->second != NULL) {
-		// on récupère l'item et ses stats
+		// on rÃ©cupÃ¨re l'item et ses stats
 		Item * item = m_equipment.find(SLOT_LEFT_WEAPON)->second;
 		if (item->isWeapon()) {
 			ItemWeapon * weapon = (ItemWeapon *) item;

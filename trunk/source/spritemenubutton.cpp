@@ -7,16 +7,16 @@
 using namespace AfroDS;
 
 /**
- * Constructeur : crée les 6 sous-sprites
- * @param Coords coords coordonnées d'origine du 1er sprite
+ * Constructeur : crÃ©e les 6 sous-sprites
+ * @param Coords coords coordonnÃ©es d'origine du 1er sprite
  */
 SpriteMenuButton::SpriteMenuButton(Coords coords) : m_coords(coords) {
-	// on crée les 6 sprites
+	// on crÃ©e les 6 sprites
 	for (int i = 0 ; i <= 5 ; i++) {
-		// on crée un sprite
+		// on crÃ©e un sprite
 		Sprite * sprite = new Sprite(SCREEN_SUB, SPRITE_MENU_BUTTON);
 
-		// on choisit la frame correspondant au numéro
+		// on choisit la frame correspondant au numÃ©ro
 		sprite->setCurrentFrame(i);
 
 		// on place le sprite
@@ -29,7 +29,7 @@ SpriteMenuButton::SpriteMenuButton(Coords coords) : m_coords(coords) {
 }
 
 /**
- * Destructeur : détruit les 6 sous-sprites
+ * Destructeur : dÃ©truit les 6 sous-sprites
  */
 SpriteMenuButton::~SpriteMenuButton() {
 	// on parcourt les sprites tant qu'il y en a
@@ -40,12 +40,12 @@ SpriteMenuButton::~SpriteMenuButton() {
 }
 
 /**
- * Appelle les 6 méthodes updates des sous-sprites
+ * Appelle les 6 mÃ©thodes updates des sous-sprites
  */
 void SpriteMenuButton::update() {
 	// on parcourt les 6 sprites
 	for (unsigned int i = 0 ; i < m_sprites.size() ; i++) {
-		// on récupère le sprite
+		// on rÃ©cupÃ¨re le sprite
 		Sprite * sprite = m_sprites.at(i);
 
 		// on l'update
@@ -54,14 +54,14 @@ void SpriteMenuButton::update() {
 }
 
 /**
- * Positionne les 6 sprites par rapport aux coordonnées du 1er
- * @param Coords coords coordonnées d'origine du 1er sprite
+ * Positionne les 6 sprites par rapport aux coordonnÃ©es du 1er
+ * @param Coords coords coordonnÃ©es d'origine du 1er sprite
  */
 void SpriteMenuButton::setPos(Coords coords) {
 	m_coords = coords;
 	// on parcourt les 6 sprites
 	for (unsigned int i = 0 ; i < m_sprites.size() ; i++) {
-		// on récupère le sprite
+		// on rÃ©cupÃ¨re le sprite
 		Sprite * sprite = m_sprites.at(i);
 
 		// on le positionne
@@ -71,25 +71,25 @@ void SpriteMenuButton::setPos(Coords coords) {
 }
 
 /**
- * Permet de savoir si les coordonnées demandées sont dans la zone du sprite
- * @param int x coordonnée X
- * @param int y coordonnée Y
- * @return bool true si les coordonnées sont dans la zone du sprite
+ * Permet de savoir si les coordonnÃ©es demandÃ©es sont dans la zone du sprite
+ * @param int x coordonnÃ©e X
+ * @param int y coordonnÃ©e Y
+ * @return bool true si les coordonnÃ©es sont dans la zone du sprite
  */
 bool SpriteMenuButton::isInZone(int x, int y) {
-	// on appelle l'autre version de la méthode
+	// on appelle l'autre version de la mÃ©thode
 	return isInZone(Coords(x, y));
 }
 
 /**
- * Permet de savoir si les coordonnées demandées sont dans la zone du sprite
- * @param Coords coords coordonnées
- * @return bool true si les coordonnées sont dans la zone du sprite
+ * Permet de savoir si les coordonnÃ©es demandÃ©es sont dans la zone du sprite
+ * @param Coords coords coordonnÃ©es
+ * @return bool true si les coordonnÃ©es sont dans la zone du sprite
  */
 bool SpriteMenuButton::isInZone(Coords coords) {
 	// on parcourt les 6 sprites
 	for (unsigned int i = 0 ; i < m_sprites.size() ; i++) {
-		// on récupère le sprite
+		// on rÃ©cupÃ¨re le sprite
 		Sprite * sprite = m_sprites.at(i);
 
 		// si le sprite courant est dans la zone, on renvoie true
@@ -102,9 +102,9 @@ bool SpriteMenuButton::isInZone(Coords coords) {
 }
 
 /**
- * Renvoie le numéro du 1er sprite.
- * Attention : les 5 suivants ne sont pas forcément adjacents.
- * @return short numéro du 1er sprite
+ * Renvoie le numÃ©ro du 1er sprite.
+ * Attention : les 5 suivants ne sont pas forcÃ©ment adjacents.
+ * @return short numÃ©ro du 1er sprite
  */
 short SpriteMenuButton::getFirstSpriteNum() {
 	Sprite * sprite = m_sprites.at(0);
