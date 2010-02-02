@@ -28,14 +28,14 @@ std::string ItemWeapon::getLongName() const {
 	std::ostringstream os;
 	os << m_sName;
 
-	// on rajoute les dés de dégâts
+	// on rajoute les dÃ©s de dÃ©gÃ¢ts
 	os << "(";
 	os << m_dice.x;
 	os << "D";
 	os << m_dice.y;
 	os << ")";
 
-	// si on a un bonus on affiche le meilleur bonus entre parenthèses
+	// si on a un bonus on affiche le meilleur bonus entre parenthÃ¨ses
 	int bonus = getHigherBonus();
 	if (bonus > 0) {
 		os << "(+";
@@ -50,7 +50,7 @@ std::string ItemWeapon::getDescription() const {
 	std::ostringstream os;
 	os << getName();
 
-	// on rajoute les dés de dégâts
+	// on rajoute les dÃ©s de dÃ©gÃ¢ts
 	os << '\n';
 	os << "Damage : ";
 	os << m_dice.x;
@@ -68,10 +68,10 @@ std::string ItemWeapon::getDescription() const {
 }
 
 int ItemWeapon::rollDamage() const {
-	// on doit lancer des dés : xDy
+	// on doit lancer des dÃ©s : xDy
 	int value = 0;
 
-	// on lance X fois 1 dé Y
+	// on lance X fois 1 dÃ© Y
 	for (int i = 0 ; i < m_dice.x ; i++) {
 		value += RollDice(m_dice.y);
 	}

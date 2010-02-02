@@ -12,20 +12,20 @@
 #include <string>
 #include <stdarg.h>
 
-// Les différents sous-menus du menu principal
+// Les diffÃ©rents sous-menus du menu principal
 #define MENU_ATTACK_STR "Attack"
 #define MENU_INFO_STR "Info"
 #define MENU_MAGIC_STR "Magic"
 #define MENU_ITEMS_STR "Items"
 
 namespace AfroDS {
-	/** Représente les menus */
+	/** ReprÃ©sente les menus */
 	enum MenuType {MENU_DEFAULT, MENU_ATTACK, MENU_INFO, MENU_MAGIC, MENU_ITEMS};
 
 	/**
-	 * Permet de gérer les modes du module ModuleBattle :
+	 * Permet de gÃ©rer les modes du module ModuleBattle :
 	 * MODE_BATTLE = combat en cours
-	 * MODE_WIN = combat gagné
+	 * MODE_WIN = combat gagnÃ©
 	 */
 	enum BattleMode {MODE_BATTLE, MODE_WIN};
 

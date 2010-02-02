@@ -9,7 +9,7 @@ CharacterMonster::CharacterMonster(MonsterType type) : Character(translateMonste
 		initMonsterDescriptions();
 
 	if (m_monsterDescriptions.find(m_type) == m_monsterDescriptions.end()) {
-		// le type de mob est introuvable, on charge les valeurs par d�faut !
+		// le type de mob est introuvable, on charge les valeurs par défaut !
 		m_maxHp = 3;
 		m_maxMp = 0;
 	} else {
@@ -27,12 +27,12 @@ CharacterMonster::CharacterMonster(MonsterType type) : Character(translateMonste
 		// les loots
 		for (unsigned int i = 0 ; i < desc.loots.size() ; i++) {
 			MonsterLoot loot = desc.loots.at(i);
-			// on lance 1D100 pour voir si le monstre poss�de cet item
+			// on lance 1D100 pour voir si le monstre possède cet item
 			int roll = RollDice(100);
-			// si le r�sultat est sup�rieur ou �gal � la chance de looter l'item
+			// si le résultat est supérieur ou égal à la chance de looter l'item
 			if (roll >= 100 - loot.chance) {
 				// on le met dans l'inventaire du monstre
-				// FIXME ajout d'item dans l'inventaire du monstre : on perd la vraie nature de l'item � cause de la copie en new Item
+				// FIXME ajout d'item dans l'inventaire du monstre : on perd la vraie nature de l'item à cause de la copie en new Item
 				addItemToInventory(ItemFactory::generateLoot(loot.loot));
 			}
 		}

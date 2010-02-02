@@ -9,9 +9,9 @@
 using namespace AfroDS;
 
 /**
- * Constructeur : crée le sprite
- * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
- * @param GraphicsSprite sprite sprite à utiliser
+ * Constructeur : crÃ©e le sprite
+ * @param short screen Ã©cran Ã  utiliser : SCREEN_MAIN ou SCREEN_SUB
+ * @param GraphicsSprite sprite sprite Ã  utiliser
  */
 Sprite::Sprite(short screen, GraphicsSprite sprite) {
 	m_gfx = NULL;
@@ -19,7 +19,7 @@ Sprite::Sprite(short screen, GraphicsSprite sprite) {
 	m_description = GraphicsEngine::getInstance()->getSpriteDescription(sprite);
 
 	/*
-	 * Les différentes tailles de sprites de l'enum SpriteSize (libnds)
+	 * Les diffÃ©rentes tailles de sprites de l'enum SpriteSize (libnds)
 	 *    SpriteSize_8x8
 	 *    SpriteSize_16x16
 	 *    SpriteSize_32x32
@@ -58,10 +58,10 @@ Sprite::Sprite(short screen, GraphicsSprite sprite) {
 	m_priority = 1;
 	m_visible = true;
 
-	// on réserve un numéro de sprite
+	// on rÃ©serve un numÃ©ro de sprite
 	m_num_sprite = GraphicsEngine::getInstance()->pickSpriteNum(m_screen);
 
-	// création du sprite
+	// crÃ©ation du sprite
 	if (m_screen == SCREEN_MAIN) {
 		m_gfx = oamAllocateGfx(&oamMain, m_size, m_color_format);
 	} else {
@@ -79,37 +79,37 @@ Sprite::Sprite(short screen, GraphicsSprite sprite) {
 
 /**
  * Destructeur : Supprime le sprite
- * Il est virtuel pour être appelé par les classes qui héritent de Sprite
+ * Il est virtuel pour Ãªtre appelÃ© par les classes qui hÃ©ritent de Sprite
  */
 Sprite::~Sprite() {
-	// on relâche le numéro de sprite qu'on a réservé
+	// on relÃ¢che le numÃ©ro de sprite qu'on a rÃ©servÃ©
 	GraphicsEngine::getInstance()->releaseSpriteNum(m_screen, m_num_sprite);
 
 	if (m_gfx != NULL) {
 		if (m_screen == SCREEN_MAIN) {
 			// on cache le sprite
 			oamClear(&oamMain, m_num_sprite, 1);
-			// on libère la mémoire
+			// on libÃ¨re la mÃ©moire
 			oamFreeGfx(&oamMain, m_gfx);
 		} else {
 			// on cache le sprite
 			oamClear(&oamSub, m_num_sprite, 1);
-			// on libère la mémoire
+			// on libÃ¨re la mÃ©moire
 			oamFreeGfx(&oamSub, m_gfx);
 		}
 	}
 }
 
 /**
- * Renvoie le numéro du sprite
- * @return short numéro de sprite
+ * Renvoie le numÃ©ro du sprite
+ * @return short numÃ©ro de sprite
  */
 short Sprite::getSpriteNum() {
 	return m_num_sprite;
 }
 
 /**
- * Met à jour le sprite par rapport à ses paramètres courants avec oamSet()
+ * Met Ã  jour le sprite par rapport Ã  ses paramÃ¨tres courants avec oamSet()
  */
 void Sprite::update() {
 	// on affiche le sprite
@@ -153,19 +153,19 @@ void Sprite::update() {
 }
 
 /**
- * Définit la priorité du sprite (le layer sur lequel il est affiché)
- * Un sprite est toujours devant un background pour un layer donné.
- * Donc les sprites auront par défaut 1 comme priorité pour être derrière
- * le background 0 utilisé pour le texte
- * @param short priority priorité
+ * DÃ©finit la prioritÃ© du sprite (le layer sur lequel il est affichÃ©)
+ * Un sprite est toujours devant un background pour un layer donnÃ©.
+ * Donc les sprites auront par dÃ©faut 1 comme prioritÃ© pour Ãªtre derriÃ¨re
+ * le background 0 utilisÃ© pour le texte
+ * @param short priority prioritÃ©
  */
 void Sprite::setPriority(short priority) {
 	m_priority = priority;
 }
 
 /**
- * Renvoie la priorité du sprite
- * @return short priorité
+ * Renvoie la prioritÃ© du sprite
+ * @return short prioritÃ©
  */
 short Sprite::getPriority() {
 	return m_priority;
@@ -180,7 +180,7 @@ int Sprite::getPosX() const {
 }
 
 /**
- * Définit la position X
+ * DÃ©finit la position X
  * @param int x position X
  */
 void Sprite::setPosX(const int x) {
@@ -196,7 +196,7 @@ int Sprite::getPosY() const {
 }
 
 /**
- * Définit la position Y
+ * DÃ©finit la position Y
  * @param int y position Y
  */
 void Sprite::setPosY(const int y) {
@@ -204,7 +204,7 @@ void Sprite::setPosY(const int y) {
 }
 
 /**
- * Renvoie la position avec un type personnalisé
+ * Renvoie la position avec un type personnalisÃ©
  * @return AF_Coords position
  */
 Coords Sprite::getPos() const {
@@ -212,7 +212,7 @@ Coords Sprite::getPos() const {
 }
 
 /**
- * Définit la position avec un type personnalisé
+ * DÃ©finit la position avec un type personnalisÃ©
  * @param AF_Coords pos position
  */
 void Sprite::setPos(const Coords pos) {
@@ -232,7 +232,7 @@ int Sprite::getHeight() const {
 }
 
 /**
- * Définit les positions de X et Y
+ * DÃ©finit les positions de X et Y
  * @param int x position X
  * @param int y position Y
  */
@@ -251,8 +251,8 @@ void Sprite::setVisible(bool visible) {
 
 /**
  * Permet de savoir si un point est dans la zone du sprite
- * @param int x coordonnée X
- * @param int y coordonnée Y
+ * @param int x coordonnÃ©e X
+ * @param int y coordonnÃ©e Y
  * @return bool true si le point est dans la zone du sprite
  */
 bool Sprite::isInZone(int x, int y) {
@@ -264,7 +264,7 @@ bool Sprite::isInZone(int x, int y) {
 
 /**
  * Permet de savoir si un point est dans la zone du sprite
- * @param Coords zone coordonnées
+ * @param Coords zone coordonnÃ©es
  * @return bool true si le point est dans la zone du sprite
  */
 bool Sprite::isInZone(Coords zone) {
@@ -277,8 +277,8 @@ bool Sprite::isInZone(Coords zone) {
 }
 
 /**
- * Définit la frame courante du sprite
- * @param short frame frame à sélectionner
+ * DÃ©finit la frame courante du sprite
+ * @param short frame frame Ã  sÃ©lectionner
  */
 void Sprite::setCurrentFrame(short frame) {
 	m_current_frame = frame;
@@ -286,7 +286,7 @@ void Sprite::setCurrentFrame(short frame) {
 	int pix_per_frame = getWidth() * getHeight();
 	u8* offset = (u8*)m_description.tiles + m_current_frame * pix_per_frame;
 
-	// on copie la frame en mémoire
+	// on copie la frame en mÃ©moire
 	dmaCopy(offset, m_gfx, pix_per_frame);
 }
 

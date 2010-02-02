@@ -12,7 +12,7 @@ MapFixed::MapFixed(const MapWarp warp) : Map() {
 	m_Size.y = AFRODS_MAP_FIXED_Y;
 	m_bgSize = BgSize_T_512x512;
 
-	// on d�finit tous les graphismes pour les 2 layers
+	// on définit tous les graphismes pour les 2 layers
 	m_FloorTiles = bg_world0_floorTiles;
 	m_FloorTilesLen = bg_world0_floorTilesLen;
 	m_FloorPal = bg_world0_floorPal;
@@ -29,7 +29,7 @@ MapFixed::MapFixed(const MapWarp warp) : Map() {
 	m_ColPalLen = bg_world0_colPalLen;
 #endif
 
-	// on pointe sur les tableaux globaux de world0 ici donc pas besoin d'allocation m�moire
+	// on pointe sur les tableaux globaux de world0 ici donc pas besoin d'allocation mémoire
 	m_CollisionMap = (unsigned short int *)bg_world0_colMap;
 	m_CollisionMapLen = bg_world0_colMapLen;
 	m_FloorMap = (unsigned short int *)bg_world0_floorMap;
@@ -38,7 +38,7 @@ MapFixed::MapFixed(const MapWarp warp) : Map() {
 	m_AboveMap = (unsigned short int *)bg_world0_aboveMap;
 	m_AboveMapLen = bg_world0_aboveMapLen;
 #endif
-	// cr�ation d'un warp
+	// création d'un warp
 	addWarp(MapWarp(MAP_FIXED, AFRODS_MAP_WARP_CAVE, MAP_GENERATED));
 	addWarp(MapWarp(MAP_FIXED, AFRODS_MAP_WARP_HOUSE_4, MAP_SHOP));
 	addWarp(MapWarp(MAP_FIXED, AFRODS_MAP_WARP_HOUSE_1, MAP_SHOP_ARMORY));
@@ -48,7 +48,7 @@ MapFixed::MapFixed(const MapWarp warp) : Map() {
 	// chargement des graphismes
 	loadGraphics();
 
-	// on charge la position de d�part
+	// on charge la position de départ
 	if (warp.map1 == warp.map2) {
 		m_StartingPos = AFRODS_MAP_FIXED_STARTING_POS;
 	} else {

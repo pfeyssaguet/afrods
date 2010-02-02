@@ -21,9 +21,9 @@ namespace AfroDS {
 			bool isRangedWeapon() const;
 
 		private:
-			// on stocke le dé de dégâts dans une structure Coords
-			// X = nombre de dés
-			// Y = valeur des dés
+			// on stocke le dÃ© de dÃ©gÃ¢ts dans une structure Coords
+			// X = nombre de dÃ©s
+			// Y = valeur des dÃ©s
 			Coords m_dice;
 	};
 

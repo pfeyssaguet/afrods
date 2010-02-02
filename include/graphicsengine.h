@@ -42,8 +42,8 @@
 
 namespace AfroDS {
 	/**
-	 * D�crit les diff�rents sprites.
-	 * Les num�ros sont aussi utilis�s pour choisir la palette �tendue (dans le constructeur de Sprite)
+	 * Décrit les différents sprites.
+	 * Les numéros sont aussi utilisés pour choisir la palette étendue (dans le constructeur de Sprite)
 	 */
 	enum GraphicsSprite {
 			SPRITE_HUMAN,
@@ -110,27 +110,27 @@ namespace AfroDS {
 	class GraphicsEngine {
 		public:
 			/**
-			 * Renvoie l'instance du singleton, en l'instanciant si n�cessaire
+			 * Renvoie l'instance du singleton, en l'instanciant si nécessaire
 			 * @return GraphicsEngine * pointeur vers le singleton
 			 */
 			static GraphicsEngine * getInstance();
 
 			/**
-			 * Renvoie un sprite correspondant au type de monstre demand�
-			 * TODO d�placer cette m�thode GraphicsEngine::MonsterTypeToGraphicsSprite pour virer la d�pendance � charactermonster.h
+			 * Renvoie un sprite correspondant au type de monstre demandé
+			 * TODO déplacer cette méthode GraphicsEngine::MonsterTypeToGraphicsSprite pour virer la dépendance à charactermonster.h
 			 *
-			 * @param const MonsterType type type de monstre demand�
-			 * @return GraphicsSprite sprite demand�
+			 * @param const MonsterType type type de monstre demandé
+			 * @return GraphicsSprite sprite demandé
 			 */
 			static GraphicsSprite MonsterTypeToGraphicsSprite(const MonsterType type);
 
 			/**
-			 * Renvoie un sprite correspondant � la classe de personnage demand�e, en mode battle ou en mode normal
-			 * TODO d�placer cette m�thode GraphicsEngine::CharacterClassToGraphicsSprite pour virer la d�pendance � characterplayer.h
+			 * Renvoie un sprite correspondant à la classe de personnage demandée, en mode battle ou en mode normal
+			 * TODO déplacer cette méthode GraphicsEngine::CharacterClassToGraphicsSprite pour virer la dépendance à characterplayer.h
 			 *
-			 * @param const CharacterClass charClass classe de personnage demand�e
+			 * @param const CharacterClass charClass classe de personnage demandée
 			 * @param const bool battle true pour avoir le sprite en mode Battle
-			 * @return GraphicsSprite sprite demand�
+			 * @return GraphicsSprite sprite demandé
 			 */
 			static GraphicsSprite CharacterClassToGraphicsSprite(const CharacterClass charClass, const bool battle);
 
@@ -138,16 +138,16 @@ namespace AfroDS {
 			SpriteDescription getSpriteDescription(const GraphicsSprite sprite) const;
 
 			/**
-			 * Renvoie un num�ro de sprite pour l'�cran demand�
-			 * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
-			 * @return unsigned short num�ro de sprite
+			 * Renvoie un numéro de sprite pour l'écran demandé
+			 * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+			 * @return unsigned short numéro de sprite
 			 */
 			unsigned short pickSpriteNum(const short screen);
 
 			/**
-			 * Remet un num�ro de sprite dans la liste pour l'�cran demand�
-			 * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
-			 * @param unsigned short num num�ro de sprite � rel�cher
+			 * Remet un numéro de sprite dans la liste pour l'écran demandé
+			 * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+			 * @param unsigned short num numéro de sprite à relâcher
 			 */
 			void releaseSpriteNum(const short screen, const unsigned short num);
 
@@ -156,17 +156,17 @@ namespace AfroDS {
 			void releaseSpritePaletteNum(const short screen, const unsigned short num);
 
 			/**
-			 * Renvoie la palette demand�e
-			 * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
-			 * @param GraphicsSprite sprite sprite � utiliser
+			 * Renvoie la palette demandée
+			 * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+			 * @param GraphicsSprite sprite sprite à utiliser
 			 * @return unsigned short * palette
 			 */
 			const unsigned short * getSpritePalette(const short screen, const GraphicsSprite sprite);
 
 			/**
-			 * Renvoie la taille de la palette demand�e
-			 * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
-			 * @param GraphicsSprite sprite sprite � utiliser
+			 * Renvoie la taille de la palette demandée
+			 * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+			 * @param GraphicsSprite sprite sprite à utiliser
 			 * @return int taille de la palette
 			 */
 			int getSpritePaletteLen(const short screen, const GraphicsSprite sprite);
@@ -179,73 +179,73 @@ namespace AfroDS {
 			void createBox();
 
 			/**
-			 * Lance les 2 fonctions oamUpdate, pour chaque �cran
+			 * Lance les 2 fonctions oamUpdate, pour chaque écran
 			 */
 			static void updateOam();
 
 			/**
-			 * Lance la fonction oamUpdate sur l'�cran demand�
-			 * @param const short screen �cran demand�, SCREEN_MAIN ou SCREEN_SUB
+			 * Lance la fonction oamUpdate sur l'écran demandé
+			 * @param const short screen écran demandé, SCREEN_MAIN ou SCREEN_SUB
 			 */
 			static void updateOam(const short screen);
 
 		private:
 			/**
-			 * Constructeur priv� car c'est un Singleton
+			 * Constructeur privé car c'est un Singleton
 			 */
 			GraphicsEngine();
 
 			/**
 			 * Charge une palette
-			 * @param short screen �cran � utiliser : SCREEN_MAIN ou SCREEN_SUB
-			 * @param GraphicsSprite sprite sprite � charger
+			 * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
+			 * @param GraphicsSprite sprite sprite à charger
 			 */
 			void loadSpritePalette(short screen, GraphicsSprite sprite);
 
 			/**
-			 * D�clare l'ensemble des backgrounds pour pouvoir les utiliser
+			 * Déclare l'ensemble des backgrounds pour pouvoir les utiliser
 			 */
 			void registerBackgrounds();
 
 			/**
-			 * D�clare un background pour pouvoir l'utiliser.
-			 * Cette m�thode est utilis�e avec la macro RegisterBackground()
+			 * Déclare un background pour pouvoir l'utiliser.
+			 * Cette méthode est utilisée avec la macro RegisterBackground()
 			 *
-			 * @param GraphicsBackground background constante du backgroud s�lectionn�
-			 * @param BackgroundDescription description structure qui contient les pointeurs g�n�r�s grit
+			 * @param GraphicsBackground background constante du backgroud sélectionné
+			 * @param BackgroundDescription description structure qui contient les pointeurs générés par grit
 			 */
 			void registerBackground(GraphicsBackground background, BackgroundDescription description);
 
 			/**
-			 * D�clare l'ensemble des sprites pour pouvoir les utiliser
+			 * Déclare l'ensemble des sprites pour pouvoir les utiliser
 			 */
 			void registerSprites();
 
 			/**
-			 * D�clare un sprite pour pouvoir l'utiliser.
-			 * Cette m�thode est utilis�e avec la macro RegisterSprite()
+			 * Déclare un sprite pour pouvoir l'utiliser.
+			 * Cette méthode est utilisée avec la macro RegisterSprite()
 			 *
-			 * @param GraphicsSprite sprite constante du sprite s�lectionn�
-			 * @param SpriteDescription description structure qui contient les pointeurs g�n�r�s par grit
+			 * @param GraphicsSprite sprite constante du sprite sélectionné
+			 * @param SpriteDescription description structure qui contient les pointeurs générés par grit
 			 */
 			void registerSprite(GraphicsSprite sprite, SpriteDescription description);
 
-			/** Liste des descriptions de backgrounds, index�es par background */
+			/** Liste des descriptions de backgrounds, indexées par background */
 			std::map<GraphicsBackground, BackgroundDescription> m_backgroundDescriptions;
 
-			/** Liste des descriptions de sprites, index�es par sprite */
+			/** Liste des descriptions de sprites, indexées par sprite */
 			std::map<GraphicsSprite, SpriteDescription> m_spriteDescriptions;
 
-			/** Pool de sprites pour l'�cran principal */
+			/** Pool de sprites pour l'écran principal */
 			std::set<unsigned short> m_spritePoolMain;
 
-			/** Pool de sprites pour l'�cran secondaire */
+			/** Pool de sprites pour l'écran secondaire */
 			std::set<unsigned short> m_spritePoolSub;
 
-			/** Pool de palettes de sprites pour l'�cran principal */
+			/** Pool de palettes de sprites pour l'écran principal */
 			std::set<unsigned short> m_spritePoolPaletteMain;
 
-			/** Pool de palettes de sprites pour l'�cran secondaire */
+			/** Pool de palettes de sprites pour l'écran secondaire */
 			std::set<unsigned short> m_spritePoolPaletteSub;
 
 			/** Gestionnaire de palettes */
@@ -254,7 +254,7 @@ namespace AfroDS {
 			/** Gestionnaire de tailles de palettes */
 			int m_spritePalettesLen[SPRITE_SIZE];
 
-			/** Num�ros de palettes : 1�re dimension pour l'�cran */
+			/** Numéros de palettes : 1ère dimension pour l'écran */
 			int m_spritePalettesNums[2][SPRITE_SIZE];
 
 			PrintConsole * m_consoleText;

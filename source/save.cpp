@@ -10,11 +10,11 @@ using namespace AfroDS;
 Save * Save::m_Instance = NULL;
 
 /**
- * Constructeur par d�faut
+ * Constructeur par défaut
  */
 Save::Save() {
 	/*
-	// Initialisation du filesystem (c'est pas gagn�)
+	// Initialisation du filesystem (c'est pas gagné)
 	PA_OutputText(ECRAN_HAUT, 1, 5, "Init. FAT...");
 	if (!fatInitDefault()) {
 		// FAT ne fonctionne pas, on est mal...
@@ -47,16 +47,16 @@ int Save::getNbCharacters() {
 }
 
 /**
- * Cr�e un nouveau personnage
- * @param Character newchar personnage � cr�er
+ * Crée un nouveau personnage
+ * @param Character newchar personnage à créer
  */
 void Save::addCharacter(CharacterPlayer * newchar) {
 	m_characters.push_back(newchar);
 }
 
 /**
- * R�cup�re le personnage n� N
- * @param int iNumPerso num�ro du personnage
+ * Récupère le personnage n° N
+ * @param int iNumPerso numéro du personnage
  * @return Character personnage
  */
 CharacterPlayer * Save::getCharacter(int iNumPerso) {
@@ -64,7 +64,7 @@ CharacterPlayer * Save::getCharacter(int iNumPerso) {
 }
 
 /**
- * Cr�e un perso de test pour utiliser directement en jeu
+ * Crée un perso de test pour utiliser directement en jeu
  */
 CharacterPlayer * Save::getDemoCharacter() {
 	CharacterPlayer * deuspi = new CharacterPlayer("deuspi");
@@ -82,7 +82,7 @@ CharacterPlayer * Save::getDemoCharacter() {
 	//deuspi->addItemToInventory(new ItemArmor("Shield", TYPE_SHIELD));
 	deuspi->addItemToInventory(new Item("Mana Potion", TYPE_POTION_MANA, 15));
 
-	// �quipement
+	// équipement
 	//character.addItemToEquipment(SLOT_RIGHT_WEAPON, new Item("Hache", TYPE_RIGHT_WEAPON, Stats()));
 	deuspi->addItemToEquipment(SLOT_HELMET, new ItemArmor("Helmet", TYPE_HELMET, 2));
 	deuspi->addItemToEquipment(SLOT_CLOAK, new ItemArmor("Cloak", TYPE_CLOAK, 1));
@@ -114,7 +114,7 @@ void Save::loadCharacters() {
 		size = ftell(file);
 		rewind(file);//on retourne au debut du fichier
 
-		// on alloue suffisamment de m�moire et on stocke l'adresse dans buffer
+		// on alloue suffisamment de mémoire et on stocke l'adresse dans buffer
 		char * buffer;
 		buffer = (char*) malloc(sizeof(char) * size);
 		fread(buffer, 1, size, file);
@@ -123,7 +123,7 @@ void Save::loadCharacters() {
 		free(buffer);
 		fclose(file);//on ferme le fichier
 	} else {
-		// on cr�e un nouveau fichier
+		// on crée un nouveau fichier
 		file = fopen(AFRODS_SAVE_FILENAME, "wb");
 		fclose(file);//on ferme le fichier
 	}
@@ -153,7 +153,7 @@ void Save::saveCharacters() {
 
 
 /**
- * Cr�e une liste de persos de test pour utiliser dans le menu
+ * Crée une liste de persos de test pour utiliser dans le menu
  */
 void Save::createDemoCharacters() {
 	addCharacter(getDemoCharacter());

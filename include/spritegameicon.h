@@ -5,19 +5,19 @@
 
 namespace AfroDS {
 	/**
-	 * Repr閟ente les frames des diff閞entes ic鬾es
+	 * Repr茅sente les frames des diff茅rentes ic么nes
 	 */
 	enum GameIconType {ICON_STATUS = 0, ICON_INVENTORY = 1, ICON_EQUIPMENT = 2, ICON_OPTIONS = 3, ICON_QUIT = 4};
 
 	class SpriteGameIcon : public Sprite {
 		public:
 			/**
-			 * Constructeur : cr閑 un sprite avec l'ic鬾e demand閑
-			 * @param GameIconType type type d'ic鬾e
+			 * Constructeur : cr茅e un sprite avec l'ic么ne demand茅e
+			 * @param GameIconType type type d'ic么ne
 			 */
 			SpriteGameIcon(GameIconType type);
 		private:
-			/** Type d'ic鬾e */
+			/** Type d'ic么ne */
 			GameIconType m_type;
 	};
 }

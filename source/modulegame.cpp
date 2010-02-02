@@ -12,7 +12,7 @@
 using namespace AfroDS;
 
 /**
- * Lancement du module Game, cr�ation du niveau
+ * Lancement du module Game, création du niveau
  */
 ModuleGame::ModuleGame(Context * context) : Module(context), m_gameMode(MODE_WALK), m_activeMap(NULL), m_spritePlayer(NULL), m_spriteSelectedItem(NULL) {
 	// chargement du menu
@@ -31,7 +31,7 @@ ModuleGame::ModuleGame(Context * context) : Module(context), m_gameMode(MODE_WAL
 ModuleGame::~ModuleGame() {
 	// suppression du bg
 	delete m_bgBottom;
-	// on efface l'�cran
+	// on efface l'écran
 	iprintf("\x1b[2J");
 
 	// suppression des sprites
@@ -49,14 +49,14 @@ ModuleGame::~ModuleGame() {
 }
 
 /**
- * Gestion des �v�nements du module Game
+ * Gestion des événements du module Game
  */
 void ModuleGame::moduleEvents() {
 	switch (m_gameMode) {
 		default:
 		case MODE_WALK:
 			if (!doModeWalk()) {
-				// si doModeWalk() renvoie false �a veut dire qu'on a quitt� le module, il a donc �t� delete
+				// si doModeWalk() renvoie false ça veut dire qu'on a quitté le module, il a donc été delete
 				return;
 			}
 			break;
@@ -68,7 +68,7 @@ void ModuleGame::moduleEvents() {
 			break;
 	}
 
-	// Mise � jour des sprites
+	// Mise à jour des sprites
 	m_spritePlayer->update();
 	m_spriteIconStatus->update();
 	m_spriteIconInventory->update();
@@ -78,23 +78,23 @@ void ModuleGame::moduleEvents() {
 	m_spriteFinger->update();
 	m_spriteSelectedItem->update();
 
-	// mise � jour de la map et de ses sprites
+	// mise à jour de la map et de ses sprites
 	m_activeMap->update();
 }
 
 void ModuleGame::modulePause() {
-	// on vide tout l'�cran
+	// on vide tout l'écran
 	consoleSetWindow(false, 0, 0, 31, 23);
 	iprintf("\x1b[2J");
 	delete m_bgBottom;
 
 	// Masquage des sprites
 
-	// écran du haut
+	// Ã©cran du haut
 	m_spritePlayer->setVisible(false);
 	m_activeMap->setVisible(false);
 
-	// écran du bas
+	// Ã©cran du bas
 	m_spriteIconStatus->setVisible(false);
 	m_spriteIconInventory->setVisible(false);
 	m_spriteIconEquipment->setVisible(false);
@@ -103,13 +103,13 @@ void ModuleGame::modulePause() {
 	m_spriteFinger->setVisible(false);
 
 
-	// Mise � jour des sprites
+	// Mise à jour des sprites
 
-	// écran du haut
+	// Ã©cran du haut
 	m_spritePlayer->update();
 	m_activeMap->update();
 
-	// écran du bas
+	// Ã©cran du bas
 	m_spriteIconStatus->update();
 	m_spriteIconInventory->update();
 	m_spriteIconEquipment->update();
@@ -132,7 +132,7 @@ void ModuleGame::moduleResume() {
 	// on recharge les graphismes du haut
 	m_activeMap->loadGraphics();
 
-	// on r�affiche tous les sprites
+	// on réaffiche tous les sprites
 	m_spritePlayer->setVisible(true);
 	m_spriteIconStatus->setVisible(true);
 	m_spriteIconInventory->setVisible(true);
@@ -140,10 +140,10 @@ void ModuleGame::moduleResume() {
 	m_spriteIconOptions->setVisible(true);
 	m_spriteIconQuit->setVisible(true);
 
-	// on r�affiche la map
+	// on réaffiche la map
 	m_activeMap->setVisible(true);
 
-	// Mise � jour des sprites
+	// Mise à jour des sprites
 	m_spritePlayer->update();
 	m_spriteIconStatus->update();
 	m_spriteIconInventory->update();
@@ -152,7 +152,7 @@ void ModuleGame::moduleResume() {
 	m_spriteIconQuit->update();
 	m_spriteFinger->update();
 
-	// mise � jour de la map
+	// mise à jour de la map
 	m_activeMap->update();
 }
 
@@ -160,9 +160,9 @@ void ModuleGame::moduleResume() {
  * Gestion des modes MODE_INVENTORY et MODE_EQUIPMENT : interactions :
  * - revenir en mode MODE_WALK en appuyant sur Start
  * - basculer entre MODE_INVENTORY et MODE_EQUIPMENT en appuyant sur R ou L
- * - naviguer dans l'inventaire ou l'�quipement avec haut/bas
- * - �quiper un item de l'inventaire avec A
- * - retirer un item de l'�quipement avec A
+ * - naviguer dans l'inventaire ou l'équipement avec haut/bas
+ * - équiper un item de l'inventaire avec A
+ * - retirer un item de l'équipement avec A
  */
 void ModuleGame::doModeSelection() {
 	// si on fait Start on retourne au mode Walk
@@ -189,7 +189,7 @@ void ModuleGame::doModeSelection() {
 		}
 	}
 
-	// on calcule le nombre d'�l�ments qu'on a dans le menu
+	// on calcule le nombre d'éléments qu'on a dans le menu
 	unsigned int iNumEntries = 0;
 	if (m_gameMode == MODE_EQUIPMENT) {
 		iNumEntries = SLOT_SIZE - 1;
@@ -197,9 +197,9 @@ void ModuleGame::doModeSelection() {
 		iNumEntries = m_context->getActiveChar()->getInventorySize() - 1;
 	}
 
-	// gestion des fl�ches pour choisir un item dans le menu
+	// gestion des flèches pour choisir un item dans le menu
 	if ((keysDown() & KEY_DOWN && m_selectedEntry < iNumEntries) || (keysDown() & KEY_UP && m_selectedEntry > 0)) {
-		// on change la ligne s�lectionn�e et on replace le doigt
+		// on change la ligne sélectionnée et on replace le doigt
 		if (keysDown() & KEY_DOWN && m_selectedEntry < iNumEntries) {
 			m_selectedEntry++;
 			if (m_selectedEntry > AFRODS_GAME_INVENTORY_NBLINES - 2) {
@@ -240,16 +240,16 @@ void ModuleGame::doModeSelection() {
 		}
 	}
 
-	// gestion de la touche A pour �quiper ou retirer un item
+	// gestion de la touche A pour équiper ou retirer un item
 	if (keysDown() & KEY_A) {
 		if (m_gameMode == MODE_INVENTORY) {
-			// on r�cup�re l'item
+			// on récupère l'item
 			Item * item = m_context->getActiveChar()->getInventoryItem(m_selectedEntry);
 
-			// si c'est une arme ou armure, on �quipe l'item
+			// si c'est une arme ou armure, on équipe l'item
 			if (item->isArmor() || item->isWeapon()) {
 				if (m_context->getActiveChar()->equipItem(m_selectedEntry)) {
-					// si on �tait sur le dernier �l�ment, on remonte d'un cran
+					// si on était sur le dernier élément, on remonte d'un cran
 					if (m_selectedEntry > 0 && m_selectedEntry == m_context->getActiveChar()->getInventorySize()) {
 						if (m_selectedEntry > AFRODS_GAME_INVENTORY_NBLINES - 2) {
 							m_offsetInventory--;
@@ -263,7 +263,7 @@ void ModuleGame::doModeSelection() {
 			} else {
 				// sinon on active l'item
 				m_context->getActiveChar()->activateInventoryItem(m_selectedEntry);
-				// si on �tait sur le dernier �l�ment, on remonte d'un cran
+				// si on était sur le dernier élément, on remonte d'un cran
 				if (m_selectedEntry > 0 && m_selectedEntry == m_context->getActiveChar()->getInventorySize()) {
 					if (m_selectedEntry > AFRODS_GAME_INVENTORY_NBLINES - 2) {
 						m_offsetInventory--;
@@ -286,16 +286,16 @@ void ModuleGame::doModeSelection() {
 
 /**
  * Gestion du mode MODE_WALK : interactions :
- * - d�placer le personnage avec les fl�ches
+ * - déplacer le personnage avec les flèches
  * - activer le mode MODE_INVENTORY en appuyant sur Start
  * - afficher les stats du personnage en cliquant sur le sprite Status
  * - afficher l'inventaire en cliquant sur le sprite Inventory
- * - afficher l'�quipement en cliquant sur le sprite Equipment
+ * - afficher l'équipement en cliquant sur le sprite Equipment
  * - quitter le jeu en cliquant sur le sprite Quit
  * @return bool
  */
 bool ModuleGame::doModeWalk() {
-	// Gestion des ic�nes du menu
+	// Gestion des icônes du menu
 	if (keysDown() & KEY_TOUCH) {
 		touchPosition touch;
 		touchRead(&touch);
@@ -305,7 +305,7 @@ bool ModuleGame::doModeWalk() {
 				swiWaitForVBlank();
 				scanKeys();
 			}
-			// TODO Game quitter de fa�on moins abrupte !
+			// TODO Game quitter de façon moins abrupte !
 			quit();
 			return false;
 		}
@@ -325,7 +325,7 @@ bool ModuleGame::doModeWalk() {
 			}
 			showInventory();
 		}
-		// Si on touche le sprite pour montrer l'�quipement
+		// Si on touche le sprite pour montrer l'équipement
 		if (m_spriteIconEquipment->isInZone(touch.px, touch.py)) {
 			while(keysHeld() & KEY_TOUCH) {
 				swiWaitForVBlank();
@@ -335,7 +335,7 @@ bool ModuleGame::doModeWalk() {
 		}
 	}
 
-	// si on fait Start on se met en mode s�lection d'item
+	// si on fait Start on se met en mode sélection d'item
 	if (keysDown() & KEY_START) {
 		m_gameMode = MODE_INVENTORY;
 		// on affiche le sprite du doigt
@@ -352,7 +352,7 @@ bool ModuleGame::doModeWalk() {
 		battle();
 	}
 
-	// D�placement du personnage
+	// Déplacement du personnage
 	moveChar();
 
 	return true;
@@ -368,7 +368,7 @@ void ModuleGame::initMenu() {
 	// chargement du background du bas
 	m_bgBottom = new Background(SCREEN_SUB, AFRODS_LAYER_GAME_BOTTOM_BG, BG_GAME_BOTTOM);
 
-	// on charge les sprites de l'�cran du bas
+	// on charge les sprites de l'écran du bas
 	Coords coords = Coords(AFRODS_GAME_OFFSET_ICONS_X, AFRODS_GAME_OFFSET_ICONS_Y);
 	m_spriteIconStatus = new SpriteGameIcon(ICON_STATUS);
 	m_spriteIconStatus->setPos(coords);
@@ -393,14 +393,14 @@ void ModuleGame::initMenu() {
 	m_spriteFinger = new Sprite(SCREEN_SUB, SPRITE_FINGER);
 	m_spriteFinger->setVisible(false);
 
-	// l'item s�lectionn�
+	// l'item sélectionné
 	m_spriteSelectedItem = new Sprite(SCREEN_SUB, SPRITE_GAME_ITEMS);
 	m_spriteSelectedItem->setVisible(false);
 	m_spriteSelectedItem->setPos(176, 140);
 }
 
 void ModuleGame::initConsoles() {
-	// cr�ation des consoles
+	// création des consoles
 	m_consoleMain = *(GraphicsEngine::getInstance()->getConsole());
 	m_consoleDesc = *(GraphicsEngine::getInstance()->getConsole());
 
@@ -412,11 +412,11 @@ void ModuleGame::initConsoles() {
 }
 
 /**
- * Initialisation du monde affich� en haut, g�r�
+ * Initialisation du monde affiché en haut, géré
  * au travers de la classe Map
  */
 void ModuleGame::initWorld(MapWarp warp) {
-	// cr�ation de la map
+	// création de la map
 	m_activeMap = MapFactory::loadMap(warp);
 	if (warp.map2 == MAP_FIXED) {
 		m_context->setBattleBackground(BG_BATTLE_TOP_FOREST);
@@ -424,15 +424,15 @@ void ModuleGame::initWorld(MapWarp warp) {
 		m_context->setBattleBackground(BG_BATTLE_TOP_DUNGEON);
 	}
 
-	// on cr�e le sprite du perso � l'�cran
+	// on crée le sprite du perso à l'écran
 	if (m_spritePlayer == NULL) {
 		m_spritePlayer = new SpriteChar(SCREEN_MAIN, GraphicsEngine::CharacterClassToGraphicsSprite(m_context->getActiveChar()->getClass(), false));
 	}
 
-	// on place le perso sur la position de d�part de la map
+	// on place le perso sur la position de départ de la map
 	Coords coords;
 	if (warp.pos2 == Coords(0, 0)) {
-		// si la position du perso n'était pas initialisée, on prend la position de départ "absolue" de la map
+		// si la position du perso n'Ã©tait pas initialisÃ©e, on prend la position de dÃ©part "absolue" de la map
 		coords = m_activeMap->getStartingPos();
 	} else {
 		// sinon on prend la position du warp
@@ -440,12 +440,12 @@ void ModuleGame::initWorld(MapWarp warp) {
 	}
 
 	// le tile du perso fait 32x32
-	// on re�oit des coordonn�es sur une grille de tiles en 16x16
-	// on veut centrer le perso comme �a :
-	// ....      les . repr�sentent le sprite du perso en 32x32
-	// ....      les x repr�sentent l'emplacement de la tile initiale
-	// .xx.      donc par rapport � la coordonn�e d'origine
-	// .xx.      on retire 8 � X et 16 � Y
+	// on reçoit des coordonnées sur une grille de tiles en 16x16
+	// on veut centrer le perso comme ça :
+	// ....      les . représentent le sprite du perso en 32x32
+	// ....      les x représentent l'emplacement de la tile initiale
+	// .xx.      donc par rapport à la coordonnée d'origine
+	// .xx.      on retire 8 à X et 16 à Y
 	coords.x = coords.x * 16 - AFRODS_GAME_OFFSET_CENTER_CHAR_X;
 	coords.y = coords.y * 16 - AFRODS_GAME_OFFSET_CENTER_CHAR_Y;
 
@@ -457,52 +457,52 @@ void ModuleGame::initWorld(MapWarp warp) {
 	// On affiche la map
 	m_activeMap->setVisible(true);
 
-	// On met � jour le perso
+	// On met à jour le perso
 	m_spritePlayer->setDefaultAnim();
 }
 
 void ModuleGame::updatePositions() {
 
 	if (m_activeMap->getWidth() * 16 <= AFRODS_SCREEN_WIDTH) {
-		// si la map est plus petite que l'�cran
+		// si la map est plus petite que l'écran
 		m_spritePlayer->setPosX(m_context->getActiveChar()->getPosX() - m_activeMap->getOffset().x);
 		m_activeMap->scrollX(0);
 	} else {
-		// si la map est plus grande que l'�cran
-		// on calcule les coordonn�es o� afficher le perso
+		// si la map est plus grande que l'écran
+		// on calcule les coordonnées où afficher le perso
 		if (m_context->getActiveChar()->getPosX()-AFRODS_GAME_OFFSET_CENTER_CHAR_X + AFRODS_CHAR_WIDTH / 2 < AFRODS_SCREEN_WIDTH / 2) {
-			// s'il est proche de la gauche, on r�cup�re directement sa position
+			// s'il est proche de la gauche, on récupère directement sa position
 			m_spritePlayer->setPosX(m_context->getActiveChar()->getPosX() - m_activeMap->getOffset().x);
 			m_activeMap->scrollX(0);
 		} else if (m_context->getActiveChar()->getPosX()-AFRODS_GAME_OFFSET_CENTER_CHAR_X + AFRODS_CHAR_WIDTH / 2 > ((m_activeMap->getWidth()-1) * 16) - AFRODS_SCREEN_WIDTH / 2) {
-			// s'il est proche de la droite, on calcule sa position par rapport � la droite de l'�cran
+			// s'il est proche de la droite, on calcule sa position par rapport à la droite de l'écran
 			m_spritePlayer->setPosX(m_context->getActiveChar()->getPosX() - m_activeMap->getOffset().x - ((m_activeMap->getWidth()-1) * 16 - AFRODS_SCREEN_WIDTH));
 			m_activeMap->scrollX((m_activeMap->getWidth()-1) * 16 - AFRODS_SCREEN_WIDTH);
 		} else {
-			// s'il n'est pas pr�s du bord, c'est au centre
+			// s'il n'est pas près du bord, c'est au centre
 			m_spritePlayer->setPosX(AFRODS_SCREEN_WIDTH / 2 - AFRODS_CHAR_WIDTH / 2);
 			m_activeMap->scrollX(m_context->getActiveChar()->getPosX()-AFRODS_GAME_OFFSET_CENTER_CHAR_X - AFRODS_SCREEN_WIDTH / 2 + AFRODS_CHAR_WIDTH / 2);
 		}
 	}
 
-	// TODO voir pourquoi �a marche avec AFRODS_GAME_OFFSET_CENTER_CHAR_X au lieu de AFRODS_GAME_OFFSET_CENTER_CHAR_Y, �a devrait pas !
+	// TODO voir pourquoi ça marche avec AFRODS_GAME_OFFSET_CENTER_CHAR_X au lieu de AFRODS_GAME_OFFSET_CENTER_CHAR_Y, ça devrait pas !
 	if (m_activeMap->getHeight() * 16 <= AFRODS_SCREEN_HEIGHT) {
-		// si la map est plus petite que l'�cran
+		// si la map est plus petite que l'écran
 		m_spritePlayer->setPosY(m_context->getActiveChar()->getPosY() - m_activeMap->getOffset().y);
 		m_activeMap->scrollY(0);
 	} else {
-		// si la map est plus grande que l'�cran
-		// on calcule les coordonn�es o� afficher le perso
+		// si la map est plus grande que l'écran
+		// on calcule les coordonnées où afficher le perso
 		if (m_context->getActiveChar()->getPosY() - AFRODS_GAME_OFFSET_CENTER_CHAR_X + AFRODS_CHAR_HEIGHT / 2 < AFRODS_SCREEN_HEIGHT / 2) {
-			// s'il est proche du haut, on r�cup�re directement sa position
+			// s'il est proche du haut, on récupère directement sa position
 			m_spritePlayer->setPosY(m_context->getActiveChar()->getPosY() - m_activeMap->getOffset().y);
 			m_activeMap->scrollY(0);
 		} else if (m_context->getActiveChar()->getPosY() - AFRODS_GAME_OFFSET_CENTER_CHAR_X + AFRODS_CHAR_HEIGHT / 2 > ((m_activeMap->getHeight()-1) * 16) - AFRODS_SCREEN_HEIGHT / 2) {
-			// s'il est proche du bas, on calcule sa position par rapport au bas de l'�cran
+			// s'il est proche du bas, on calcule sa position par rapport au bas de l'écran
 			m_spritePlayer->setPosY(m_context->getActiveChar()->getPosY() - m_activeMap->getOffset().y - ((m_activeMap->getHeight()-1) * 16 - AFRODS_SCREEN_HEIGHT));
 			m_activeMap->scrollY((m_activeMap->getHeight()-1) * 16 - AFRODS_SCREEN_HEIGHT);
 		} else {
-			// s'il n'est pas pr�s du bord, c'est au centre
+			// s'il n'est pas près du bord, c'est au centre
 			m_spritePlayer->setPosY(AFRODS_SCREEN_HEIGHT / 2 - AFRODS_CHAR_HEIGHT / 2);
 			m_activeMap->scrollY(m_context->getActiveChar()->getPosY()-AFRODS_GAME_OFFSET_CENTER_CHAR_X - AFRODS_SCREEN_HEIGHT / 2 + AFRODS_CHAR_HEIGHT / 2);
 		}
@@ -510,10 +510,10 @@ void ModuleGame::updatePositions() {
 }
 
 /**
- * Gestion du d�placement du perso, avec scrolling en cons�quence
+ * Gestion du déplacement du perso, avec scrolling en conséquence
  */
 void ModuleGame::moveChar() {
-	// si on commence � appuyer, on lance l'animation
+	// si on commence à appuyer, on lance l'animation
 	Coords move;
 	bool hasMoved = false;
 	SpriteDirection sprtDir = DIR_NOTHING;
@@ -562,7 +562,7 @@ void ModuleGame::moveChar() {
 			// on cherche le MapWarp qui se trouve sur cette tile
 			MapWarp warp = m_activeMap->findWarp(coordsPerso);
 			if (warp != MapWarp()) {
-				// on delete la map et on la recr�e
+				// on delete la map et on la recrée
 				delete m_activeMap;
 				initWorld(warp);
 
@@ -572,7 +572,7 @@ void ModuleGame::moveChar() {
 			}
 		}
 	}
-	// si on rel�che la direction, on se remet dans la bonne frame
+	// si on relâche la direction, on se remet dans la bonne frame
 	if (keysUp() & KEY_UP || keysUp() & KEY_DOWN || keysUp() & KEY_LEFT || keysUp() & KEY_RIGHT) {
 		m_spritePlayer->setDefaultAnim();
 	}
@@ -583,7 +583,7 @@ void ModuleGame::moveChar() {
 }
 
 /**
- * M�thode appel�e lorsqu'on veut quitter le jeu
+ * Méthode appelée lorsqu'on veut quitter le jeu
  */
 void ModuleGame::quit() {
 	// on indique qu'on veut sortir pour aller dans le module Splash
@@ -591,12 +591,12 @@ void ModuleGame::quit() {
 }
 
 /**
- * Affiche les stats du personnage. Correspond � l'ic�ne "Status" du menu
+ * Affiche les stats du personnage. Correspond à l'icône "Status" du menu
  */
 void ModuleGame::showStatus() {
 	consoleSelect(&m_consoleMain);
 
-	// on efface l'�cran
+	// on efface l'écran
 	iprintf("\x1b[2J");
 
 	iprintf("\x1b[0;7H  STATUS");
@@ -650,13 +650,13 @@ void ModuleGame::showStatus() {
 }
 
 /**
- * Affiche l'inventaire du personnage. Correspond � l'ic�ne "Inventory" du menu
+ * Affiche l'inventaire du personnage. Correspond à l'icône "Inventory" du menu
  */
 void ModuleGame::showInventory() {
 	// on se met sur la console principale
 	consoleSelect(&m_consoleMain);
 
-	// on efface l'�cran
+	// on efface l'écran
 	iprintf("\x1b[2J");
 	iprintf("\x1b[0;7H INVENTORY");
 
@@ -691,13 +691,13 @@ void ModuleGame::showInventory() {
 }
 
 /**
- * Affiche l'�quipement du personnage. Correspond � l'ic�ne "Equipment" du menu
+ * Affiche l'équipement du personnage. Correspond à l'icône "Equipment" du menu
  */
 void ModuleGame::showEquipment() {
 	// on se met sur la console principale
 	consoleSelect(&m_consoleMain);
 
-	// on efface l'�cran
+	// on efface l'écran
 	iprintf("\x1b[2J");
 	iprintf("\x1b[0;7H EQUIPMENT");
 

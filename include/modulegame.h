@@ -7,12 +7,12 @@
 #include "spritegameicon.h"
 #include "background.h"
 
-// d�calage des ic�nes du menu en bas
+// décalage des icônes du menu en bas
 #define AFRODS_GAME_OFFSET_ICONS_X 216
 #define AFRODS_GAME_OFFSET_ICONS_Y 8
 #define AFRODS_GAME_OFFSET_ICONS_SPACE 0
 
-// d�calage du doigt vers le haut
+// décalage du doigt vers le haut
 #define AFRODS_GAME_OFFSET_FINGER_Y 3
 
 // nombre de lignes dans l'inventaire
@@ -21,11 +21,11 @@
 namespace AfroDS {
 
 	/**
-	 * Permet de g�rer les sous-modes qu'on g�re dans le module Game.
-	 * Cette �num est utilis�e par la variable m_gameMode
+	 * Permet de gérer les sous-modes qu'on gère dans le module Game.
+	 * Cette enum est utilisée par la variable m_gameMode
 	 * - MODE_WALK : personnage en train de marcher
-	 * - MODE_INVENTORY : mode s�lection dans l'inventaire
-	 * - MODE_EQUIPMENT : mode s�lection dans l'�quipement
+	 * - MODE_INVENTORY : mode sélection dans l'inventaire
+	 * - MODE_EQUIPMENT : mode sélection dans l'équipement
 	 */
 	enum GameMode {MODE_WALK, MODE_INVENTORY, MODE_EQUIPMENT};
 
@@ -35,7 +35,7 @@ namespace AfroDS {
 	class ModuleGame : public Module {
 		public:
 			/**
-			 * Lancement du module Game, cr�ation du niveau
+			 * Lancement du module Game, création du niveau
 			 */
 			ModuleGame(Context * context);
 
@@ -45,7 +45,7 @@ namespace AfroDS {
 			virtual ~ModuleGame();
 
 			/**
-			 * Gestion des �v�nements du module Game
+			 * Gestion des événements du module Game
 			 */
 			void moduleEvents();
 			void modulePause();
@@ -60,7 +60,7 @@ namespace AfroDS {
 			void initMenu();
 
 			/**
-			 * Initialisation du monde affich� en haut, g�r�
+			 * Initialisation du monde affiché en haut, géré
 			 * au travers de la classe Map
 			 */
 			void initWorld(MapWarp warp);
@@ -68,22 +68,22 @@ namespace AfroDS {
 			void initConsoles();
 
 			/**
-			 * Gestion du d�placement du perso, avec scrolling en cons�quence
+			 * Gestion du déplacement du perso, avec scrolling en conséquence
 			 */
 			void moveChar();
 
 			/**
-			 * M�thode appel�e lorsqu'on veut quitter le jeu
+			 * Méthode appelée lorsqu'on veut quitter le jeu
 			 */
 			void quit();
 
 			/**
 			 * Gestion du mode MODE_WALK : interactions :
-			 * - d�placer le personnage avec les fl�ches
+			 * - déplacer le personnage avec les flèches
 			 * - activer le mode MODE_INVENTORY en appuyant sur Start
 			 * - afficher les stats du personnage en cliquant sur le sprite Status
 			 * - afficher l'inventaire en cliquant sur le sprite Inventory
-			 * - afficher l'�quipement en cliquant sur le sprite Equipment
+			 * - afficher l'équipement en cliquant sur le sprite Equipment
 			 * - quitter le jeu en cliquant sur le sprite Quit
 			 * @return bool
 			 */
@@ -93,24 +93,24 @@ namespace AfroDS {
 			 * Gestion des modes MODE_INVENTORY et MODE_EQUIPMENT : interactions :
 			 * - revenir en mode MODE_WALK en appuyant sur Start
 			 * - basculer entre MODE_INVENTORY et MODE_EQUIPMENT en appuyant sur R ou L
-			 * - naviguer dans l'inventaire ou l'�quipement avec haut/bas
-			 * - �quiper un item de l'inventaire avec A
-			 * - retirer un item de l'�quipement avec A
+			 * - naviguer dans l'inventaire ou l'équipement avec haut/bas
+			 * - équiper un item de l'inventaire avec A
+			 * - retirer un item de l'équipement avec A
 			 */
 			void doModeSelection();
 
 			/**
-			 * Affiche les stats du personnage. Correspond � l'ic�ne "Status" du menu
+			 * Affiche les stats du personnage. Correspond à l'icône "Status" du menu
 			 */
 			void showStatus();
 
 			/**
-			 * Affiche l'inventaire du personnage. Correspond � l'ic�ne "Inventory" du menu
+			 * Affiche l'inventaire du personnage. Correspond à l'icône "Inventory" du menu
 			 */
 			void showInventory();
 
 			/**
-			 * Affiche l'�quipement du personnage. Correspond � l'ic�ne "Equipment" du menu
+			 * Affiche l'équipement du personnage. Correspond à l'icône "Equipment" du menu
 			 */
 			void showEquipment();
 
@@ -127,7 +127,7 @@ namespace AfroDS {
 			/** Le mode actuel */
 			GameMode m_gameMode;
 
-			/** L'entr�e s�lectionn�e en mode Inventory */
+			/** L'entrée sélectionnée en mode Inventory */
 			unsigned int m_selectedEntry;
 
 			/** Offset pour l'inventaire */
@@ -135,7 +135,7 @@ namespace AfroDS {
 
 			std::vector<MapWarp> m_doors;
 
-			/** Repr�sente la map courante dans laquelle �volue le personnage principal */
+			/** Représente la map courante dans laquelle évolue le personnage principal */
 			Map * m_activeMap;
 
 			/** Le background du bas */
@@ -144,7 +144,7 @@ namespace AfroDS {
 			/** Sprite du haut : le perso */
 			SpriteChar * m_spritePlayer;
 
-			/** Sprites du bas : ic�ne de menu, � droite */
+			/** Sprites du bas : icône de menu, à droite */
 			SpriteGameIcon * m_spriteIconStatus;
 			SpriteGameIcon * m_spriteIconInventory;
 			SpriteGameIcon * m_spriteIconEquipment;
@@ -154,7 +154,7 @@ namespace AfroDS {
 			/** le sprite du doigt */
 			Sprite * m_spriteFinger;
 
-			/** Le sprite pour l'ic�ne de l'item s�lectionn� */
+			/** Le sprite pour l'icône de l'item sélectionné */
 			Sprite * m_spriteSelectedItem;
 	};
 }

@@ -21,7 +21,7 @@ namespace AfroDS {
 			void switchModule(const ModuleType type, const bool pause);
 			void resumePausedModule();
 		private:
-			/** Le personnage s�lectionn� */
+			/** Le personnage sélectionné */
 			CharacterPlayer * m_ActiveChar;
 
 			GraphicsBackground m_BattleBackground;

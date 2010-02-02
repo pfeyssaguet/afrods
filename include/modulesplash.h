@@ -22,7 +22,7 @@ namespace AfroDS {
 			virtual ~ModuleSplash();
 
 			/**
-			 * Gestion des événements du module
+			 * Gestion des Ã©vÃ©nements du module
 			 */
 			void moduleEvents();
 		private:

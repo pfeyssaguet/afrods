@@ -25,37 +25,37 @@ ModuleMenu::ModuleMenu(Context * context) : Module(context), m_iOffset(0) {
 	m_bg_top = new Background(SCREEN_MAIN, AFRODS_LAYER_MENU_TOP_BG, BG_MENU_TOP);
 
 	// chargement du background du bas
-	// background du bas différent selon le nombre de persos
+	// background du bas diffÃ©rent selon le nombre de persos
 	switch (Save::getInstance()->getNbCharacters()) {
 		case 0:
-			// on charge un fond avec 1 entrée de menu pour "Nouveau perso"
+			// on charge un fond avec 1 entrÃ©e de menu pour "Nouveau perso"
 			m_iNbMenus = 1;
 			m_bg_bottom = new Background(SCREEN_SUB, AFRODS_LAYER_MENU_BOTTOM_BG, BG_MENU_BOTTOM01);
 			break;
 		case 1:
-			// on charge un fond avec 2 entrée de menu, une pour "Nouveau perso"
+			// on charge un fond avec 2 entrÃ©e de menu, une pour "Nouveau perso"
 			// et la seconde pour le 1er perso, et ainsi de suite...
 			m_iNbMenus = 2;
 			m_bg_bottom = new Background(SCREEN_SUB, AFRODS_LAYER_MENU_BOTTOM_BG, BG_MENU_BOTTOM02);
 			break;
 		case 2:
-			// on charge un fond avec 3 entrées de menu
+			// on charge un fond avec 3 entrÃ©es de menu
 			m_iNbMenus = 3;
 			m_bg_bottom = new Background(SCREEN_SUB, AFRODS_LAYER_MENU_BOTTOM_BG, BG_MENU_BOTTOM03);
 			break;
 		default:
-			// au-delà de 3 persos, on voit 4 entrées de menu, ce qui est le maximum
+			// au-delÃ  de 3 persos, on voit 4 entrÃ©es de menu, ce qui est le maximum
 			m_iNbMenus = 4;
 			m_bg_bottom = new Background(SCREEN_SUB, AFRODS_LAYER_MENU_BOTTOM_BG, BG_MENU_BOTTOM04);
 			break;
 	}
 
-	// on crée la liste
+	// on crÃ©e la liste
 
-	// on se place sur l'entrée de menu "Nouveau perso"
+	// on se place sur l'entrÃ©e de menu "Nouveau perso"
 	selectEntry(AFRODS_MENU_SELECTED_1);
 
-	// on crée les flèches pour défiler
+	// on crÃ©e les flÃ¨ches pour dÃ©filer
 	if (Save::getInstance()->getNbCharacters() > 3) {
 		m_spriteMenuArrowUp = new Sprite(SCREEN_SUB, SPRITE_MENU_ICONS);
 		m_spriteMenuArrowUp->setPos(AFRODS_MENU_ARROWS_X, AFRODS_MENU_ARROW_UP_Y);
@@ -100,10 +100,10 @@ void ModuleMenu::printEntry(int iEntry, GraphicsSprite graphics, std::string sTe
 	taille.x = pos.x + AFRODS_MENU_BOX_WIDTH;
 	taille.y = pos.y + AFRODS_MENU_BOX_HEIGHT;
 
-	// on écrit le texte
+	// on Ã©crit le texte
 	iprintf("\x1b[%d;7H%s", 1 + pos.y / 8, sText.c_str());
 
-	// on (re)crée le sprite
+	// on (re)crÃ©e le sprite
 	if (m_spriteMenuIcons[iEntry - 1] != NULL) {
 		delete m_spriteMenuIcons[iEntry - 1];
 	}
@@ -123,7 +123,7 @@ void ModuleMenu::printEntry(int iEntry, GraphicsSprite graphics, std::string sTe
 }
 
 /**
- * Affiche la liste des persos sur l'écran
+ * Affiche la liste des persos sur l'Ã©cran
  */
 void ModuleMenu::listChars() {
 	iprintf("\x1b[2J");
@@ -134,13 +134,13 @@ void ModuleMenu::listChars() {
 		}
 	}
 
-	// on crée l'entrée "Nouveau perso"
+	// on crÃ©e l'entrÃ©e "Nouveau perso"
 	printEntry(1, SPRITE_MENU_ICONS, "NEW CHARACTER");
 
-	// on crée les 3 entrées suivantes
+	// on crÃ©e les 3 entrÃ©es suivantes
 	if (Save::getInstance()->getNbCharacters() > 0) {
 		for (int i = 1; i <= 3; i++) {
-			// Récupération du perso
+			// RÃ©cupÃ©ration du perso
 			CharacterPlayer * charac = Save::getInstance()->getCharacter(i-1 + m_iOffset);
 
 			// on affiche le nom du perso
@@ -153,8 +153,8 @@ void ModuleMenu::listChars() {
 }
 
 /**
- * Sélectionne une entrée dans le menu en créant les 3 sprites qui composent un menu sélectionné
- * @param int numéro de l'entrée à sélectionner (1-4)
+ * SÃ©lectionne une entrÃ©e dans le menu en crÃ©ant les 3 sprites qui composent un menu sÃ©lectionnÃ©
+ * @param int numÃ©ro de l'entrÃ©e Ã  sÃ©lectionner (1-4)
  */
 void ModuleMenu::selectEntry(int iMenu) {
 	// on positionne le menu courant
@@ -165,9 +165,9 @@ void ModuleMenu::selectEntry(int iMenu) {
 	position.x = AFRODS_MENU_BOX_OFFSET_X;
 	position.y = AFRODS_MENU_BOX_OFFSET_Y + ((AFRODS_MENU_BOX_HEIGHT + AFRODS_MENU_BOX_SPACE) * (m_iActiveMenu - 1));
 
-	// si le bouton n'existe pas, on le crée
+	// si le bouton n'existe pas, on le crÃ©e
 	if (m_spriteMenuButton == NULL) {
-		// on recrée un bouton à la nouvelle position
+		// on recrÃ©e un bouton Ã  la nouvelle position
 		m_spriteMenuButton = new SpriteMenuButton(position);
 	} else {
 		// sinon on le repositionne
@@ -176,7 +176,7 @@ void ModuleMenu::selectEntry(int iMenu) {
 }
 
 /**
- * Gestion des événements du module Menu
+ * Gestion des Ã©vÃ©nements du module Menu
  * Surcharge de Module::moduleEvents()
  */
 void ModuleMenu::moduleEvents() {
@@ -200,12 +200,12 @@ void ModuleMenu::moduleEvents() {
 		touchPosition touch;
 		touchRead(&touch);
 
-		// si on appuie sur l'un des sprites du menu sélectionné, on lance le module
+		// si on appuie sur l'un des sprites du menu sÃ©lectionnÃ©, on lance le module
 		if (m_spriteMenuButton->isInZone(touch.px, touch.py)) {
 			pressLaunch = true;
-			// on attend que le stylet soit relâché
+			// on attend que le stylet soit relÃ¢chÃ©
 			do {
-				// on vérifie que le stylet est toujours dans la zone
+				// on vÃ©rifie que le stylet est toujours dans la zone
 				if (m_spriteMenuButton->isInZone(touch.px, touch.py)) {
 					// on lance le module
 					pressLaunch = true;
@@ -225,23 +225,23 @@ void ModuleMenu::moduleEvents() {
 			}
 		}
 
-		// si on appuie sur la flèche du haut
+		// si on appuie sur la flÃ¨che du haut
 		if (m_spriteMenuArrowUp != NULL && m_spriteMenuArrowUp->isInZone(touch.px, touch.py)) {
 			pressUp = true;
-			// on change l'animation de la flèche
+			// on change l'animation de la flÃ¨che
 			m_spriteMenuArrowUp->setCurrentFrame(FRAME_ICON_ARROW_UP_ON);
-			// on attend que le stylet soit relâché
+			// on attend que le stylet soit relÃ¢chÃ©
 			do {
-				// on vérifie que le stylet est toujours dans la zone
+				// on vÃ©rifie que le stylet est toujours dans la zone
 				// on choisit la bonne frame
 				if (m_spriteMenuArrowUp->getCurrentFrame() == FRAME_ICON_ARROW_UP_OFF
 					&& m_spriteMenuArrowUp->isInZone(touch.px, touch.py)) {
-					// on était plus dans la zone et on vient d'y revenir
+					// on Ã©tait plus dans la zone et on vient d'y revenir
 					m_spriteMenuArrowUp->setCurrentFrame(FRAME_ICON_ARROW_UP_ON);
 					pressUp = true;
 				} else if (m_spriteMenuArrowUp->getCurrentFrame() == FRAME_ICON_ARROW_UP_ON
 					&& !m_spriteMenuArrowUp->isInZone(touch.px, touch.py)) {
-					// on était dans la zone et on vient d'en sortir
+					// on Ã©tait dans la zone et on vient d'en sortir
 					m_spriteMenuArrowUp->setCurrentFrame(FRAME_ICON_ARROW_UP_OFF);
 					pressUp = false;
 				}
@@ -252,21 +252,21 @@ void ModuleMenu::moduleEvents() {
 			m_spriteMenuArrowUp->setCurrentFrame(FRAME_ICON_ARROW_UP_OFF);
 		}
 
-		// si on appuie sur la flèche du bas
+		// si on appuie sur la flÃ¨che du bas
 		if (m_spriteMenuArrowDown != NULL && m_spriteMenuArrowDown->isInZone(touch.px, touch.py)) {
 			pressDown = true;
 			m_spriteMenuArrowDown->setCurrentFrame(FRAME_ICON_ARROW_DOWN_ON);
 			do {
-				// on vérifie que le stylet est toujours dans la zone
+				// on vÃ©rifie que le stylet est toujours dans la zone
 				// on choisit la bonne frame
 				if (m_spriteMenuArrowDown->getCurrentFrame() == FRAME_ICON_ARROW_DOWN_OFF
 					&& m_spriteMenuArrowDown->isInZone(touch.px, touch.py)) {
-					// on était plus dans la zone et on vient d'y revenir
+					// on Ã©tait plus dans la zone et on vient d'y revenir
 					m_spriteMenuArrowDown->setCurrentFrame(FRAME_ICON_ARROW_DOWN_ON);
 					pressDown = true;
 				} else if (m_spriteMenuArrowDown->getCurrentFrame() == FRAME_ICON_ARROW_DOWN_ON
 					&& !m_spriteMenuArrowDown->isInZone(touch.px, touch.py)) {
-					// on était dans la zone et on vient d'en sortir
+					// on Ã©tait dans la zone et on vient d'en sortir
 					m_spriteMenuArrowDown->setCurrentFrame(FRAME_ICON_ARROW_DOWN_OFF);
 					pressDown = false;
 				}
@@ -277,7 +277,7 @@ void ModuleMenu::moduleEvents() {
 			m_spriteMenuArrowDown->setCurrentFrame(FRAME_ICON_ARROW_DOWN_OFF);
 		}
 
-		// si on appuie dans la zone d'un autre menu que le menu courant, on sélectionne l'entrée correspondante
+		// si on appuie dans la zone d'un autre menu que le menu courant, on sÃ©lectionne l'entrÃ©e correspondante
 		for (int i = 0; i < 4; i++) {
 			if (m_iNbMenus >= i + 1) {
 				Coords coords;
@@ -286,7 +286,7 @@ void ModuleMenu::moduleEvents() {
 
 				if (touch.px >= coords.x && touch.px <= coords.x + AFRODS_MENU_BOX_WIDTH && touch.py >= coords.y
 					&& touch.py <= coords.y + AFRODS_MENU_BOX_HEIGHT) {
-					// on sélectionne l'entrée correspondant à i
+					// on sÃ©lectionne l'entrÃ©e correspondant Ã  i
 					selectEntry(i + 1);
 				}
 			}
@@ -300,7 +300,7 @@ void ModuleMenu::moduleEvents() {
 		pressUp = true;
 	}
 
-	// si on est sur la dernière ligne et qu'on descend
+	// si on est sur la derniÃ¨re ligne et qu'on descend
 	if (pressDown && m_iActiveMenu == 4 && Save::getInstance()->getNbCharacters() > m_iActiveMenu - 1 + m_iOffset) {
 		m_iOffset++;
 		listChars();
@@ -310,16 +310,16 @@ void ModuleMenu::moduleEvents() {
 		m_iOffset--;
 		listChars();
 	} else
-	// si on monte on change la ligne sélectionnée
+	// si on monte on change la ligne sÃ©lectionnÃ©e
 	if (pressUp && m_iActiveMenu > 1) {
 		selectEntry(m_iActiveMenu - 1);
 	}
-	// si on descend on change la ligne sélectionnée
+	// si on descend on change la ligne sÃ©lectionnÃ©e
 	if (pressDown && m_iActiveMenu < m_iNbMenus) {
 		selectEntry(m_iActiveMenu + 1);
 	}
 
-	// en cas d'appui sur A, on lance l'entrée sélectionnée
+	// en cas d'appui sur A, on lance l'entrÃ©e sÃ©lectionnÃ©e
 	if (keysDown() & KEY_A) {
 		launchModule();
 	}
@@ -329,12 +329,12 @@ void ModuleMenu::moduleEvents() {
  * Lance le module qui va bien
  */
 void ModuleMenu::launchModule() {
-	// si on est sur l'entrée nouveau perso
+	// si on est sur l'entrÃ©e nouveau perso
 	if (m_iActiveMenu == AFRODS_MENU_SELECTED_1) {
-		// on va dans le module de création de perso
+		// on va dans le module de crÃ©ation de perso
 		m_context->switchModule(MODULE_NEWCHAR, false);
 	} else {
-		// on sélectionne le perso
+		// on sÃ©lectionne le perso
 		if (m_context->getActiveChar() != NULL) {
 			delete m_context->getActiveChar();
 		}

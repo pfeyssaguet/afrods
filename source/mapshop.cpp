@@ -11,7 +11,7 @@ MapShop::MapShop(const MapWarp warp) {
 	m_Size = MAPSHOP_SIZE;
 	m_bgSize = BgSize_T_256x256;
 
-	// on d�finit tous les graphismes pour les 2 layers
+	// on définit tous les graphismes pour les 2 layers
 	m_FloorTiles = bg_map_shop_floorTiles;
 	m_FloorTilesLen = bg_map_shop_floorTilesLen;
 	m_FloorPal = bg_map_shop_floorPal;
@@ -29,7 +29,7 @@ MapShop::MapShop(const MapWarp warp) {
 	m_ColPalLen = bg_map_shop_colPalLen;
 #endif
 
-	// on pointe sur les tableaux globaux de world0 ici donc pas besoin d'allocation m�moire
+	// on pointe sur les tableaux globaux de world0 ici donc pas besoin d'allocation mémoire
 	m_CollisionMap = (unsigned short int *)bg_map_shop_colMap;
 	m_CollisionMapLen = bg_map_shop_colMapLen;
 	m_FloorMap = (unsigned short int *)bg_map_shop_floorMap;
@@ -39,7 +39,7 @@ MapShop::MapShop(const MapWarp warp) {
 	m_AboveMapLen = bg_map_shop_aboveMapLen;
 #endif
 
-	// cr�ation d'un warp Coords(10, 11)
+	// création d'un warp Coords(10, 11)
 	addWarp(MapWarp(MAP_SHOP, MAPSHOP_DOOR, warp.map1, warp.pos1));
 
 	// chargement des graphismes
@@ -48,6 +48,6 @@ MapShop::MapShop(const MapWarp warp) {
 	// on ajoute des PNJ sur la map
 	m_sprites.push_back(AFRODS_MAP_NPC_BAZAR);
 
-	// on charge la position de d�part
+	// on charge la position de départ
 	m_StartingPos = MAPSHOP_DOOR;
 }

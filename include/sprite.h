@@ -10,20 +10,20 @@ namespace AfroDS {
 	class Sprite {
 		public:
 			/**
-			 * Constructeur : crée le sprite
-			 * @param short screen écran à utiliser : SCREEN_MAIN ou SCREEN_SUB
-			 * @param GraphicsSprite sprite sprite à utiliser
+			 * Constructeur : crÃ©e le sprite
+			 * @param short screen Ã©cran Ã  utiliser : SCREEN_MAIN ou SCREEN_SUB
+			 * @param GraphicsSprite sprite sprite Ã  utiliser
 			 */
 			Sprite(short screen, GraphicsSprite sprite);
 
 			/**
 			 * Destructeur : Supprime le sprite
-			 * Il est virtuel pour être appelé par les classes qui héritent de Sprite
+			 * Il est virtuel pour Ãªtre appelÃ© par les classes qui hÃ©ritent de Sprite
 			 */
 			virtual ~Sprite();
 
 			/**
-			 * Met à jour le sprite par rapport à ses paramètres courants avec oamSet()
+			 * Met Ã  jour le sprite par rapport Ã  ses paramÃ¨tres courants avec oamSet()
 			 */
 			void update();
 
@@ -34,7 +34,7 @@ namespace AfroDS {
 			int getPosX() const;
 
 			/**
-			 * Définit la position X
+			 * DÃ©finit la position X
 			 * @param int x position X
 			 */
 			void setPosX(const int x);
@@ -46,13 +46,13 @@ namespace AfroDS {
 			int getPosY() const;
 
 			/**
-			 * Définit la position Y
+			 * DÃ©finit la position Y
 			 * @param int y position Y
 			 */
 			void setPosY(const int y);
 
 			/**
-			 * Renvoie la position avec un type personnalisé
+			 * Renvoie la position avec un type personnalisÃ©
 			 * @return AF_Coords position
 			 */
 			Coords getPos() const;
@@ -63,13 +63,13 @@ namespace AfroDS {
 
 
 			/**
-			 * Définit la position avec un type personnalisé
+			 * DÃ©finit la position avec un type personnalisÃ©
 			 * @param AF_Coords pos position
 			 */
 			void setPos(const Coords pos);
 
 			/**
-			 * Définit les positions de X et Y
+			 * DÃ©finit les positions de X et Y
 			 * @param int x position X
 			 * @param int y position Y
 			 */
@@ -83,22 +83,22 @@ namespace AfroDS {
 
 			/**
 			 * Permet de savoir si un point est dans la zone du sprite
-			 * @param int x coordonnée X
-			 * @param int y coordonnée Y
+			 * @param int x coordonnÃ©e X
+			 * @param int y coordonnÃ©e Y
 			 * @return bool true si le point est dans la zone du sprite
 			 */
 			bool isInZone(int x, int y);
 
 			/**
 			 * Permet de savoir si un point est dans la zone du sprite
-			 * @param Coords zone coordonnées
+			 * @param Coords zone coordonnÃ©es
 			 * @return bool true si le point est dans la zone du sprite
 			 */
 			bool isInZone(Coords zone);
 
 			/**
-			 * Définit la frame courante du sprite
-			 * @param short frame frame à sélectionner
+			 * DÃ©finit la frame courante du sprite
+			 * @param short frame frame Ã  sÃ©lectionner
 			 */
 			void setCurrentFrame(short frame);
 
@@ -109,23 +109,23 @@ namespace AfroDS {
 			short getCurrentFrame();
 
 			/**
-			 * Renvoie le numéro du sprite
-			 * @return short numéro de sprite
+			 * Renvoie le numÃ©ro du sprite
+			 * @return short numÃ©ro de sprite
 			 */
 			short getSpriteNum();
 
 			/**
-			 * Définit la priorité du sprite (le layer sur lequel il est affiché)
-			 * Un sprite est toujours devant un background pour un layer donné.
-			 * Donc les sprites auront par défaut 1 comme priorité pour être derrière
-			 * le background 0 utilisé pour le texte
-			 * @param short priority priorité
+			 * DÃ©finit la prioritÃ© du sprite (le layer sur lequel il est affichÃ©)
+			 * Un sprite est toujours devant un background pour un layer donnÃ©.
+			 * Donc les sprites auront par dÃ©faut 1 comme prioritÃ© pour Ãªtre derriÃ¨re
+			 * le background 0 utilisÃ© pour le texte
+			 * @param short priority prioritÃ©
 			 */
 			void setPriority(short priority);
 
 			/**
-			 * Renvoie la priorité du sprite
-			 * @return short priorité
+			 * Renvoie la prioritÃ© du sprite
+			 * @return short prioritÃ©
 			 */
 			short getPriority();
 
@@ -135,10 +135,10 @@ namespace AfroDS {
 			void blink();
 
 		protected:
-			/** Graphisme alloué par oamAllocateGfx() */
+			/** Graphisme allouÃ© par oamAllocateGfx() */
 			u16* m_gfx;
 
-			/** Numéro de sprite */
+			/** NumÃ©ro de sprite */
 			short m_num_sprite;
 
 			/** Frame actuelle du sprite */
@@ -147,10 +147,10 @@ namespace AfroDS {
 			/** Ecran du sprite, SCREEN_MAIN ou SCREEN_SUB */
 			short m_screen;
 
-			/** Priorité du sprite */
+			/** PrioritÃ© du sprite */
 			short m_priority;
 
-			/** Position du sprite à l'écran */
+			/** Position du sprite Ã  l'Ã©cran */
 			Coords m_pos;
 
 			/** Indique si le sprite est visible ou pas */
@@ -172,7 +172,7 @@ namespace AfroDS {
 			/** Taille de la palette */
 			int m_pal_len;
 
-			/** Numéro de palette */
+			/** NumÃ©ro de palette */
 			int m_pal_num;
 
 	};

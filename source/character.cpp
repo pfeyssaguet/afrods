@@ -10,16 +10,16 @@ Character::Character(const std::string sName) : m_money(0) {
 	// initialisation du nom
 	m_sName = sName;
 
-	// initialisation de l'�quipement vide
+	// initialisation de l'équipement vide
 	for (int i = 0 ; i < SLOT_SIZE ; i++) {
 		m_equipment[(EquipmentSlot)i] = NULL;
 	}
 }
 
 Character::~Character() {
-	// on doit vider l'inventaire et l'�quipement
+	// on doit vider l'inventaire et l'équipement
 
-	// on vide l'�quipement
+	// on vide l'équipement
 	for (int slot = 0 ; slot < SLOT_SIZE ; slot++) {
 		Item * item = getEquipmentItem((EquipmentSlot)slot);
 		if (item != NULL) {
@@ -105,23 +105,23 @@ long Character::XpForNextLevel(const long xp) {
 }
 
 /**
- * M�thode statique utilitaire permettant de traduire un slot
+ * Méthode statique utilitaire permettant de traduire un slot
  * en string pour l'afficher dans le menu (comme un toString() pour
  * l'enum EquipmentSlot)
- * @param EquipmentSlot slot � traduire
- * @return std::string cha�ne de caract�re
+ * @param EquipmentSlot slot à traduire
+ * @return std::string chaîne de caractères
  */
 std::string Character::translateSlot(const EquipmentSlot slot) {
 	return translateSlot(slot, false);
 }
 
 /**
- * M�thode statique utilitaire permettant de traduire un slot
+ * Méthode statique utilitaire permettant de traduire un slot
  * en string pour l'afficher dans le menu (comme un toString() pour
  * l'enum EquipmentSlot)
- * @param EquipmentSlot slot � traduire
+ * @param EquipmentSlot slot à traduire
  * @param const bool shortName pour avoir le nom court
- * @return std::string cha�ne de caract�re
+ * @return std::string chaîne de caractères
  */
 std::string Character::translateSlot(const EquipmentSlot slot, const bool shortName) {
 	switch (slot) {
@@ -205,7 +205,7 @@ std::string Character::getName() const {
 }
 
 /**
- * D�finit le nom du personnage
+ * Définit le nom du personnage
  * @param std::string sName nom du personnage
  */
 void Character::setName(const std::string sName) {
@@ -213,9 +213,9 @@ void Character::setName(const std::string sName) {
 }
 
 /**
- * Ajoute un item dans l'�quipement
- * @param EquipmentSlot slot slot dans lequel �quiper l'item
- * @param Item * item item � �quiper (pointeur)
+ * Ajoute un item dans l'équipement
+ * @param EquipmentSlot slot slot dans lequel équiper l'item
+ * @param Item * item item à équiper (pointeur)
  */
 void Character::addItemToEquipment(const EquipmentSlot slot, Item * item) {
 	if (m_equipment[slot] == NULL) {
@@ -224,9 +224,9 @@ void Character::addItemToEquipment(const EquipmentSlot slot, Item * item) {
 }
 
 /**
- * Renvoie l'item d'�quipement correspondant au slot demand�
- * @param EquipmentSlot slot slot demand�
- * @return Item * item d'�quipement (pointeur)
+ * Renvoie l'item d'équipement correspondant au slot demandé
+ * @param EquipmentSlot slot slot demandé
+ * @return Item * item d'équipement (pointeur)
  */
 Item * Character::getEquipmentItem(const EquipmentSlot slot) const {
 	return m_equipment.find(slot)->second;
@@ -234,24 +234,24 @@ Item * Character::getEquipmentItem(const EquipmentSlot slot) const {
 
 int Character::getBonusAttack() const {
 	/*
-	 * Avec une arme de corps � corps, le bonus d�attaque est �gal � :
-	 * Bonus de base � l�attaque + modificateur de Force
+	 * Avec une arme de corps à corps, le bonus d'attaque est égal à :
+	 * Bonus de base à l'attaque + modificateur de Force
 	 *
-	 * Avec une arme � distance, il devient :
-	 * Bonus de base � l�attaque + modificateur de Dext�rit�
+	 * Avec une arme à distance, il devient :
+	 * Bonus de base à l'attaque + modificateur de Dextérité
 	 */
 	// bonus d'attaque = modificateur de force
 	int bonus;
 
-	// on regarde l'arme utilis�e dans la main droite
+	// on regarde l'arme utilisée dans la main droite
 	if (m_equipment.find(SLOT_RIGHT_WEAPON)->second != NULL) {
 		Item * item = m_equipment.find(SLOT_RIGHT_WEAPON)->second;
 		ItemWeapon * weapon = (ItemWeapon *)item;
 		if (weapon->isRangedWeapon()) {
-			// arme � distance, on prend la dex
+			// arme à distance, on prend la dex
 			bonus = StatModifier(getStats().dexterity);
 		} else {
-			// arme de corps � corps, on prend la force
+			// arme de corps à corps, on prend la force
 			bonus = StatModifier(getStats().force);
 		}
 	} else {
@@ -263,10 +263,10 @@ int Character::getBonusAttack() const {
 }
 
 int Character::getArmorClass() const {
-	// 10 + bonus d�armure + bonus de bouclier + modificateur de Dext�rit�
+	// 10 + bonus d'armure + bonus de bouclier + modificateur de Dextérité
 	int armorClass = 10;
 
-	// on regarde dans les slots d'�quipement d'armure
+	// on regarde dans les slots d'équipement d'armure
 	if (m_equipment.find(SLOT_ARMOR)->second) {
 		Item * item = m_equipment.find(SLOT_ARMOR)->second;
 		ItemArmor * armor = (ItemArmor *)item;
@@ -288,24 +288,24 @@ int Character::getArmorClass() const {
 
 int Character::attack(Character * target) {
 /*
- * Pour effectuer un jet d�attaque, on jette 1d20 auquel on ajoute le bonus d�attaque du personnage.
- * Si le r�sultat final �gale ou d�passe la CA de l�adversaire, le coup touche et inflige des d�g�ts.
- * Coup automatiquement r�ussi ou rat� :
- * - On rate automatiquement son coup sur un 1 naturel (c�est-�-dire au d�, avant modificateur) au jet d�attaque.
- * - De la m�me mani�re, l�attaque passe toujours sur un 20 naturel (� noter que celui-ci est �galement un coup critique possible).
+ * Pour effectuer un jet d'attaque, on jette 1d20 auquel on ajoute le bonus d'attaque du personnage.
+ * Si le résultat final égale ou dépasse la CA de l'adversaire, le coup touche et inflige des dégâts.
+ * Coup automatiquement réussi ou raté :
+ * - On rate automatiquement son coup sur un 1 naturel (c'est-à-dire au dé, avant modificateur) au jet d'attaque.
+ * - De la même manière, l'attaque passe toujours sur un 20 naturel (à noter que celui-ci est également un coup critique possible).
  */
 
 	int damage = 0;
 
 	int dice = RollDice20;
 	if (dice == 1) {
-		// �chec critique
+		// échec critique
 		damage = 0;
 	} else if (dice == 20) {
-		// r�ussite critique
+		// réussite critique
 		damage = rollAttack();
 	} else if (dice + getBonusAttack() >= target->getArmorClass()) {
-		// attaque r�ussie
+		// attaque réussie
 		damage = rollAttack();
 	}
 
@@ -315,7 +315,7 @@ int Character::attack(Character * target) {
 
 /**
  * Ajoute un item dans l'inventaire
- * @param Item item l'item � ajouter
+ * @param Item item l'item à ajouter
  */
 void Character::addItemToInventory(Item * item) {
 	m_inventory.push_back(item);
@@ -330,9 +330,9 @@ unsigned int Character::getInventorySize() const {
 }
 
 /**
- * Renvoie l'item n� N de l'inventaire
- * @param int iNumItem num�ro de l'item � r�cup�rer
- * @return Item item r�cup�r�
+ * Renvoie l'item n° N de l'inventaire
+ * @param int iNumItem numéro de l'item à récupérer
+ * @return Item item récupéré
  */
 Item * Character::getInventoryItem(const int iNumItem) {
 	return getInventoryItem(iNumItem, false);
@@ -353,17 +353,17 @@ void Character::deleteInventoryItem(const int iNumItem) {
 }
 
 /**
- * Equipe un item de l'inventaire si possible, et renvoie true en cas de succ�s
- * @param unsigned int iNumItem num�ro de l'item d'inventaire
- * @return bool false en cas d'�chec
+ * Equipe un item de l'inventaire si possible, et renvoie true en cas de succès
+ * @param unsigned int iNumItem numéro de l'item d'inventaire
+ * @return bool false en cas d'échec
  */
 bool Character::equipItem(const unsigned int iNumItem) {
-	// on v�rifie que l'item existe
+	// on vérifie que l'item existe
 	if (m_inventory.size() <= iNumItem) {
 		return false;
 	}
 
-	// on r�cup�re l'item
+	// on récupére l'item
 	Item * item = m_inventory.at(iNumItem);
 
 	EquipmentSlot slot;
@@ -412,7 +412,7 @@ bool Character::equipItem(const unsigned int iNumItem) {
 			break;
 		default:
 			slot = SLOT_SIZE;
-			// ce slot ne s'�quipe pas, on sort
+			// ce slot ne s'équipe pas, on sort
 			return false;
 			break;
 	}
@@ -429,20 +429,20 @@ bool Character::equipItem(const unsigned int iNumItem) {
 		}
 	}
 
-	// on met le nouvel item � la place
+	// on met le nouvel item à la place
 	m_equipment[slot] = item;
 
 	// on le retire de l'inventaire
 	m_inventory.erase(m_inventory.begin() + iNumItem);
 
-	// on a r�ussi � �quiper l'item donc on renvoie true
+	// on a réussi à équiper l'item donc on renvoie true
 	return true;
 }
 
 /**
- * Retire un item d'�quipement et le remet dans l'inventaire
- * @param EquipmentSlot slot slot d'�quipement � vider
- * @return bool false en cas d'�chec
+ * Retire un item d'équipement et le remet dans l'inventaire
+ * @param EquipmentSlot slot slot d'équipement à vider
+ * @return bool false en cas d'échec
  */
 bool Character::unequipItem(EquipmentSlot slot) {
 	// on doit retirer l'item et le mettre dans l'inventaire
@@ -457,17 +457,17 @@ bool Character::unequipItem(EquipmentSlot slot) {
 	// on supprime l'item
 	m_equipment[slot] = NULL;
 
-	// on a r�ussi � retirer l'item donc on renvoie true
+	// on a réussi à retirer l'item donc on renvoie true
 	return true;
 }
 
 void Character::activateInventoryItem(const unsigned int iNumItem) {
-	// on r�cup�re l'item
+	// on récup_re l'item
 	Item * item = m_inventory.at(iNumItem);
 
 	// on active l'item
 	if (activateItem(item)) {
-		// si l'item est d�truit, on le retire de l'inventaire
+		// si l'item est détruit, on le retire de l'inventaire
 		delete item;
 		m_inventory.erase(m_inventory.begin() + iNumItem);
 	}
@@ -495,7 +495,7 @@ int Character::rollAttack() const {
 
 	// on prend l'arme du slot de droite
 	if (m_equipment.find(SLOT_RIGHT_WEAPON)->second != NULL) {
-		// on r�cup�re l'item et ses stats
+		// on récupère l'item et ses stats
 		Item * item = m_equipment.find(SLOT_RIGHT_WEAPON)->second;
 		ItemWeapon * weapon = (ItemWeapon *) item;
 
@@ -504,7 +504,7 @@ int Character::rollAttack() const {
 
 	// on prend l'arme du slot de gauche
 	if (m_equipment.find(SLOT_LEFT_WEAPON)->second != NULL) {
-		// on r�cup�re l'item et ses stats
+		// on récupère l'item et ses stats
 		Item * item = m_equipment.find(SLOT_LEFT_WEAPON)->second;
 		if (item->isWeapon()) {
 			ItemWeapon * weapon = (ItemWeapon *) item;
@@ -512,7 +512,7 @@ int Character::rollAttack() const {
 		}
 	}
 
-	// TODO gestion des d�g�ts � main nue : pour l'instant 1D3
+	// TODO gestion des dégâts à main nue : pour l'instant 1D3
 	if (m_equipment.find(SLOT_RIGHT_WEAPON)->second == NULL && m_equipment.find(SLOT_LEFT_WEAPON)->second == NULL) {
 		damage = RollDice(3);
 	}

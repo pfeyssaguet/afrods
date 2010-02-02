@@ -14,20 +14,20 @@
 
 namespace AfroDS {
 	/**
-	 * Les diff�rents slots d'�quipement
-	 * - T�te : casque ou chapeau
+	 * Les différents slots d'équipement
+	 * - Tête : casque ou chapeau
 	 * - Dos : cape
 	 * - Corps : armure
 	 * - Main droite : arme
-	 * - Main gauche : bouclier ou indispo si arme � 2 mains
+	 * - Main gauche : bouclier ou indispo si arme à 2 mains
 	 * - Pieds : bottes
 	 * - Mains : gants
 	 * - Doigt droit : anneau
 	 * - Doigt gauche : anneau
 	 * - Cou : amulette
 	 * - Taille : ceinture
-	 * le dernier �l�ment SLOT_SIZE sert � conna�tre le nombre de slots
-	 * ou � indiquer un item sans slot (non �quipable)
+	 * le dernier élément SLOT_SIZE sert à connaître le nombre de slots
+	 * ou à indiquer un item sans slot (non équipable)
 	 */
 	enum EquipmentSlot {
 		SLOT_HELMET,
@@ -41,12 +41,12 @@ namespace AfroDS {
 		SLOT_LEFT_RING,
 		SLOT_NECKLACE,
 		SLOT_BELT,
-		SLOT_SIZE // un faux slot qui permet de compter le nombre de slots, et aussi d'indiquer qu'un item ne s'�quipe pas
+		SLOT_SIZE // un faux slot qui permet de compter le nombre de slots, et aussi d'indiquer qu'un item ne s'équipe pas
 	};
 
 
 	/**
-	 * Repr�sente un personnage
+	 * Représente un personnage
 	 */
 	class Character {
 		public:
@@ -59,7 +59,7 @@ namespace AfroDS {
 			std::string getName() const;
 
 			/**
-			 * D�finit le nom du personnage
+			 * Définit le nom du personnage
 			 * @param std::string sName nom du personnage
 			 */
 			void setName(const std::string sName);
@@ -82,16 +82,16 @@ namespace AfroDS {
 			long getMoney() const;
 
 			/**
-			 * Ajoute un item dans l'�quipement
-			 * @param EquipmentSlot slot slot dans lequel �quiper l'item
-			 * @param Item * item item � �quiper (pointeur)
+			 * Ajoute un item dans l'équipement
+			 * @param EquipmentSlot slot slot dans lequel équiper l'item
+			 * @param Item * item item à équiper (pointeur)
 			 */
 			void addItemToEquipment(const EquipmentSlot slot, Item * item);
 
 			/**
-			 * Renvoie l'item d'�quipement correspondant au slot demand�
-			 * @param EquipmentSlot slot slot demand�
-			 * @return Item * item d'�quipement (pointeur)
+			 * Renvoie l'item d'équipement correspondant au slot demandé
+			 * @param EquipmentSlot slot slot demandé
+			 * @return Item * item d'équipement (pointeur)
 			 */
 			Item * getEquipmentItem(const EquipmentSlot slot) const;
 
@@ -102,14 +102,14 @@ namespace AfroDS {
 
 			/**
 			 * Ajoute un item dans l'inventaire
-			 * @param Item item l'item � ajouter
+			 * @param Item item l'item à ajouter
 			 */
 			void addItemToInventory(Item * item);
 
 			/**
-			 * Renvoie l'item n� N de l'inventaire
-			 * @param int iNumItem num�ro de l'item � r�cup�rer
-			 * @return Item item r�cup�r�
+			 * Renvoie l'item n° N de l'inventaire
+			 * @param int iNumItem numéro de l'item à récupérer
+			 * @return Item item récupéré
 			 */
 			Item * getInventoryItem(const int iNumItem);
 
@@ -124,16 +124,16 @@ namespace AfroDS {
 			unsigned int getInventorySize() const;
 
 			/**
-			 * Equipe un item de l'inventaire si possible, et renvoie true en cas de succ�s
-			 * @param unsigned int iNumItem num�ro de l'item d'inventaire
-			 * @return bool false en cas d'�chec
+			 * Equipe un item de l'inventaire si possible, et renvoie true en cas de succès
+			 * @param unsigned int iNumItem numéro de l'item d'inventaire
+			 * @return bool false en cas d'échec
 			 */
 			bool equipItem(const unsigned int iNumItem);
 
 			/**
-			 * Retire un item d'�quipement et le remet dans l'inventaire
-			 * @param EquipmentSlot slot slot d'�quipement � vider
-			 * @return bool false en cas d'�chec
+			 * Retire un item d'équipement et le remet dans l'inventaire
+			 * @param EquipmentSlot slot slot d'équipement à vider
+			 * @return bool false en cas d'échec
 			 */
 			bool unequipItem(const EquipmentSlot slot);
 
@@ -142,7 +142,7 @@ namespace AfroDS {
 			bool activateItem(Item * item);
 
 			/**
-			 * Renvoie les stats du personnage, avec les bonus et modificateurs appliqu�s
+			 * Renvoie les stats du personnage, avec les bonus et modificateurs appliqués
 			 * @return Stats stats du personnage
 			 */
 			virtual Stats getStats() const = 0;
@@ -150,11 +150,11 @@ namespace AfroDS {
 			virtual int rollAttack() const;
 
 			/**
-			 * M�thode statique utilitaire permettant de traduire un slot
+			 * Méthode statique utilitaire permettant de traduire un slot
 			 * en string pour l'afficher dans le menu (comme un toString() pour
 			 * l'enum EquipmentSlot)
-			 * @param EquipmentSlot slot � traduire
-			 * @return std::string cha�ne de caract�re
+			 * @param EquipmentSlot slot à traduire
+			 * @return std::string chaîne de caractères
 			 */
 			static std::string translateSlot(const EquipmentSlot slot, const bool shortName);
 

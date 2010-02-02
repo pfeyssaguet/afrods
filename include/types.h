@@ -9,11 +9,11 @@
 
 namespace AfroDS {
 	/**
-	 * Structure pour décrire un couple de coordonnées
+	 * Structure pour dÃ©crire un couple de coordonnÃ©es
 	 */
 	struct Coords {
 		/**
-		 * Constructeur par défaut qui initialise les variables à 0
+		 * Constructeur par dÃ©faut qui initialise les variables Ã  0
 		 */
 		Coords() {
 			x = 0;
@@ -21,9 +21,9 @@ namespace AfroDS {
 		}
 
 		/**
-		 * Constructeur avec paramètres
-		 * @param int p_x coordonnée X
-		 * @param int p_y coordonnée Y
+		 * Constructeur avec paramÃ¨tres
+		 * @param int p_x coordonnÃ©e X
+		 * @param int p_y coordonnÃ©e Y
 		 */
 		Coords(const int p_x, const int p_y) {
 			x = p_x;
@@ -57,10 +57,10 @@ namespace AfroDS {
 		int y;
 	};
 
-	/** Structure pour décrire les stats d'un perso */
+	/** Structure pour dÃ©crire les stats d'un perso */
 	struct Stats {
 		/**
-		 * Constructeur par défaut qui initialise les variables à 0
+		 * Constructeur par dÃ©faut qui initialise les variables Ã  0
 		 */
 		Stats() {
 			force = 0;
@@ -72,10 +72,10 @@ namespace AfroDS {
 		}
 
 		/**
-		 * Constructeur avec paramètres
+		 * Constructeur avec paramÃ¨tres
 		 * @param int p_force force
 		 * @param int p_constitution constitution
-		 * @param int p_dexterity dexterité
+		 * @param int p_dexterity dexteritÃ©
 		 * @param int p_wisdom sagesse
 		 * @param int p_charisma charisme
 		 * @param int p_intelligence intelligence

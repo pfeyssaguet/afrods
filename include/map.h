@@ -8,7 +8,7 @@
 #include <nds.h>
 #include <vector>
 
-// nombre de tiles dans la map g�n�r�e
+// nombre de tiles dans la map générée
 #define AFRODS_MAP_GENERATED_X 32
 #define AFRODS_MAP_GENERATED_Y 32
 //#define AFRODS_MAP_GENERATED_X 6
@@ -18,13 +18,13 @@
 #define AFRODS_MAP_MAX_TILES_X 32
 #define AFRODS_MAP_MAX_TILES_Y 32
 
-// d�calage des tiles par rapport � l'�cran
+// décalage des tiles par rapport à l'écran
 #define AFRODS_MAP_OFFSET_PIXELS_X 8
 #define AFRODS_MAP_OFFSET_PIXELS_Y 8
 
-// offset de collision du perso � gauche
+// offset de collision du perso à gauche
 #define AFRODS_MAP_OFFSET_CHAR_LEFT 8
-// offset de collision du perso � droite
+// offset de collision du perso à droite
 #define AFRODS_MAP_OFFSET_CHAR_RIGHT 8
 // offset de collision du perso en haut
 #define AFRODS_MAP_OFFSET_CHAR_TOP 16
@@ -81,19 +81,19 @@ namespace AfroDS {
 			}
 		}
 
-		/** Map de départ */
+		/** Map de dÃ©part */
 		MapType map1;
-		/** Coordonnées de la porte sur la map de départ */
+		/** CoordonnÃ©es de la porte sur la map de dÃ©part */
 		Coords pos1;
 
-		/** Map d'arrivée */
+		/** Map d'arrivÃ©e */
 		MapType map2;
-		/** Coordonnées de la porte sur la map d'arrivée */
+		/** CoordonnÃ©es de la porte sur la map d'arrivÃ©e */
 		Coords pos2;
 	};
 
 	/**
-	 * Structure qui permet de d�finir une tile dans la map
+	 * Structure qui permet de définir une tile dans la map
 	 */
 	struct MapTile {
 		MapTile() {
@@ -164,18 +164,18 @@ namespace AfroDS {
 			virtual ~Map();
 
 			/**
-			 * Affiche la fraction visible de la map � l'�cran,
-			 * en fonction des coordonn�es d'origine (du centre)
+			 * Affiche la fraction visible de la map à l'écran,
+			 * en fonction des coordonnées d'origine (du centre)
 			 */
 			void setVisible();
 			/**
 			 * Chargement des graphismes. Les graphismes doivent
-			 * d'abord avoir �t� d�finis
+			 * d'abord avoir été définis
 			 */
 			void loadGraphics();
 
 			/**
-			 * Renvoie les coordonn�es de d�part du perso dans la map
+			 * Renvoie les coordonnées de départ du perso dans la map
 			 */
 			Coords getStartingPos() const;
 
@@ -195,7 +195,7 @@ namespace AfroDS {
 			int getHeight() const;
 
 			/**
-			 * Renvoie le background allou� par bgInit()
+			 * Renvoie le background alloué par bgInit()
 			 * @return int id du background
 			 */
 			int getBgId() const;
@@ -271,7 +271,7 @@ namespace AfroDS {
 			BgSize m_bgSize;
 
 			/**
-			 * Position de d�part du perso dans la map
+			 * Position de départ du perso dans la map
 			 */
 			Coords m_StartingPos;
 
@@ -282,13 +282,13 @@ namespace AfroDS {
 			unsigned short * m_CollisionMap;
 			int m_CollisionMapLen;
 
-			/** Le tableau qui repr�sente les tiles de la map */
+			/** Le tableau qui représente les tiles de la map */
 			MapTile m_tabTilesFloor[AFRODS_MAP_GENERATED_X][AFRODS_MAP_GENERATED_Y];
 
 			/** Les tiles de l'autre layer */
 			MapTile m_tabTilesAbove[AFRODS_MAP_GENERATED_X][AFRODS_MAP_GENERATED_Y];
 
-			/** Les sprites utilis�s sur la map (NPC ou autres) */
+			/** Les sprites utilisés sur la map (NPC ou autres) */
 			std::vector<MapSprite> m_sprites;
 
 			/** Les warp zones */
@@ -296,7 +296,7 @@ namespace AfroDS {
 		private:
 
 			/**
-			 * D�finit une tile dans la map
+			 * Définit une tile dans la map
 			 * @param s16 x position X de la tile sur la map
 			 * @param s16 y position Y de la tile sur la map
 			 * @param s16 tilex position X de la tile dans le tileset

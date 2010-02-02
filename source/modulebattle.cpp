@@ -11,7 +11,7 @@
 using namespace AfroDS;
 
 ModuleBattle::ModuleBattle(Context * context) : Module(context), m_currentMode(MODE_BATTLE), m_selectedEntry(0) {
-	// cr�ation des 2 backgrounds
+	// création des 2 backgrounds
 	m_bgTop = new Background(SCREEN_MAIN, 3, m_context->getBattleBackground());
 	m_bgBottom = new Background(SCREEN_SUB, 3, BG_BATTLE_BOTTOM);
 
@@ -25,10 +25,10 @@ ModuleBattle::ModuleBattle(Context * context) : Module(context), m_currentMode(M
 	m_spriteFingerTop = new Sprite(SCREEN_MAIN, SPRITE_FINGER);
 	m_spriteFingerTop->setVisible(false);
 
-	// on affiche les joueurs sur la zone � droite
+	// on affiche les joueurs sur la zone à droite
 	showPlayers();
 
-	// cr�ation du perso 1
+	// création du perso 1
 	m_spriteChar1 = new SpriteBattle(SCREEN_MAIN, GraphicsEngine::CharacterClassToGraphicsSprite(m_context->getActiveChar()->getClass(), true));
 	m_spriteChar1->setPos(Coords(32, 112));
 
@@ -88,7 +88,7 @@ void ModuleBattle::moduleEvents() {
 }
 
 void ModuleBattle::initConsoles() {
-	// cr�ation des 3 consoles
+	// création des 3 consoles
 	m_consolePlayer = *(GraphicsEngine::getInstance()->getConsole());
 	m_consoleLog = *(GraphicsEngine::getInstance()->getConsole());
 	m_consoleMenu = *(GraphicsEngine::getInstance()->getConsole());
@@ -121,7 +121,7 @@ void ModuleBattle::doModeBattle() {
 		m_spriteChar1->launchAnim(ANIM_HIT);
 	}
 
-	// Gestion des fl�ches haut et bas pour le menu
+	// Gestion des flèches haut et bas pour le menu
 	if ((keysDown() & KEY_UP && m_selectedEntry > 0) || (keysDown() & KEY_DOWN && m_selectedEntry + 1 < m_menuEntries.size())) {
 		if (keysDown() & KEY_UP && m_selectedEntry > 0) {
 			m_selectedEntry--;
@@ -131,20 +131,20 @@ void ModuleBattle::doModeBattle() {
 			m_selectedEntry++;
 		}
 
-		// on met le doigt sur la ligne s�lectionn�e
+		// on met le doigt sur la ligne sélectionnée
 		m_spriteFingerBottom->setPosY(m_selectedEntry * 8 + 21);
 
-		// si on est en mode Attack on doit en plus g�rer le doigt sur l'�cran du haut
+		// si on est en mode Attack on doit en plus gérer le doigt sur l'écran du haut
 		if (m_currentMenu == MENU_ATTACK || m_currentMenu == MENU_INFO) {
 			selectMonster();
 		}
 	}
 
-	// Gestion de l'action s�lectionn�e quand on appuie sur A
+	// Gestion de l'action sélectionnée quand on appuie sur A
 	if (keysDown() & KEY_A) {
 		if (m_currentMenu == MENU_DEFAULT) {
 			// ici on est sur le menu principal
-			// selon l'option s�lection�e on charge le sous-menu correspondant
+			// selon l'option sélectionée on charge le sous-menu correspondant
 			if (m_menuEntries.at(m_selectedEntry) == MENU_ITEMS_STR) {
 				showMenu(MENU_ITEMS);
 			} else if (m_menuEntries.at(m_selectedEntry) == MENU_ATTACK_STR) {
@@ -155,12 +155,12 @@ void ModuleBattle::doModeBattle() {
 				showMenu(MENU_MAGIC);
 			}
 		} else if (m_currentMenu == MENU_ATTACK) {
-			// action "Attack" sur le mob s�lectionn�
+			// action "Attack" sur le mob sélectionné
 
-			// bcp de choses � faire ici, on isole �a dans la m�thode doActionAttack()
+			// bcp de choses à faire ici, on isole ça dans la méthode doActionAttack()
 			doActionAttack();
 
-			// s'il ne reste plus de mob en vie, on a gagn�
+			// s'il ne reste plus de mob en vie, on a gagné
 			if (m_monstersAlive.empty()) {
 				winBattle();
 				return;
@@ -173,13 +173,13 @@ void ModuleBattle::doModeBattle() {
 				return;
 			}
 
-			// on r�affiche les stats des players
+			// on réaffiche les stats des players
 			showPlayers();
-			// on r�affiche le menu
+			// on réaffiche le menu
 			showMenu(MENU_DEFAULT);
 
 		} else if (m_currentMenu == MENU_INFO) {
-			// action "Info" sur le mob s�lectionn�
+			// action "Info" sur le mob sélectionné
 
 			CharacterMonster * monster = m_monstersAlive.at(m_selectedEntry);
 
@@ -189,7 +189,7 @@ void ModuleBattle::doModeBattle() {
 			addLog("HP:%d/%d", monster->getCurrentHp(), monster->getMaxHp());
 			addLog("MP:%d/%d", monster->getCurrentMp(), monster->getMaxMp());
 			addLog("AB:%d - AC:%d", monster->getBonusAttack(), monster->getArmorClass());
-			// on r�affiche le menu
+			// on réaffiche le menu
 			showMenu(MENU_DEFAULT);
 		}
 	}
@@ -206,7 +206,7 @@ void ModuleBattle::doModeBattle() {
 
 	m_spriteChar1->update();
 
-	// mise � jour des mobs
+	// mise à jour des mobs
 	for (unsigned int i = 0 ; i < m_spriteMonstersAlive.size() ; i++) {
 		Sprite * sprite = m_spriteMonstersAlive.at(i);
 		sprite->update();
@@ -242,13 +242,13 @@ void ModuleBattle::doActionAttack() {
 		// on efface le sprite
 		sprite->setVisible(false);
 		sprite->update();
-		// on le met aussi dans l'autre vector d�di� � �a
+		// on le met aussi dans l'autre vector dédié à ça
 		m_spriteMonstersDead.push_back(sprite);
 		m_spriteMonstersAlive.erase(m_spriteMonstersAlive.begin() + m_selectedEntry);
 
 	} else {
 		damage = monster->attack(m_context->getActiveChar());
-		// le mob attaque � son tour !
+		// le mob attaque à son tour !
 		if (damage > 0) {
 			addLog("%s attacks you for %d damage !", monster->getName().c_str(), damage);
 			// on s'est fait toucher donc on lance l'animation correspondante
@@ -261,7 +261,7 @@ void ModuleBattle::doActionAttack() {
 }
 
 void ModuleBattle::selectMonster() {
-	// on r�cup�re le sprite du monstre attaqu� pour se baser sur sa position
+	// on récupère le sprite du monstre attaqué pour se baser sur sa position
 	Sprite * sprite = m_spriteMonstersAlive.at(m_selectedEntry);
 
 	m_spriteFingerTop->setPos(sprite->getPos() + Coords(-8, 24));
@@ -269,7 +269,7 @@ void ModuleBattle::selectMonster() {
 
 void ModuleBattle::doModeWin() {
 	if (keysDown() & KEY_A) {
-		// on arr�te le module mais on n'en lance pas d'autre,
+		// on arrête le module mais on n'en lance pas d'autre,
 		// on va revenir sur le module Game qui est en pause
 		m_context->resumePausedModule();
 	}
@@ -305,7 +305,7 @@ void ModuleBattle::addLog(const char * text, ...) {
 }
 
 void ModuleBattle::generateMonsters() {
-	// cr�ation des monstres
+	// création des monstres
 /*
 	createMonster(MONSTER_GORILLA);
 	createMonster(MONSTER_DRAGON);
@@ -321,7 +321,7 @@ void ModuleBattle::generateMonsters() {
 	createMonster(MONSTER_FROG);
 	createMonster(MONSTER_FROG);
 */
-	// TODO ModuleBattle num�roter les mobs s'il y en a plusieurs identiques
+	// TODO ModuleBattle numéroter les mobs s'il y en a plusieurs identiques
 
 }
 
@@ -449,7 +449,7 @@ void ModuleBattle::winBattle() {
 
 	m_bgBottom = new Background(SCREEN_SUB, 3, BG_GAME_BOTTOM);
 
-	// d'abord on vide tout l'�cran
+	// d'abord on vide tout l'écran
 	consoleSetWindow(false, 0, 0, 31, 23);
 	iprintf("\x1b[2J");
 

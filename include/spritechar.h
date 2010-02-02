@@ -8,26 +8,26 @@
 
 namespace AfroDS {
 	/**
-	 * Représente les directions dans les animations
+	 * ReprÃ©sente les directions dans les animations
 	 */
 	enum SpriteDirection {DIR_NOTHING = -1, DIR_UP = 0, DIR_RIGHT = 1, DIR_DOWN = 2, DIR_LEFT = 3};
 
 	/**
-	 * Représente un sprite de perso (hérite de Sprite).
-	 * Permet de gérer finement les animations du perso
+	 * ReprÃ©sente un sprite de perso (hÃ©rite de Sprite).
+	 * Permet de gÃ©rer finement les animations du perso
 	 */
 	class SpriteChar : public Sprite {
 		public:
 			/**
-			 * Constructeur : crée un sprite de character sur l'écran demandé
-			 * @param short screen écran : utiliser SCREEN_MAIN ou SCREEN_SUB
+			 * Constructeur : crÃ©e un sprite de character sur l'Ã©cran demandÃ©
+			 * @param short screen Ã©cran : utiliser SCREEN_MAIN ou SCREEN_SUB
 			 */
 			SpriteChar(short screen);
 
 			/**
-			 * Constructeur qui permet d'utiliser un autre graphisme que celui par défaut
-			 * @param short screen écran : utiliser SCREEN_MAIN ou SCREEN_SUB
-			 * @param GraphicsSprite sprite : graphisme à utiliser
+			 * Constructeur qui permet d'utiliser un autre graphisme que celui par dÃ©faut
+			 * @param short screen Ã©cran : utiliser SCREEN_MAIN ou SCREEN_SUB
+			 * @param GraphicsSprite sprite : graphisme Ã  utiliser
 			 */
 			SpriteChar(short screen, GraphicsSprite sprite);
 
@@ -43,19 +43,19 @@ namespace AfroDS {
 			SpriteDirection getCurrentDir();
 
 			/**
-			 * Définit la direction courante
+			 * DÃ©finit la direction courante
 			 * @param SpriteDirection direction
 			 */
 			void setCurrentDir(SpriteDirection direction);
 
 			/**
 			 * Anime le perso avec sa direction courante,
-			 * sur le nombre de frames défini par AFRODS_SPRITECHAR_NB_FRAMES
+			 * sur le nombre de frames dÃ©fini par AFRODS_SPRITECHAR_NB_FRAMES
 			 */
 			void animate();
 
 			/**
-			 * Remet le perso sur l'animation par défaut,
+			 * Remet le perso sur l'animation par dÃ©faut,
 			 * selon sa direction courante
 			 */
 			void setDefaultAnim();

@@ -4,8 +4,8 @@
 using namespace AfroDS;
 
 /**
- * Constructeur : crée un sprite de character sur l'écran demandé
- * @param short screen écran : utiliser SCREEN_MAIN ou SCREEN_SUB
+ * Constructeur : crÃ©e un sprite de character sur l'Ã©cran demandÃ©
+ * @param short screen Ã©cran : utiliser SCREEN_MAIN ou SCREEN_SUB
  */
 SpriteBattle::SpriteBattle(short screen) : Sprite(screen, SPRITE_BATTLE_WARRIOR) {
 	setDefaultAnim();
@@ -32,7 +32,7 @@ SpriteBattleAnim SpriteBattle::getCurrentAnim() {
 
 /**
  * Anime le perso avec sa direction courante,
- * sur le nombre de frames défini par AFRODS_SPRITEBATTLE_NB_FRAMES
+ * sur le nombre de frames dÃ©fini par AFRODS_SPRITEBATTLE_NB_FRAMES
  */
 void SpriteBattle::animate() {
 	// on calcule la frame courante
@@ -40,7 +40,7 @@ void SpriteBattle::animate() {
 	int frame = m_current_anim * AFRODS_SPRITEBATTLE_NB_FRAMES + m_current_frame;
 	u8* offset = (u8*)m_description.tiles + frame * pix_per_frame;
 
-	// on copie la frame en mémoire
+	// on copie la frame en mÃ©moire
 	dmaCopy(offset, m_gfx, pix_per_frame);
 
 	// toutes les X frames on change de frame
@@ -64,7 +64,7 @@ void SpriteBattle::animate() {
 }
 
 /**
- * Remet le perso sur l'animation par défaut,
+ * Remet le perso sur l'animation par dÃ©faut,
  * selon sa direction courante
  */
 void SpriteBattle::setDefaultAnim() {
@@ -90,7 +90,7 @@ void SpriteBattle::launchAnim(SpriteBattleAnim anim) {
 		int frame = m_current_anim * AFRODS_SPRITEBATTLE_NB_FRAMES + m_current_frame;
 		u8* offset = (u8*)m_description.tiles + frame * pix_per_frame;
 
-		// on copie la frame en mémoire
+		// on copie la frame en mÃ©moire
 		dmaCopy(offset, m_gfx, pix_per_frame);
 
 		for (int i = 0 ; i < 10 ; i++) {
