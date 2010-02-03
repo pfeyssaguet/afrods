@@ -13,14 +13,14 @@
 #include <stdarg.h>
 
 // Les différents sous-menus du menu principal
-#define MENU_ATTACK_STR "Attack"
-#define MENU_INFO_STR "Info"
-#define MENU_MAGIC_STR "Magic"
-#define MENU_ITEMS_STR "Items"
+#define MENU_BATTLE_ATTACK_STR "Attack"
+#define MENU_BATTLE_INFO_STR "Info"
+#define MENU_BATTLE_MAGIC_STR "Magic"
+#define MENU_BATTLE_ITEMS_STR "Items"
 
 namespace AfroDS {
 	/** Représente les menus */
-	enum MenuType {MENU_DEFAULT, MENU_ATTACK, MENU_INFO, MENU_MAGIC, MENU_ITEMS};
+	enum MenuBattleType {MENU_BATTLE_DEFAULT, MENU_BATTLE_ATTACK, MENU_BATTLE_INFO, MENU_BATTLE_MAGIC, MENU_BATTLE_ITEMS};
 
 	/**
 	 * Permet de gérer les modes du module ModuleBattle :
@@ -44,7 +44,7 @@ namespace AfroDS {
 			void generateMonsters();
 			void createMonster(MonsterType type);
 			void showPlayers();
-			void showMenu(MenuType menu);
+			void showMenu(MenuBattleType menu);
 			void addLog(const char * text, ...);
 			void winBattle();
 
@@ -54,7 +54,7 @@ namespace AfroDS {
 
 			unsigned int m_selectedEntry;
 
-			MenuType m_currentMenu;
+			MenuBattleType m_currentMenu;
 
 			PrintConsole m_consoleLog;
 			PrintConsole m_consoleMenu;

@@ -34,7 +34,7 @@ ModuleBattle::ModuleBattle(Context * context) : Module(context), m_currentMode(M
 
 	generateMonsters();
 
-	showMenu(MENU_DEFAULT);
+	showMenu(MENU_BATTLE_DEFAULT);
 }
 
 ModuleBattle::~ModuleBattle() {
@@ -135,26 +135,26 @@ void ModuleBattle::doModeBattle() {
 		m_spriteFingerBottom->setPosY(m_selectedEntry * 8 + 21);
 
 		// si on est en mode Attack on doit en plus gérer le doigt sur l'écran du haut
-		if (m_currentMenu == MENU_ATTACK || m_currentMenu == MENU_INFO) {
+		if (m_currentMenu == MENU_BATTLE_ATTACK || m_currentMenu == MENU_BATTLE_INFO) {
 			selectMonster();
 		}
 	}
 
 	// Gestion de l'action sélectionnée quand on appuie sur A
 	if (keysDown() & KEY_A) {
-		if (m_currentMenu == MENU_DEFAULT) {
+		if (m_currentMenu == MENU_BATTLE_DEFAULT) {
 			// ici on est sur le menu principal
 			// selon l'option sélectionée on charge le sous-menu correspondant
-			if (m_menuEntries.at(m_selectedEntry) == MENU_ITEMS_STR) {
-				showMenu(MENU_ITEMS);
-			} else if (m_menuEntries.at(m_selectedEntry) == MENU_ATTACK_STR) {
-				showMenu(MENU_ATTACK);
-			} else if (m_menuEntries.at(m_selectedEntry) == MENU_INFO_STR) {
-				showMenu(MENU_INFO);
-			} else if (m_menuEntries.at(m_selectedEntry) == MENU_MAGIC_STR) {
-				showMenu(MENU_MAGIC);
+			if (m_menuEntries.at(m_selectedEntry) == MENU_BATTLE_ITEMS_STR) {
+				showMenu(MENU_BATTLE_ITEMS);
+			} else if (m_menuEntries.at(m_selectedEntry) == MENU_BATTLE_ATTACK_STR) {
+				showMenu(MENU_BATTLE_ATTACK);
+			} else if (m_menuEntries.at(m_selectedEntry) == MENU_BATTLE_INFO_STR) {
+				showMenu(MENU_BATTLE_INFO);
+			} else if (m_menuEntries.at(m_selectedEntry) == MENU_BATTLE_MAGIC_STR) {
+				showMenu(MENU_BATTLE_MAGIC);
 			}
-		} else if (m_currentMenu == MENU_ATTACK) {
+		} else if (m_currentMenu == MENU_BATTLE_ATTACK) {
 			// action "Attack" sur le mob sélectionné
 
 			// bcp de choses à faire ici, on isole ça dans la méthode doActionAttack()
@@ -176,9 +176,9 @@ void ModuleBattle::doModeBattle() {
 			// on réaffiche les stats des players
 			showPlayers();
 			// on réaffiche le menu
-			showMenu(MENU_DEFAULT);
+			showMenu(MENU_BATTLE_DEFAULT);
 
-		} else if (m_currentMenu == MENU_INFO) {
+		} else if (m_currentMenu == MENU_BATTLE_INFO) {
 			// action "Info" sur le mob sélectionné
 
 			CharacterMonster * monster = m_monstersAlive.at(m_selectedEntry);
@@ -190,17 +190,17 @@ void ModuleBattle::doModeBattle() {
 			addLog("MP:%d/%d", monster->getCurrentMp(), monster->getMaxMp());
 			addLog("AB:%d - AC:%d", monster->getBonusAttack(), monster->getArmorClass());
 			// on réaffiche le menu
-			showMenu(MENU_DEFAULT);
+			showMenu(MENU_BATTLE_DEFAULT);
 		}
 	}
 
 	// B pour sortir d'un menu
 	if (keysDown() & KEY_B) {
-		if (m_currentMenu == MENU_ATTACK) {
+		if (m_currentMenu == MENU_BATTLE_ATTACK) {
 			m_spriteFingerTop->setVisible(false);
 		}
-		if (m_currentMenu == MENU_ATTACK || m_currentMenu == MENU_INFO || m_currentMenu == MENU_ITEMS || m_currentMenu == MENU_MAGIC) {
-			showMenu(MENU_DEFAULT);
+		if (m_currentMenu == MENU_BATTLE_ATTACK || m_currentMenu == MENU_BATTLE_INFO || m_currentMenu == MENU_BATTLE_ITEMS || m_currentMenu == MENU_BATTLE_MAGIC) {
+			showMenu(MENU_BATTLE_DEFAULT);
 		}
 	}
 
@@ -373,7 +373,7 @@ void ModuleBattle::showPlayers() {
 	}
 }
 
-void ModuleBattle::showMenu(MenuType menu) {
+void ModuleBattle::showMenu(MenuBattleType menu) {
 	m_currentMenu = menu;
 
 	consoleSelect(&m_consoleMenu);
@@ -382,20 +382,20 @@ void ModuleBattle::showMenu(MenuType menu) {
 	m_menuEntries.clear();
 
 	switch (m_currentMenu) {
-		case MENU_DEFAULT:
+		case MENU_BATTLE_DEFAULT:
 			iprintf("\x1b[0;5HACTIONS");
-			m_menuEntries.push_back(MENU_ATTACK_STR);
-			m_menuEntries.push_back(MENU_INFO_STR);
+			m_menuEntries.push_back(MENU_BATTLE_ATTACK_STR);
+			m_menuEntries.push_back(MENU_BATTLE_INFO_STR);
 
 			if (m_context->getActiveChar()->hasMagic()) {
-				m_menuEntries.push_back(MENU_MAGIC_STR);
+				m_menuEntries.push_back(MENU_BATTLE_MAGIC_STR);
 			}
-			m_menuEntries.push_back(MENU_ITEMS_STR);
+			m_menuEntries.push_back(MENU_BATTLE_ITEMS_STR);
 			break;
-		case MENU_ATTACK:
-		case MENU_INFO:
+		case MENU_BATTLE_ATTACK:
+		case MENU_BATTLE_INFO:
 			m_selectedEntry = 0;
-			if (m_currentMenu == MENU_INFO) {
+			if (m_currentMenu == MENU_BATTLE_INFO) {
 				iprintf("\x1b[0;5H  INFO");
 			} else {
 				iprintf("\x1b[0;5H ATTACK");
@@ -412,14 +412,14 @@ void ModuleBattle::showMenu(MenuType menu) {
 			selectMonster();
 
 			break;
-		case MENU_ITEMS:
+		case MENU_BATTLE_ITEMS:
 			iprintf("\x1b[0;5H ITEMS");
 			// on affiche le contenu de l'inventaire
 			for (unsigned int i = 0 ; i < m_context->getActiveChar()->getInventorySize() ; i++) {
 				m_menuEntries.push_back(m_context->getActiveChar()->getInventoryItem(i)->getLongName().c_str());
 			}
 			break;
-		case MENU_MAGIC:
+		case MENU_BATTLE_MAGIC:
 			iprintf("\x1b[0;5H MAGIC");
 			break;
 		default:

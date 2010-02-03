@@ -46,6 +46,7 @@ MapShop::MapShop(const MapWarp warp) {
 	loadGraphics();
 
 	// on ajoute des PNJ sur la map
+	// TODO ajout des characters correspondant aux PNJ
 	m_sprites.push_back(AFRODS_MAP_NPC_BAZAR);
 
 	// on charge la position de départ

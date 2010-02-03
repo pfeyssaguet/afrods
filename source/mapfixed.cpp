@@ -56,6 +56,7 @@ MapFixed::MapFixed(const MapWarp warp) : Map() {
 	}
 
 	// on ajoute des PNJ sur la map
+	// TODO ajout des characters correspondant aux PNJ
 	m_sprites.push_back(AFRODS_MAP_NPC_OLDMAN);
 	m_sprites.push_back(AFRODS_MAP_NPC_OLDWOMAN);
 	m_sprites.push_back(AFRODS_MAP_NPC_FROG);

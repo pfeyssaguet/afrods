@@ -383,32 +383,138 @@ void ModuleGame::initShop() {
 	consoleSetWindow(false, 0, 0, 31, 23);
 	iprintf("\x1b[2J");
 
-	consoleSetWindow(&m_consoleMain, 1, 1, 30, 14);
+	consoleSetWindow(&m_consoleMain, 1, 1, 30, AFRODS_GAME_SHOP_NBLINES);
 	consoleSetWindow(&m_consoleDesc, 1, 17, 24, 5);
 	consoleSetWindow(&m_consolePrices, 28, 17, 4, 5);
+
+	showShop(MENU_GAME_DEFAULT);
+}
+
+void ModuleGame::showShop(const MenuGameType menu) {
+	m_shopCurrentMenu = menu;
+
+	consoleSelect(&m_consoleMain);
+	iprintf("\x1b[2J");
+
+	m_shopMenuEntries.clear();
+	m_shopSelectedEntry = 0;
+
+	// TODO refaire le système de menus pour le factoriser avec celui du module battle, celui de l'inventaire, etc
+	switch(m_shopCurrentMenu) {
+		default:
+		case MENU_GAME_DEFAULT:
+			// TODO remplacer par le nom du marchand
+			iprintf("\x1b[0;11HSHOP");
+			m_shopMenuEntries.push_back(MENU_GAME_BUY_STR);
+			m_shopMenuEntries.push_back(MENU_GAME_SELL_STR);
+			m_shopMenuEntries.push_back(MENU_GAME_QUIT_STR);
+
+			for (unsigned int i = 0 ; i < m_shopMenuEntries.size() ; i++) {
+				iprintf("\x1b[%d;1H%s", i+2, m_shopMenuEntries.at(i).c_str());
+				if (i == AFRODS_GAME_SHOP_NBLINES)
+					break;
+			}
+
+			break;
+		case MENU_GAME_SELL:
+			iprintf("\x1b[0;11HSELL");
+			// on parcourt l'inventaire
+			for (unsigned int i = 0 ; i + m_offsetInventory < m_context->getActiveChar()->getInventorySize() ; i++) {
+				Item * item = m_context->getActiveChar()->getInventoryItem(i + m_offsetInventory);
+				std::string sText;
+				sText = char(144 + item->getSmallIcon());
+				sText += item->getLongName();
+				if (sText.size() > 23) {
+					sText = sText.substr(0, 23);
+				}
+
+				iprintf("\x1b[%d;1H%s", i+2, sText.c_str());
+				iprintf("\x1b[%d;26H%ld", i+2, item->getPrice());
+
+				m_shopMenuEntries.push_back(sText);
+				if (i == AFRODS_GAME_SHOP_NBLINES - 1) {
+					break;
+				}
+			}
+
+			break;
+		case MENU_GAME_BUY:
+			iprintf("\x1b[0;12HBUY");
+			break;
+	}
+
+
+	m_spriteFinger->setPos(Coords(0, 21));
+	m_spriteFinger->setVisible(true);
 
 	// la thune
 	consoleSelect(&m_consolePrices);
 	iprintf("\x1b[0;0H%ld", m_context->getActiveChar()->getMoney() / 1000);
 	iprintf("\x1b[3;0H%ld", m_context->getActiveChar()->getMoney() % 1000);
+
+}
+
+void ModuleGame::quitShop() {
+	delete m_bgBottom;
+	m_bgBottom = new Background(SCREEN_SUB, AFRODS_LAYER_GAME_BOTTOM_BG, BG_GAME_BOTTOM);
+	m_spriteIconEquipment->setVisible(true);
+	m_spriteIconInventory->setVisible(true);
+	m_spriteIconOptions->setVisible(true);
+	m_spriteIconQuit->setVisible(true);
+	m_spriteIconStatus->setVisible(true);
+	m_spriteFinger->setVisible(false);
+
+	m_gameMode = MODE_WALK;
+
+	// on vide tout l'écran
+	consoleSetWindow(false, 0, 0, 31, 23);
+	iprintf("\x1b[2J");
+
+	// on remet les consoles
+	consoleSetWindow(&m_consoleMain, 2, 1, 24, 16);
+	consoleSetWindow(&m_consoleDesc, 2, 17, 20, 5);
+
+	showStatus();
 }
 
 void ModuleGame::doModeShop() {
-	// si on appuie sur B, on sort du shop
+	// Gestion des flèches haut et bas pour le menu
+	if ((keysDown() & KEY_UP && m_shopSelectedEntry > 0) || (keysDown() & KEY_DOWN && m_shopSelectedEntry + 1 < m_shopMenuEntries.size())) {
+		if (keysDown() & KEY_UP && m_shopSelectedEntry > 0) {
+			m_shopSelectedEntry--;
+		}
+
+		if (keysDown() & KEY_DOWN && m_shopSelectedEntry + 1 < m_shopMenuEntries.size()) {
+			m_shopSelectedEntry++;
+		}
+
+		// on met le doigt sur la ligne sélectionnée
+		m_spriteFinger->setPosY(m_shopSelectedEntry * 8 + 21);
+	}
+
+	// Gestion de l'action sélectionnée quand on appuie sur A
+	if (keysDown() & KEY_A) {
+		if (m_shopCurrentMenu == MENU_GAME_DEFAULT) {
+			// ici on est sur le menu principal
+			// selon l'option sélectionée on charge le sous-menu correspondant
+			if (m_shopMenuEntries.at(m_shopSelectedEntry) == MENU_GAME_SELL_STR) {
+				showShop(MENU_GAME_SELL);
+			} else if (m_shopMenuEntries.at(m_shopSelectedEntry) == MENU_GAME_BUY_STR) {
+				showShop(MENU_GAME_BUY);
+			} else if (m_shopMenuEntries.at(m_shopSelectedEntry) == MENU_GAME_QUIT_STR) {
+				quitShop();
+			}
+		}
+	}
+
+	// B pour sortir d'un menu
 	if (keysDown() & KEY_B) {
-		delete m_bgBottom;
-		m_bgBottom = new Background(SCREEN_SUB, AFRODS_LAYER_GAME_BOTTOM_BG, BG_GAME_BOTTOM);
-		m_spriteIconEquipment->setVisible(true);
-		m_spriteIconInventory->setVisible(true);
-		m_spriteIconOptions->setVisible(true);
-		m_spriteIconQuit->setVisible(true);
-		m_spriteIconStatus->setVisible(true);
-
-		m_gameMode = MODE_WALK;
-		consoleSetWindow(&m_consoleMain, 2, 1, 24, 16);
-		consoleSetWindow(&m_consoleDesc, 2, 17, 20, 5);
-
-		showStatus();
+		if (m_shopCurrentMenu == MENU_GAME_BUY || m_shopCurrentMenu == MENU_GAME_SELL) {
+			showShop(MENU_GAME_DEFAULT);
+		} else if (m_shopCurrentMenu == MENU_GAME_DEFAULT) {
+			// si on est sur le default on sort
+			quitShop();
+		}
 	}
 }
 

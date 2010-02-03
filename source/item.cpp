@@ -8,10 +8,10 @@ using namespace AfroDS;
 /**
  * Constructeur par défaut
  */
-Item::Item() {
+Item::Item() : m_price(0) {
 }
 
-Item::Item(const std::string sName) : m_sName(sName), m_Type(TYPE_OTHER) {
+Item::Item(const std::string sName) : m_sName(sName), m_Type(TYPE_OTHER), m_price(0) {
 	m_LargeIcon = defaultLargeIcon();
 }
 
@@ -20,14 +20,18 @@ Item::Item(const std::string sName) : m_sName(sName), m_Type(TYPE_OTHER) {
  * @param std::string sName nom de l'item
  * @param ItemType type type de l'item
  */
-Item::Item(const std::string sName, const ItemType type) : m_sName(sName), m_Type(type) {
+Item::Item(const std::string sName, const ItemType type) : m_sName(sName), m_Type(type), m_price(0) {
 	m_LargeIcon = defaultLargeIcon();
 }
 
-Item::Item(const std::string sName, const ItemType type, const ItemLargeIcon largeIcon) : m_sName(sName), m_Type(type), m_LargeIcon(largeIcon) {
+Item::Item(const std::string sName, const ItemType type, const ItemLargeIcon largeIcon) : m_sName(sName), m_Type(type), m_LargeIcon(largeIcon), m_price(0) {
 }
 
-Item::Item(const std::string sName, const ItemType type, int value) : m_sName(sName), m_Type(type), m_value(value) {
+Item::Item(const std::string sName, const ItemType type, const int value) : m_sName(sName), m_Type(type), m_value(value), m_price(0) {
+	m_LargeIcon = defaultLargeIcon();
+}
+
+Item::Item(const std::string sName, const ItemType type, const int value, const int price) : m_sName(sName), m_Type(type), m_value(value), m_price(price) {
 	m_LargeIcon = defaultLargeIcon();
 }
 
@@ -37,11 +41,11 @@ Item::Item(const std::string sName, const ItemType type, int value) : m_sName(sN
  * @param ItemType type type de l'item
  * @param Stats stats bonus de l'item
  */
-Item::Item(const std::string sName, const ItemType type, const Stats stats) : m_sName(sName), m_Type(type), m_statBonus(stats) {
+Item::Item(const std::string sName, const ItemType type, const Stats stats) : m_sName(sName), m_Type(type), m_statBonus(stats), m_price(0) {
 	m_LargeIcon = defaultLargeIcon();
 }
 
-Item::Item(const std::string sName, const ItemType type, const Stats stats, const ItemLargeIcon largeIcon) : m_sName(sName), m_Type(type), m_LargeIcon(largeIcon), m_statBonus(stats) {
+Item::Item(const std::string sName, const ItemType type, const Stats stats, const ItemLargeIcon largeIcon) : m_sName(sName), m_Type(type), m_LargeIcon(largeIcon), m_statBonus(stats), m_price(0) {
 }
 
 ItemLargeIcon Item::defaultLargeIcon() {
@@ -106,6 +110,14 @@ ItemLargeIcon Item::defaultLargeIcon() {
 
 std::string Item::getName() const {
 	return m_sName;
+}
+
+long Item::getPrice() const {
+	return m_price;
+}
+
+void Item::setPrice(const long price) {
+	m_price = price;
 }
 
 /**

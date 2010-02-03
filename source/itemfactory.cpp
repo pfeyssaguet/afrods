@@ -16,8 +16,10 @@ Item * ItemFactory::generateLoot(ItemLoot loot) {
 		case LOOT_SWORD:
 			return new ItemWeapon("Sword", TYPE_WEAPON_SWORD, Coords(1, 6));
 			break;
-		case LOOT_ARTIFACT_SWORD:
-			return new ItemWeapon("Sword of Boulbi", TYPE_WEAPON_SWORD, Stats(2, 0, 12, 0, 0, 0), Coords(1, 10), LARGEICON_SWORD_1);
+		case LOOT_ARTIFACT_SWORD_OF_BOULBI:
+			Item * item = new ItemWeapon("Sword of Boulbi", TYPE_WEAPON_SWORD, Stats(12, 0, 12, 0, 0, 0), Coords(1, 10), LARGEICON_SWORD_1);
+			item->setPrice(3234);
+			return item;
 			break;
 	}
 	return NULL;

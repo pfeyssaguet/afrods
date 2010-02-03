@@ -18,6 +18,15 @@
 // nombre de lignes dans l'inventaire
 #define AFRODS_GAME_INVENTORY_NBLINES 12
 
+#define AFRODS_GAME_SHOP_NBLINES 14
+
+
+// Les différents sous-menus du shop
+#define MENU_GAME_BUY_STR "Buy"
+#define MENU_GAME_SELL_STR "Sell"
+#define MENU_GAME_QUIT_STR "Quit"
+
+
 namespace AfroDS {
 
 	/**
@@ -28,6 +37,8 @@ namespace AfroDS {
 	 * - MODE_EQUIPMENT : mode sélection dans l'équipement
 	 */
 	enum GameMode {MODE_WALK, MODE_INVENTORY, MODE_EQUIPMENT, MODE_SHOP};
+
+	enum MenuGameType {MENU_GAME_DEFAULT, MENU_GAME_BUY, MENU_GAME_SELL, MENU_GAME_QUIT};
 
 	/**
 	 * Classe Module Game
@@ -118,6 +129,10 @@ namespace AfroDS {
 			 */
 			void showEquipment();
 
+			void showShop(const MenuGameType menu);
+
+			void quitShop();
+
 			void updatePositions();
 
 			void battle();
@@ -140,6 +155,12 @@ namespace AfroDS {
 			int m_offsetInventory;
 
 			std::vector<MapWarp> m_doors;
+
+			std::vector<std::string> m_shopMenuEntries;
+
+			MenuGameType m_shopCurrentMenu;
+
+			unsigned int m_shopSelectedEntry;
 
 			/** Représente la map courante dans laquelle évolue le personnage principal */
 			Map * m_activeMap;

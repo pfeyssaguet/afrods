@@ -32,7 +32,6 @@ CharacterMonster::CharacterMonster(MonsterType type) : Character(translateMonste
 			// si le résultat est supérieur ou égal à la chance de looter l'item
 			if (roll >= 100 - loot.chance) {
 				// on le met dans l'inventaire du monstre
-				// FIXME ajout d'item dans l'inventaire du monstre : on perd la vraie nature de l'item à cause de la copie en new Item
 				addItemToInventory(ItemFactory::generateLoot(loot.loot));
 			}
 		}
@@ -60,39 +59,39 @@ void CharacterMonster::initMonsterDescriptions() {
 
 	// -------------- FROG
 	loots.push_back(MonsterLoot(LOOT_SWORD, 50));
-	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD, 100));
+	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI, 100));
 	m_monsterDescriptions[MONSTER_FROG] 			= MonsterDescription("Frog", 				11, 0, Stats(12, 0, 14, 0, 0, 0),   3,   8, loots);
 	loots.erase(loots.begin(), loots.end());
 
 	// -------------- BAT
-	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD, 100));
+	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI, 100));
 	m_monsterDescriptions[MONSTER_BAT] 				= MonsterDescription("Bat", 				12, 0, Stats(15, 0, 18, 0, 0, 0),   5,  12, loots);
 	loots.erase(loots.begin(), loots.end());
 
 	// -------------- OGRE
-	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD, 100));
+	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI, 100));
 	m_monsterDescriptions[MONSTER_OGRE] 			= MonsterDescription("Ogre", 				13, 0, Stats(16, 0, 12, 0, 0, 0),  10,  25, loots);
 	loots.erase(loots.begin(), loots.end());
 
 	// -------------- KNIGHT
-	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD, 100));
+	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI, 100));
 	m_monsterDescriptions[MONSTER_KNIGHT] 			= MonsterDescription("Knight", 				15, 0, Stats(17, 0, 16, 0, 0, 0),  12,  30, loots);
 	loots.erase(loots.begin(), loots.end());
 
 	// -------------- EARTH ELEMENTAL
-	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD, 100));
+	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI, 100));
 	m_monsterDescriptions[MONSTER_EARTH_ELEMENTAL] 	= MonsterDescription("Earth Elemental", 	17, 0, Stats(13, 0,  6, 0, 0, 0),  12,  40, loots);
 	loots.erase(loots.begin(), loots.end());
 
 	// -------------- GORILLA
-	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD, 100));
+	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI, 100));
 	m_monsterDescriptions[MONSTER_GORILLA] 			= MonsterDescription("Gorilla", 			22, 0, Stats(17, 0, 18, 0, 0, 0),  30,  75, loots);
 	loots.erase(loots.begin(), loots.end());
 
 	// -------------- DRAGON
 	loots.push_back(MonsterLoot(LOOT_POTION_HEAL, 80));
 	loots.push_back(MonsterLoot(LOOT_POTION_MANA, 80));
-	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD, 100));
+	loots.push_back(MonsterLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI, 100));
 	m_monsterDescriptions[MONSTER_DRAGON] 			= MonsterDescription("Dragon", 				50, 0, Stats(20, 0, 18, 0, 0, 0), 100, 300, loots);
 }
 

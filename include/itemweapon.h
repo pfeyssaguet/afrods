@@ -11,8 +11,10 @@ namespace AfroDS {
 
 			ItemWeapon(const std::string sName, const ItemType type, const Coords dice, const ItemLargeIcon largeIcon);
 
+			// TODO inverser les paramètres stats et dice dans ce constructeur
 			ItemWeapon(const std::string sName, const ItemType type, const Stats stats, const Coords dice);
 
+			// TODO inverser les paramètres stats et dice dans ce constructeur
 			ItemWeapon(const std::string sName, const ItemType type, const Stats stats, const Coords dice, const ItemLargeIcon largeIcon);
 
 			int rollDamage() const;
