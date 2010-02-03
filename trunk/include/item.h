@@ -86,7 +86,9 @@ namespace AfroDS {
 			 */
 			Item(const std::string sName, const ItemType type, const Stats stats);
 
-			Item(const std::string sName, const ItemType type, int value);
+			Item(const std::string sName, const ItemType type, const int value);
+
+			Item(const std::string sName, const ItemType type, const int value, const int price);
 
 			Item(const std::string sName, const ItemType type, const Stats stats, const ItemLargeIcon largeIcon);
 
@@ -124,6 +126,9 @@ namespace AfroDS {
 
 			ItemLargeIcon getLargeIcon() const;
 
+			long getPrice() const;
+			void setPrice(const long price);
+
 			/**
 			 * Renvoie le nom de l'item
 			 * @return std::string nom de l'item
@@ -147,6 +152,9 @@ namespace AfroDS {
 
 			/** Valeur numérique de l'item, dans le cas d'une potion.. */
 			int m_value;
+
+			/** Prix */
+			long m_price;
 
 		private:
 			ItemLargeIcon defaultLargeIcon();

@@ -142,6 +142,11 @@ Map::~Map() {
 		delete m_sprites.at(0).sprite;
 		m_sprites.erase(m_sprites.begin());
 	}
+
+	while (!m_npc.empty()) {
+		delete m_npc.at(0);
+		m_npc.erase(m_npc.begin());
+	}
 }
 
 void Map::update() {

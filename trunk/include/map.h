@@ -288,6 +288,9 @@ namespace AfroDS {
 			/** Les tiles de l'autre layer */
 			MapTile m_tabTilesAbove[AFRODS_MAP_GENERATED_X][AFRODS_MAP_GENERATED_Y];
 
+			/** Les NPC */
+			std::vector<Character *> m_npc;
+
 			/** Les sprites utilisés sur la map (NPC ou autres) */
 			std::vector<MapSprite> m_sprites;
 

@@ -1,6 +1,8 @@
 #include "save.h"
+#include "itemfactory.h"
 #include "itemweapon.h"
 #include "itemarmor.h"
+
 #include "constants.h"
 #include <fat.h>
 
@@ -68,10 +70,10 @@ CharacterPlayer * Save::getCharacter(int iNumPerso) {
  */
 CharacterPlayer * Save::getDemoCharacter() {
 	CharacterPlayer * deuspi = new CharacterPlayer("deuspi");
-	deuspi->addItemToInventory(new Item("Heal Potion", TYPE_POTION_HEAL, 20));
-	deuspi->addItemToInventory(new Item("Poil de uque"));
+	deuspi->addItemToInventory(new Item("Heal Potion", TYPE_POTION_HEAL, 20, 30));
+	deuspi->addItemToInventory(new Item("Poil de uque", TYPE_OTHER, 0, 1));
 	deuspi->addItemToInventory(new ItemWeapon("Shortbow", TYPE_RANGEDWEAPON, Coords(1, 6)));
-	deuspi->addItemToInventory(new ItemWeapon("Sword of Boulbi", TYPE_WEAPON_SWORD, Stats(2, 0, 12, 0, 0, 0), Coords(1, 10), LARGEICON_SWORD_1));
+	deuspi->addItemToInventory(ItemFactory::generateLoot(LOOT_ARTIFACT_SWORD_OF_BOULBI));
 	deuspi->addItemToInventory(new ItemArmor("Leather armor", TYPE_ARMOR, 2));
 	//deuspi->addItemToInventory(new ItemWeapon("Dagger", TYPE_WEAPON_DAGGER, Stats(1, 0, 2, 0, 0, 0), Coords(1, 4)));
 	//deuspi->addItemToInventory(new ItemWeapon("Greatsword", TYPE_LARGEWEAPON, Coords(2, 6)));
