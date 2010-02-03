@@ -5,7 +5,6 @@
 #include "modulegame.h"
 #include "modulebattle.h"
 #include "modulegameover.h"
-#include "moduleshop.h"
 
 using namespace AfroDS;
 
@@ -31,9 +30,6 @@ Module * ModuleFactory::loadModule(Context * context, const ModuleType type) {
 			break;
 		case MODULE_GAMEOVER:
 			return new ModuleGameover(context);
-			break;
-		case MODULE_SHOP:
-			return new ModuleShop(context);
 			break;
 		default:
 		case MODULE_NONE:
