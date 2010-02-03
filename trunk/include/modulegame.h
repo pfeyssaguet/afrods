@@ -27,7 +27,7 @@ namespace AfroDS {
 	 * - MODE_INVENTORY : mode sélection dans l'inventaire
 	 * - MODE_EQUIPMENT : mode sélection dans l'équipement
 	 */
-	enum GameMode {MODE_WALK, MODE_INVENTORY, MODE_EQUIPMENT};
+	enum GameMode {MODE_WALK, MODE_INVENTORY, MODE_EQUIPMENT, MODE_SHOP};
 
 	/**
 	 * Classe Module Game
@@ -99,6 +99,10 @@ namespace AfroDS {
 			 */
 			void doModeSelection();
 
+			void initShop();
+
+			void doModeShop();
+
 			/**
 			 * Affiche les stats du personnage. Correspond à l'icône "Status" du menu
 			 */
@@ -123,6 +127,8 @@ namespace AfroDS {
 
 			/** Console de description */
 			PrintConsole m_consoleDesc;
+
+			PrintConsole m_consolePrices;
 
 			/** Le mode actuel */
 			GameMode m_gameMode;

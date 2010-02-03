@@ -29,10 +29,11 @@ ModuleGame::ModuleGame(Context * context) : Module(context), m_gameMode(MODE_WAL
  * Destructeur du module, supprime tous les sprites et backgrounds
  */
 ModuleGame::~ModuleGame() {
+	// on vide tout l'écran
+	consoleSetWindow(false, 0, 0, 31, 23);
+	iprintf("\x1b[2J");
 	// suppression du bg
 	delete m_bgBottom;
-	// on efface l'écran
-	iprintf("\x1b[2J");
 
 	// suppression des sprites
 	delete m_spritePlayer;
@@ -59,6 +60,9 @@ void ModuleGame::moduleEvents() {
 				// si doModeWalk() renvoie false ça veut dire qu'on a quitté le module, il a donc été delete
 				return;
 			}
+			break;
+		case MODE_SHOP:
+			doModeShop();
 			break;
 		case MODE_INVENTORY:
 			doModeSelection();
@@ -352,10 +356,58 @@ bool ModuleGame::doModeWalk() {
 		battle();
 	}
 
+	// pour l'instant on lance un shop en appuyant sur Y
+	if (keysDown() & KEY_Y) {
+		initShop();
+	}
+
 	// Déplacement du personnage
 	moveChar();
 
 	return true;
+}
+
+void ModuleGame::initShop() {
+	// on change de background
+	delete m_bgBottom;
+	m_bgBottom = new Background(SCREEN_SUB, 3, BG_SHOP_BOTTOM);
+	m_spriteIconEquipment->setVisible(false);
+	m_spriteIconInventory->setVisible(false);
+	m_spriteIconOptions->setVisible(false);
+	m_spriteIconQuit->setVisible(false);
+	m_spriteIconStatus->setVisible(false);
+
+	m_gameMode = MODE_SHOP;
+
+	// on vide tout l'écran
+	consoleSetWindow(false, 0, 0, 31, 23);
+	iprintf("\x1b[2J");
+
+	consoleSetWindow(&m_consoleMain, 1, 1, 30, 14);
+	consoleSetWindow(&m_consoleDesc, 1, 16, 24, 5);
+	consoleSetWindow(&m_consolePrices, 27, 16, 4, 5);
+
+	// on se met sur la console principale
+	consoleSelect(&m_consoleMain);
+}
+
+void ModuleGame::doModeShop() {
+	// si on appuie sur B, on sort du shop
+	if (keysDown() & KEY_B) {
+		delete m_bgBottom;
+		m_bgBottom = new Background(SCREEN_SUB, AFRODS_LAYER_GAME_BOTTOM_BG, BG_GAME_BOTTOM);
+		m_spriteIconEquipment->setVisible(true);
+		m_spriteIconInventory->setVisible(true);
+		m_spriteIconOptions->setVisible(true);
+		m_spriteIconQuit->setVisible(true);
+		m_spriteIconStatus->setVisible(true);
+
+		m_gameMode = MODE_WALK;
+		consoleSetWindow(&m_consoleMain, 2, 1, 24, 16);
+		consoleSetWindow(&m_consoleDesc, 2, 17, 20, 5);
+
+		showStatus();
+	}
 }
 
 /**
@@ -403,6 +455,7 @@ void ModuleGame::initConsoles() {
 	// création des consoles
 	m_consoleMain = *(GraphicsEngine::getInstance()->getConsole());
 	m_consoleDesc = *(GraphicsEngine::getInstance()->getConsole());
+	m_consolePrices = *(GraphicsEngine::getInstance()->getConsole());
 
 	consoleSetWindow(&m_consoleMain, 2, 1, 24, 16);
 	consoleSetWindow(&m_consoleDesc, 2, 17, 20, 5);
