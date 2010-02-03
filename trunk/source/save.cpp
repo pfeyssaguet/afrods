@@ -96,6 +96,7 @@ CharacterPlayer * Save::getDemoCharacter() {
 	deuspi->addItemToEquipment(SLOT_BELT, new Item("Belt", TYPE_BELT));
 	deuspi->addItemToEquipment(SLOT_NECKLACE, new Item("Necklace", TYPE_NECKLACE));
 
+	deuspi->addMoney(564941);
 	return deuspi;
 }
 

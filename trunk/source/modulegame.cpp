@@ -384,11 +384,13 @@ void ModuleGame::initShop() {
 	iprintf("\x1b[2J");
 
 	consoleSetWindow(&m_consoleMain, 1, 1, 30, 14);
-	consoleSetWindow(&m_consoleDesc, 1, 16, 24, 5);
-	consoleSetWindow(&m_consolePrices, 27, 16, 4, 5);
+	consoleSetWindow(&m_consoleDesc, 1, 17, 24, 5);
+	consoleSetWindow(&m_consolePrices, 28, 17, 4, 5);
 
-	// on se met sur la console principale
-	consoleSelect(&m_consoleMain);
+	// la thune
+	consoleSelect(&m_consolePrices);
+	iprintf("\x1b[0;0H%ld", m_context->getActiveChar()->getMoney() / 1000);
+	iprintf("\x1b[3;0H%ld", m_context->getActiveChar()->getMoney() % 1000);
 }
 
 void ModuleGame::doModeShop() {
