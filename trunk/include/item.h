@@ -122,6 +122,8 @@ namespace AfroDS {
 
 			bool isArmor() const;
 
+			bool isEquipable() const;
+
 			ItemSmallIcon getSmallIcon() const;
 
 			ItemLargeIcon getLargeIcon() const;

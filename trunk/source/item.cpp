@@ -186,6 +186,31 @@ bool Item::isArmor() const {
 	return false;
 }
 
+bool Item::isEquipable() const {
+	switch (m_Type) {
+		case TYPE_WEAPON_SWORD:
+		case TYPE_WEAPON_AXE:
+		case TYPE_WEAPON_DAGGER:
+		case TYPE_WEAPON_HAMMER:
+		case TYPE_LARGEWEAPON:
+		case TYPE_RANGEDWEAPON:
+		case TYPE_ARMOR:
+		case TYPE_SHIELD:
+		case TYPE_BOOTS:
+		case TYPE_CLOAK:
+		case TYPE_GLOVES:
+		case TYPE_HELMET:
+		case TYPE_RING:
+		case TYPE_NECKLACE:
+		case TYPE_BELT:
+			return true;
+			break;
+		default:
+			break;
+	}
+	return false;
+}
+
 ItemLargeIcon Item::getLargeIcon() const {
 	return m_LargeIcon;
 }
