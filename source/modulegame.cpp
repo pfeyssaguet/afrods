@@ -250,8 +250,8 @@ void ModuleGame::doModeSelection() {
 			// on récupère l'item
 			Item * item = m_context->getActiveChar()->getInventoryItem(m_selectedEntry);
 
-			// si c'est une arme ou armure, on équipe l'item
-			if (item->isArmor() || item->isWeapon()) {
+			// si c'est un item qui s'équipe
+			if (item->isEquipable()) {
 				if (m_context->getActiveChar()->equipItem(m_selectedEntry)) {
 					// si on était sur le dernier élément, on remonte d'un cran
 					if (m_selectedEntry > 0 && m_selectedEntry == m_context->getActiveChar()->getInventorySize()) {
