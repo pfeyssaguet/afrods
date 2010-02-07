@@ -255,7 +255,7 @@ Coords MapGenerated::findFreePos() {
 }
 
 void MapGenerated::generateWarps(const MapWarp initWarp) {
-	// on rÃ©cupÃ¨re une position pour la porte d'entrÃ©e
+	// on récupère une position pour la porte d'entrée
 	Coords pos = findFreePos();
 
 	if (s_depth == 0) {
@@ -267,10 +267,10 @@ void MapGenerated::generateWarps(const MapWarp initWarp) {
 	}
 	m_tabTilesFloor[pos.x][pos.y].warp = true;
 
-	// on se place sur la position de la 1Ã¨re porte
+	// on se place sur la position de la 1ère porte
 	m_StartingPos = pos;
 
-	// on gÃ©nÃ¨re un escalier qui descend
+	// on génère un escalier qui descend
 	pos = findFreePos();
 	if (s_depth == 0) {
 		addWarp(MapWarp(MAP_GENERATED, pos, MAP_GENERATED));
