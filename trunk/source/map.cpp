@@ -321,11 +321,11 @@ void Map::addWarp(const MapWarp warp) {
 
 MapWarp Map::findWarp(const Coords coords) const {
 	MapWarp warp;
-	// on parcourt les warps pour chercher celui qui correspond aux coordonnÃ©es
+	// on parcourt les warps pour chercher celui qui correspond aux coordonnées
 	for (unsigned int i = 0 ; i < m_warps.size() ; i++) {
 		warp = m_warps.at(i);
 
-		// si les coordonnÃ©es sont identiques on renvoie le warp
+		// si les coordonnées sont identiques on renvoie le warp
 		if (warp.pos1 == coords) {
 			return warp;
 		}

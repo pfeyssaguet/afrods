@@ -81,14 +81,14 @@ namespace AfroDS {
 			}
 		}
 
-		/** Map de dÃ©part */
+		/** Map de départ */
 		MapType map1;
-		/** CoordonnÃ©es de la porte sur la map de dÃ©part */
+		/** Coordonnées de la porte sur la map de départ */
 		Coords pos1;
 
-		/** Map d'arrivÃ©e */
+		/** Map d'arrivée */
 		MapType map2;
-		/** CoordonnÃ©es de la porte sur la map d'arrivÃ©e */
+		/** Coordonnées de la porte sur la map d'arrivée */
 		Coords pos2;
 	};
 

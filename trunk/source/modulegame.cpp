@@ -94,11 +94,11 @@ void ModuleGame::modulePause() {
 
 	// Masquage des sprites
 
-	// Ã©cran du haut
+	// écran du haut
 	m_spritePlayer->setVisible(false);
 	m_activeMap->setVisible(false);
 
-	// Ã©cran du bas
+	// écran du bas
 	m_spriteIconStatus->setVisible(false);
 	m_spriteIconInventory->setVisible(false);
 	m_spriteIconEquipment->setVisible(false);
@@ -109,11 +109,11 @@ void ModuleGame::modulePause() {
 
 	// Mise à jour des sprites
 
-	// Ã©cran du haut
+	// écran du haut
 	m_spritePlayer->update();
 	m_activeMap->update();
 
-	// Ã©cran du bas
+	// écran du bas
 	m_spriteIconStatus->update();
 	m_spriteIconInventory->update();
 	m_spriteIconEquipment->update();
@@ -595,7 +595,7 @@ void ModuleGame::initWorld(MapWarp warp) {
 	// on place le perso sur la position de départ de la map
 	Coords coords;
 	if (warp.pos2 == Coords(0, 0)) {
-		// si la position du perso n'Ã©tait pas initialisÃ©e, on prend la position de dÃ©part "absolue" de la map
+		// si la position du perso n'était pas initialisée, on prend la position de départ "absolue" de la map
 		coords = m_activeMap->getStartingPos();
 	} else {
 		// sinon on prend la position du warp
@@ -716,7 +716,8 @@ void ModuleGame::moveChar() {
 		}
 	}
 
-	if (/*hasMoved*/ keysUp() & KEY_A) {
+	// gestion des warps
+	if (keysUp() & KEY_A) {
 		if (m_activeMap->isOnWarp(m_context->getActiveChar()->getPos())) {
 			// calcul de la tile du perso
 			Coords coordsPerso = m_context->getActiveChar()->getPos();
