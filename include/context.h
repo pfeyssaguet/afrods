@@ -4,7 +4,7 @@
 #include "module.h"
 #include "modulefactory.h"
 #include "graphicsengine.h"
-#include "characterplayer.h"
+#include "creatureplayer.h"
 
 
 namespace AfroDS {
@@ -12,9 +12,9 @@ namespace AfroDS {
 		public:
 			Context();
 			GraphicsBackground getBattleBackground() const;
-			CharacterPlayer * getActiveChar() const;
+			CreaturePlayer * getActiveChar() const;
 			void setBattleBackground(const GraphicsBackground background);
-			void setActiveChar(CharacterPlayer * player);
+			void setActiveChar(CreaturePlayer * player);
 			void setPausedModule(Module * module);
 			void runModule(const ModuleType type);
 			void moduleEvents();
@@ -22,7 +22,7 @@ namespace AfroDS {
 			void resumePausedModule();
 		private:
 			/** Le personnage sélectionné */
-			CharacterPlayer * m_ActiveChar;
+			CreaturePlayer * m_ActiveChar;
 
 			GraphicsBackground m_BattleBackground;
 

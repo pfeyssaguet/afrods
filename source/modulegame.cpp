@@ -123,6 +123,8 @@ void ModuleGame::modulePause() {
 }
 
 void ModuleGame::moduleResume() {
+	// FIXME si on revient du module Battle, le sprite du perso part en vrille (sauf sur la map world0)
+
 	// chargement du background du bas
 	m_bgBottom = new Background(SCREEN_SUB, AFRODS_LAYER_GAME_BOTTOM_BG, BG_GAME_BOTTOM);
 
@@ -232,7 +234,7 @@ void ModuleGame::doModeSelection() {
 				iprintf("%s", item->getDescription().c_str());
 			}
 		} else if (m_gameMode == MODE_EQUIPMENT) {
-			iprintf("Slot : %s\n", Character::translateSlot((EquipmentSlot)m_selectedEntry).c_str());
+			iprintf("Slot : %s\n", Creature::translateSlot((EquipmentSlot)m_selectedEntry).c_str());
 			Item * item = m_context->getActiveChar()->getEquipmentItem((EquipmentSlot)m_selectedEntry);
 			if (item != NULL) {
 				m_spriteSelectedItem->setCurrentFrame(item->getLargeIcon());
@@ -587,7 +589,7 @@ void ModuleGame::initWorld(MapWarp warp) {
 
 	// on crée le sprite du perso à l'écran
 	if (m_spritePlayer == NULL) {
-		m_spritePlayer = new SpriteChar(SCREEN_MAIN, GraphicsEngine::CharacterClassToGraphicsSprite(m_context->getActiveChar()->getClass(), false));
+		m_spritePlayer = new SpriteChar(SCREEN_MAIN, GraphicsEngine::CreatureClassToGraphicsSprite(m_context->getActiveChar()->getJob(), false));
 	}
 
 	// on place le perso sur la position de départ de la map
@@ -696,6 +698,7 @@ void ModuleGame::moveChar() {
 			sprtDir = DIR_RIGHT;
 		}
 
+		// FIXME gérer le déplacement en case par case et non en pixel par pixel
 		if (sprtDir != DIR_NOTHING) {
 			m_spritePlayer->setCurrentDir(sprtDir);
 			m_spritePlayer->animate();
@@ -766,11 +769,8 @@ void ModuleGame::showStatus() {
 	// nom du perso
 	iprintf("Name : %s\n", m_context->getActiveChar()->getName().c_str());
 
-	// Classe
-	//iprintf("Class : %s\n", CharacterPlayer::translateClass(m_context->getActiveChar()->getClass()).c_str());
-
 	// Classe et Level
-	iprintf("%s Level %d\n", CharacterPlayer::translateClass(m_context->getActiveChar()->getClass()).c_str(), m_context->getActiveChar()->getLevel());
+	iprintf("%s Level %d\n", CreaturePlayer::translateJob(m_context->getActiveChar()->getJob()).c_str(), m_context->getActiveChar()->getLevel());
 
 	// XP
 	iprintf("EXP : %ld\n", m_context->getActiveChar()->getExperience());
@@ -807,7 +807,7 @@ void ModuleGame::showStatus() {
 	iprintf("\x1b[10;11HAC : %d", m_context->getActiveChar()->getArmorClass());
 
 	// XP NEXT
-	iprintf("\x1b[4;11HNEXT : %ld", Character::XpForNextLevel(m_context->getActiveChar()->getExperience()));
+	iprintf("\x1b[4;11HNEXT : %ld", Creature::XpForNextLevel(m_context->getActiveChar()->getExperience()));
 }
 
 /**
@@ -869,7 +869,7 @@ void ModuleGame::showEquipment() {
 		EquipmentSlot slot = (EquipmentSlot)i;
 		Item * item = m_context->getActiveChar()->getEquipmentItem(slot);
 
-		std::string sText = Character::translateSlot(slot, true) + ":";
+		std::string sText = Creature::translateSlot(slot, true) + ":";
 
 		if (item != NULL) {
 			sText += char(144 + item->getSmallIcon());
@@ -886,7 +886,7 @@ void ModuleGame::showEquipment() {
 	if (m_gameMode != MODE_WALK) {
 		consoleSelect(&m_consoleDesc);
 		iprintf("\x1b[2J");
-		iprintf("Slot : %s\n", Character::translateSlot((EquipmentSlot)m_selectedEntry).c_str());
+		iprintf("Slot : %s\n", Creature::translateSlot((EquipmentSlot)m_selectedEntry).c_str());
 		Item * item = m_context->getActiveChar()->getEquipmentItem((EquipmentSlot)m_selectedEntry);
 		if (item != NULL) {
 			m_spriteSelectedItem->setCurrentFrame(item->getLargeIcon());

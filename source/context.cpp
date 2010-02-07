@@ -10,7 +10,7 @@ GraphicsBackground Context::getBattleBackground() const {
 	return m_BattleBackground;
 }
 
-CharacterPlayer * Context::getActiveChar() const {
+CreaturePlayer * Context::getActiveChar() const {
 	return m_ActiveChar;
 }
 
@@ -18,7 +18,7 @@ void Context::setBattleBackground(const GraphicsBackground background) {
 	m_BattleBackground = background;
 }
 
-void Context::setActiveChar(CharacterPlayer * player) {
+void Context::setActiveChar(CreaturePlayer * player) {
 	if (m_ActiveChar != NULL) {
 		delete m_ActiveChar;
 	}

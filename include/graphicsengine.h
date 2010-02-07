@@ -1,8 +1,8 @@
 #ifndef __GRAPHICSENGINE_H__
 #define __GRAPHICSENGINE_H__
 
-#include "characterplayer.h"
-#include "charactermonster.h"
+#include "creatureplayer.h"
+#include "creaturemonster.h"
 
 // includes standards
 #include <nds.h>
@@ -126,13 +126,13 @@ namespace AfroDS {
 
 			/**
 			 * Renvoie un sprite correspondant à la classe de personnage demandée, en mode battle ou en mode normal
-			 * TODO déplacer cette méthode GraphicsEngine::CharacterClassToGraphicsSprite pour virer la dépendance à characterplayer.h
+			 * TODO déplacer cette méthode GraphicsEngine::CreatureClassToGraphicsSprite pour virer la dépendance à characterplayer.h
 			 *
-			 * @param const CharacterClass charClass classe de personnage demandée
+			 * @param const CreatureClass charClass classe de personnage demandée
 			 * @param const bool battle true pour avoir le sprite en mode Battle
 			 * @return GraphicsSprite sprite demandé
 			 */
-			static GraphicsSprite CharacterClassToGraphicsSprite(const CharacterClass charClass, const bool battle);
+			static GraphicsSprite CreatureClassToGraphicsSprite(const Job charClass, const bool battle);
 
 			BackgroundDescription getBackgroundDescription(const GraphicsBackground background) const;
 			SpriteDescription getSpriteDescription(const GraphicsSprite sprite) const;

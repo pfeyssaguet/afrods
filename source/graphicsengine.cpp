@@ -159,48 +159,48 @@ GraphicsSprite GraphicsEngine::MonsterTypeToGraphicsSprite(MonsterType type) {
 
 /**
  * Renvoie un sprite correspondant à la classe de personnage demandée, en mode battle ou en mode normal
- * TODO déplacer cette méthode GraphicsEngine::CharacterClassToGraphicsSprite pour virer la dépendance à characterplayer.h
+ * TODO déplacer cette méthode GraphicsEngine::CreatureClassToGraphicsSprite pour virer la dépendance à characterplayer.h
  *
- * @param const CharacterClass charClass classe de personnage demandée
+ * @param const CreatureClass charClass classe de personnage demandée
  * @param const bool battle true pour avoir le sprite en mode Battle
  * @return GraphicsSprite sprite demandé
  */
-GraphicsSprite GraphicsEngine::CharacterClassToGraphicsSprite(CharacterClass charClass, bool battle) {
+GraphicsSprite GraphicsEngine::CreatureClassToGraphicsSprite(Job charClass, bool battle) {
 	if (battle) {
 		// on retourne les sprites du mode Battle
 		switch (charClass) {
-			case CLASS_WARRIOR:
+			case JOB_WARRIOR:
 				return SPRITE_BATTLE_WARRIOR;
 				break;
-			case CLASS_WIZARD:
+			case JOB_WIZARD:
 				return SPRITE_BATTLE_WIZARD;
 				break;
-			case CLASS_RANGER:
+			case JOB_RANGER:
 				return SPRITE_BATTLE_RANGER;
 				break;
-			case CLASS_PRIEST:
+			case JOB_PRIEST:
 				return SPRITE_BATTLE_PRIEST;
 				break;
-			case CLASS_MONK:
+			case JOB_MONK:
 				return SPRITE_BATTLE_MONK;
 				break;
 		}
 	} else {
 		// on retourne les sprites normaux (utilisés sur la map, dans le menu...)
 		switch (charClass) {
-			case CLASS_WARRIOR:
+			case JOB_WARRIOR:
 				return SPRITE_WARRIOR;
 				break;
-			case CLASS_WIZARD:
+			case JOB_WIZARD:
 				return SPRITE_WIZARD;
 				break;
-			case CLASS_RANGER:
+			case JOB_RANGER:
 				return SPRITE_RANGER;
 				break;
-			case CLASS_PRIEST:
+			case JOB_PRIEST:
 				return SPRITE_PRIEST;
 				break;
-			case CLASS_MONK:
+			case JOB_MONK:
 				return SPRITE_MONK;
 				break;
 		}

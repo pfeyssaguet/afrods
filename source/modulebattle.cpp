@@ -29,7 +29,7 @@ ModuleBattle::ModuleBattle(Context * context) : Module(context), m_currentMode(M
 	showPlayers();
 
 	// création du perso 1
-	m_spriteChar1 = new SpriteBattle(SCREEN_MAIN, GraphicsEngine::CharacterClassToGraphicsSprite(m_context->getActiveChar()->getClass(), true));
+	m_spriteChar1 = new SpriteBattle(SCREEN_MAIN, GraphicsEngine::CreatureClassToGraphicsSprite(m_context->getActiveChar()->getJob(), true));
 	m_spriteChar1->setPos(Coords(32, 112));
 
 	generateMonsters();
@@ -181,7 +181,7 @@ void ModuleBattle::doModeBattle() {
 		} else if (m_currentMenu == MENU_BATTLE_INFO) {
 			// action "Info" sur le mob sélectionné
 
-			CharacterMonster * monster = m_monstersAlive.at(m_selectedEntry);
+			CreatureMonster * monster = m_monstersAlive.at(m_selectedEntry);
 
 			m_spriteFingerTop->setVisible(false);
 
@@ -218,7 +218,7 @@ void ModuleBattle::doModeBattle() {
 
 void ModuleBattle::doActionAttack() {
 	m_spriteFingerTop->setVisible(false);
-	CharacterMonster * monster = m_monstersAlive.at(m_selectedEntry);
+	CreatureMonster * monster = m_monstersAlive.at(m_selectedEntry);
 
 	addLog("Attack %s (%d HP left)", monster->getName().c_str(), monster->getCurrentHp());
 
@@ -326,7 +326,7 @@ void ModuleBattle::generateMonsters() {
 }
 
 void ModuleBattle::createMonster(MonsterType type) {
-	CharacterMonster * monster = new CharacterMonster(type);
+	CreatureMonster * monster = new CreatureMonster(type);
 	m_monstersAlive.push_back(monster);
 
 	Sprite * monsterSprite = new Sprite(SCREEN_MAIN, GraphicsEngine::MonsterTypeToGraphicsSprite(type));
@@ -402,7 +402,7 @@ void ModuleBattle::showMenu(MenuBattleType menu) {
 			}
 			// on affiche la liste des mobs
 			for (unsigned int i = 0 ; i < m_monstersAlive.size() ; i++) {
-				CharacterMonster * monster = m_monstersAlive.at(i);
+				CreatureMonster * monster = m_monstersAlive.at(i);
 				if (monster->getCurrentHp() > 0) {
 					m_menuEntries.push_back(m_monstersAlive.at(i)->getName().c_str());
 				}
@@ -465,7 +465,7 @@ void ModuleBattle::winBattle() {
 	int bonusXp = 0;
 	long bonusMoney = 0;
 	for (unsigned int i = 0 ; i < m_monstersDead.size() ; i++) {
-		CharacterMonster * monster = m_monstersDead.at(i);
+		CreatureMonster * monster = m_monstersDead.at(i);
 		bonusXp += monster->getXp();
 		bonusMoney += monster->getMoney();
 

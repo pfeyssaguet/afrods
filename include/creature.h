@@ -1,5 +1,5 @@
-#ifndef __CHARACTER_H__
-#define __CHARACTER_H__
+#ifndef __CREATURE_H__
+#define __CREATURE_H__
 
 #include "item.h"
 #include "itemweapon.h"
@@ -48,9 +48,9 @@ namespace AfroDS {
 	/**
 	 * Représente un personnage
 	 */
-	class Character {
+	class Creature {
 		public:
-			virtual ~Character();
+			virtual ~Creature();
 
 			/**
 			 * Renvoie le nom du personnage
@@ -95,7 +95,7 @@ namespace AfroDS {
 			 */
 			Item * getEquipmentItem(const EquipmentSlot slot) const;
 
-			int attack(Character * target);
+			int attack(Creature * target);
 
 			int getBonusAttack() const;
 			int getArmorClass() const;
@@ -169,7 +169,7 @@ namespace AfroDS {
 			 * Constructeur initialisant le nom
 			 * @param std::string sName nom du personnage
 			 */
-			Character(const std::string sName = "");
+			Creature(const std::string sName = "");
 
 			/** Nom du personnage */
 			std::string m_sName;

@@ -29,7 +29,7 @@ Save::Save() {
 	// Chargement des persos depuis la sauvegarde
 	PA_OutputText(ECRAN_HAUT, 1, 6, "Init. personnages...");
 	*/
-	loadCharacters();
+	loadCreatures();
 }
 
 Save * Save::getInstance() {
@@ -44,32 +44,32 @@ Save * Save::getInstance() {
  * Renvoie le nombre de personnages de la sauvegarde
  * @return int nombre de personnages
  */
-int Save::getNbCharacters() {
+int Save::getNbCreatures() {
 	return m_characters.size();
 }
 
 /**
  * Crée un nouveau personnage
- * @param Character newchar personnage à créer
+ * @param Creature newchar personnage à créer
  */
-void Save::addCharacter(CharacterPlayer * newchar) {
+void Save::addCreature(CreaturePlayer * newchar) {
 	m_characters.push_back(newchar);
 }
 
 /**
  * Récupère le personnage n° N
  * @param int iNumPerso numéro du personnage
- * @return Character personnage
+ * @return Creature personnage
  */
-CharacterPlayer * Save::getCharacter(int iNumPerso) {
+CreaturePlayer * Save::getCreature(int iNumPerso) {
 	return m_characters.at(iNumPerso);
 }
 
 /**
  * Crée un perso de test pour utiliser directement en jeu
  */
-CharacterPlayer * Save::getDemoCharacter() {
-	CharacterPlayer * deuspi = new CharacterPlayer("deuspi");
+CreaturePlayer * Save::getDemoCreature() {
+	CreaturePlayer * deuspi = new CreaturePlayer("deuspi");
 	deuspi->addItemToInventory(new Item("Heal Potion", TYPE_POTION_HEAL, 20, 30));
 	deuspi->addItemToInventory(new Item("Poil de uque", TYPE_OTHER, 0, 1));
 	deuspi->addItemToInventory(new ItemWeapon("Shortbow", TYPE_RANGEDWEAPON, Coords(1, 6)));
@@ -106,7 +106,7 @@ CharacterPlayer * Save::getDemoCharacter() {
 /**
  * Charge les personnages depuis la sauvegarde
  */
-void Save::loadCharacters() {
+void Save::loadCreatures() {
 /*
 	FILE* file = fopen(AFRODS_SAVE_FILENAME, "r");
 
@@ -132,17 +132,17 @@ void Save::loadCharacters() {
 	}
 	*/
 	// pour l'instant j'ajoute quelques persos bidons pour test
-	createDemoCharacters();
+	createDemoCreatures();
 }
 
 /**
  * Sauvegarde les personnages
  */
-void Save::saveCharacters() {
+void Save::saveCreatures() {
 	/*
-	Character charac;
-	for(std::vector<Character>::iterator it = m_characters.begin(); it != m_characters.end(); ++it)
-		charac = (Character)it;
+	Creature charac;
+	for(std::vector<Creature>::iterator it = m_characters.begin(); it != m_characters.end(); ++it)
+		charac = (Creature)it;
 		std::string sPath = "/" + charac.getName() + ".dat";
 		if (m_UseEFS)
 			sPath = "efs:" + sPath;
@@ -158,13 +158,13 @@ void Save::saveCharacters() {
 /**
  * Crée une liste de persos de test pour utiliser dans le menu
  */
-void Save::createDemoCharacters() {
-	addCharacter(getDemoCharacter());
+void Save::createDemoCreatures() {
+	addCreature(getDemoCreature());
 
-	addCharacter(new CharacterPlayer("Warrior", CLASS_WARRIOR));
-	addCharacter(new CharacterPlayer("Wizard", CLASS_WIZARD));
-	addCharacter(new CharacterPlayer("Ranger", CLASS_RANGER));
-	addCharacter(new CharacterPlayer("Priest", CLASS_PRIEST));
-	addCharacter(new CharacterPlayer("Monk", CLASS_MONK));
+	addCreature(new CreaturePlayer("Warrior", JOB_WARRIOR));
+	addCreature(new CreaturePlayer("Wizard", JOB_WIZARD));
+	addCreature(new CreaturePlayer("Ranger", JOB_RANGER));
+	addCreature(new CreaturePlayer("Priest", JOB_PRIEST));
+	addCreature(new CreaturePlayer("Monk", JOB_MONK));
 
 }
