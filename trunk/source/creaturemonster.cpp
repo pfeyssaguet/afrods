@@ -1,10 +1,10 @@
-#include "charactermonster.h"
+#include "creaturemonster.h"
 
 using namespace AfroDS;
 
-std::map<MonsterType, MonsterDescription> CharacterMonster::m_monsterDescriptions;
+std::map<MonsterType, MonsterDescription> CreatureMonster::m_monsterDescriptions;
 
-CharacterMonster::CharacterMonster(MonsterType type) : Character(translateMonsterType(type)), m_type(type) {
+CreatureMonster::CreatureMonster(MonsterType type) : Creature(translateMonsterType(type)), m_type(type) {
 	if (m_monsterDescriptions.empty())
 		initMonsterDescriptions();
 
@@ -41,7 +41,7 @@ CharacterMonster::CharacterMonster(MonsterType type) : Character(translateMonste
 	m_currentMp = m_maxMp;
 }
 
-void CharacterMonster::initMonsterDescriptions() {
+void CreatureMonster::initMonsterDescriptions() {
 	std::vector<MonsterLoot> loots;
 
 	// MonsterDescription(std::string p_sName, int p_Hp, int p_Mp, Stats p_stats)
@@ -95,12 +95,12 @@ void CharacterMonster::initMonsterDescriptions() {
 	m_monsterDescriptions[MONSTER_DRAGON] 			= MonsterDescription("Dragon", 				50, 0, Stats(20, 0, 18, 0, 0, 0), 100, 300, loots);
 }
 
-int CharacterMonster::getXp() const {
+int CreatureMonster::getXp() const {
 	MonsterDescription desc = m_monsterDescriptions.find(m_type)->second;
 	return desc.xp;
 }
 
-std::string CharacterMonster::translateMonsterType(MonsterType type) {
+std::string CreatureMonster::translateMonsterType(MonsterType type) {
 	if (m_monsterDescriptions.empty())
 		initMonsterDescriptions();
 
@@ -112,6 +112,6 @@ std::string CharacterMonster::translateMonsterType(MonsterType type) {
 	}
 }
 
-Stats CharacterMonster::getStats() const {
+Stats CreatureMonster::getStats() const {
 	return getBaseStats();
 }

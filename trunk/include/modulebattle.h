@@ -5,8 +5,8 @@
 #include "background.h"
 #include "spritebattle.h"
 #include "spritechar.h"
-#include "characterplayer.h"
-#include "charactermonster.h"
+#include "creatureplayer.h"
+#include "creaturemonster.h"
 
 #include <vector>
 #include <string>
@@ -60,8 +60,8 @@ namespace AfroDS {
 			PrintConsole m_consoleMenu;
 			PrintConsole m_consolePlayer;
 
-			std::vector<CharacterMonster *> m_monstersAlive;
-			std::vector<CharacterMonster *> m_monstersDead;
+			std::vector<CreatureMonster *> m_monstersAlive;
+			std::vector<CreatureMonster *> m_monstersDead;
 
 			std::vector<Sprite *> m_spriteMonstersAlive;
 			std::vector<Sprite *> m_spriteMonstersDead;

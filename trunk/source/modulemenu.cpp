@@ -26,7 +26,7 @@ ModuleMenu::ModuleMenu(Context * context) : Module(context), m_iOffset(0) {
 
 	// chargement du background du bas
 	// background du bas différent selon le nombre de persos
-	switch (Save::getInstance()->getNbCharacters()) {
+	switch (Save::getInstance()->getNbCreatures()) {
 		case 0:
 			// on charge un fond avec 1 entrée de menu pour "Nouveau perso"
 			m_iNbMenus = 1;
@@ -56,7 +56,7 @@ ModuleMenu::ModuleMenu(Context * context) : Module(context), m_iOffset(0) {
 	selectEntry(AFRODS_MENU_SELECTED_1);
 
 	// on crée les flèches pour défiler
-	if (Save::getInstance()->getNbCharacters() > 3) {
+	if (Save::getInstance()->getNbCreatures() > 3) {
 		m_spriteMenuArrowUp = new Sprite(SCREEN_SUB, SPRITE_MENU_ICONS);
 		m_spriteMenuArrowUp->setPos(AFRODS_MENU_ARROWS_X, AFRODS_MENU_ARROW_UP_Y);
 		m_spriteMenuArrowUp->setCurrentFrame(FRAME_ICON_ARROW_UP_OFF);
@@ -138,15 +138,15 @@ void ModuleMenu::listChars() {
 	printEntry(1, SPRITE_MENU_ICONS, "NEW CHARACTER");
 
 	// on crée les 3 entrées suivantes
-	if (Save::getInstance()->getNbCharacters() > 0) {
+	if (Save::getInstance()->getNbCreatures() > 0) {
 		for (int i = 1; i <= 3; i++) {
 			// Récupération du perso
-			CharacterPlayer * charac = Save::getInstance()->getCharacter(i-1 + m_iOffset);
+			CreaturePlayer * charac = Save::getInstance()->getCreature(i-1 + m_iOffset);
 
 			// on affiche le nom du perso
-			printEntry(i + 1, GraphicsEngine::CharacterClassToGraphicsSprite(charac->getClass(), false), charac->getName());
+			printEntry(i + 1, GraphicsEngine::CreatureClassToGraphicsSprite(charac->getJob(), false), charac->getName());
 			// si on a plus de persos, on sort
-			if (Save::getInstance()->getNbCharacters() - i - m_iOffset == 0)
+			if (Save::getInstance()->getNbCreatures() - i - m_iOffset == 0)
 				break;
 		}
 	}
@@ -301,7 +301,7 @@ void ModuleMenu::moduleEvents() {
 	}
 
 	// si on est sur la dernière ligne et qu'on descend
-	if (pressDown && m_iActiveMenu == 4 && Save::getInstance()->getNbCharacters() > m_iActiveMenu - 1 + m_iOffset) {
+	if (pressDown && m_iActiveMenu == 4 && Save::getInstance()->getNbCreatures() > m_iActiveMenu - 1 + m_iOffset) {
 		m_iOffset++;
 		listChars();
 	} else
@@ -340,7 +340,7 @@ void ModuleMenu::launchModule() {
 		}
 
 		// m_iActiveMenu -2 : car le perso 0 est sur le menu 2, le perso 1 est sur le menu 3, etc
-		m_context->setActiveChar(Save::getInstance()->getCharacter(m_iOffset + m_iActiveMenu - 2));
+		m_context->setActiveChar(Save::getInstance()->getCreature(m_iOffset + m_iActiveMenu - 2));
 
 		// on va dans le module Game
 		m_context->switchModule(MODULE_GAME, false);

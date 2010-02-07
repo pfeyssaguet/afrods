@@ -1,7 +1,7 @@
-#ifndef __CHARACTERPLAYER_H_
-#define __CHARACTERPLAYER_H_
+#ifndef __CREATUREPLAYER_H_
+#define __CREATUREPLAYER_H_
 
-#include "character.h"
+#include "creature.h"
 #include "debug.h"
 
 // Stats de base d'un perso
@@ -20,23 +20,23 @@
 
 namespace AfroDS {
 
-	enum CharacterClass {
-		CLASS_WARRIOR, CLASS_WIZARD, CLASS_RANGER, CLASS_PRIEST, CLASS_MONK
+	enum Job {
+		JOB_WARRIOR, JOB_WIZARD, JOB_RANGER, JOB_PRIEST, JOB_MONK
 	};
 
-	class CharacterPlayer : public Character {
+	class CreaturePlayer : public Creature {
 		public:
-			CharacterPlayer(const std::string sName = "");
+			CreaturePlayer(const std::string sName = "");
 
-			CharacterPlayer(const std::string sName, const CharacterClass charClass);
+			CreaturePlayer(const std::string sName, const Job job);
 
-			//~CharacterPlayer();
+			//~CreaturePlayer();
 
-			void initCharacter();
+			void initCreature();
 
-			void setClass(const CharacterClass charClass);
+			void setJob(const Job job);
 
-			CharacterClass getClass() const;
+			Job getJob() const;
 
 			int getLevel() const;
 
@@ -106,11 +106,11 @@ namespace AfroDS {
 
 			int rollAttack() const;
 
-			static std::string translateClass(const CharacterClass charClass);
+			static std::string translateJob(const Job job);
 
 		private:
 			/** Classe */
-			CharacterClass m_charClass;
+			Job m_job;
 
 			/** Expérience */
 			long m_xp;

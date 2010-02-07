@@ -1,7 +1,7 @@
 #ifndef __SAVE_H__
 #define __SAVE_H__
 
-#include "characterplayer.h"
+#include "creatureplayer.h"
 #include <vector>
 
 // nom du fichier de sauvegarde
@@ -22,41 +22,41 @@ namespace AfroDS {
 			/**
 			 * Charge les personnages depuis la sauvegarde
 			 */
-			void loadCharacters();
+			void loadCreatures();
 
 			/**
 			 * Sauvegarde les personnages
 			 */
-			void saveCharacters();
+			void saveCreatures();
 
 			/**
 			 * Renvoie le nombre de personnages de la sauvegarde
 			 * @return int nombre de personnages
 			 */
-			int getNbCharacters();
+			int getNbCreatures();
 
 			/**
 			 * Crée un nouveau personnage
-			 * @param Character newchar personnage à créer
+			 * @param Creature newchar personnage à créer
 			 */
-			void addCharacter(CharacterPlayer * newchar);
+			void addCreature(CreaturePlayer * newchar);
 
 			/**
 			 * Récupère le personnage n° N
 			 * @param int iNumPerso numéro du personnage
-			 * @return Character personnage
+			 * @return Creature personnage
 			 */
-			CharacterPlayer * getCharacter(int iNumPerso);
+			CreaturePlayer * getCreature(int iNumPerso);
 
 			/**
 			 * Crée un perso de test pour utiliser directement en jeu
 			 */
-			CharacterPlayer * getDemoCharacter();
+			CreaturePlayer * getDemoCreature();
 
 			/**
 			 * Crée une liste de persos de test pour utiliser dans le menu
 			 */
-			void createDemoCharacters();
+			void createDemoCreatures();
 		private:
 			/**
 			 * Constructeur par défaut, privé car singleton
@@ -64,7 +64,7 @@ namespace AfroDS {
 			Save();
 
 			/** liste des personnages sauvegardés */
-			std::vector<CharacterPlayer *> m_characters;
+			std::vector<CreaturePlayer *> m_characters;
 
 			static Save * m_Instance;
 	};

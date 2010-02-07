@@ -1,7 +1,7 @@
-#ifndef __CHARACTERMONSTER_H__
-#define __CHARACTERMONSTER_H__
+#ifndef __CREATUREMONSTER_H__
+#define __CREATUREMONSTER_H__
 
-#include "character.h"
+#include "creature.h"
 #include "itemfactory.h"
 #include <map>
 #include <string>
@@ -97,10 +97,10 @@ namespace AfroDS {
 		std::vector<MonsterLoot> loots;
 	};
 
-	class CharacterMonster : public Character {
+	class CreatureMonster : public Creature {
 
 		public:
-			CharacterMonster(const MonsterType type);
+			CreatureMonster(const MonsterType type);
 
 			static std::string translateMonsterType(const MonsterType type);
 

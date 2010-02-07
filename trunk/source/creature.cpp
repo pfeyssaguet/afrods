@@ -1,4 +1,4 @@
-#include "character.h"
+#include "creature.h"
 
 using namespace AfroDS;
 
@@ -6,7 +6,7 @@ using namespace AfroDS;
  * Constructeur initialisant le nom
  * @param std::string sName nom du personnage
  */
-Character::Character(const std::string sName) : m_money(0) {
+Creature::Creature(const std::string sName) : m_money(0) {
 	// initialisation du nom
 	m_sName = sName;
 
@@ -16,7 +16,7 @@ Character::Character(const std::string sName) : m_money(0) {
 	}
 }
 
-Character::~Character() {
+Creature::~Creature() {
 	// on doit vider l'inventaire et l'équipement
 
 	// on vide l'équipement
@@ -34,11 +34,11 @@ Character::~Character() {
 	}
 }
 
-void Character::addMoney(const long money) {
+void Creature::addMoney(const long money) {
 	m_money += money;
 }
 
-void Character::subMoney(const long money) {
+void Creature::subMoney(const long money) {
 	if (money > m_money) {
 		m_money = 0;
 	} else {
@@ -46,11 +46,11 @@ void Character::subMoney(const long money) {
 	}
 }
 
-long Character::getMoney() const {
+long Creature::getMoney() const {
 	return m_money;
 }
 
-int Character::XpToLevel(const long xp) {
+int Creature::XpToLevel(const long xp) {
 	/*
 	 * 01 	0 			4 	2 	1er 	-
 	 * 02 	1.000 		5 	2 	- 	-
@@ -88,7 +88,7 @@ int Character::XpToLevel(const long xp) {
 	}
 }
 
-long Character::XpForNextLevel(const long xp) {
+long Creature::XpForNextLevel(const long xp) {
 	if (xp < 1000) {
 		return 1000 - xp;
 	} else if (xp < 3000) {
@@ -111,7 +111,7 @@ long Character::XpForNextLevel(const long xp) {
  * @param EquipmentSlot slot à traduire
  * @return std::string chaîne de caractères
  */
-std::string Character::translateSlot(const EquipmentSlot slot) {
+std::string Creature::translateSlot(const EquipmentSlot slot) {
 	return translateSlot(slot, false);
 }
 
@@ -123,7 +123,7 @@ std::string Character::translateSlot(const EquipmentSlot slot) {
  * @param const bool shortName pour avoir le nom court
  * @return std::string chaîne de caractères
  */
-std::string Character::translateSlot(const EquipmentSlot slot, const bool shortName) {
+std::string Creature::translateSlot(const EquipmentSlot slot, const bool shortName) {
 	switch (slot) {
 		case SLOT_ARMOR:
 			return shortName ? "A" : "Armor";
@@ -168,31 +168,31 @@ std::string Character::translateSlot(const EquipmentSlot slot, const bool shortN
  * Renvoie les stats de base du personnage, sans bonus
  * @return Stats stats de base du perso
  */
-Stats Character::getBaseStats() const {
+Stats Creature::getBaseStats() const {
 	return m_baseStats;
 }
 
-long Character::getCurrentHp() const {
+long Creature::getCurrentHp() const {
 	return m_currentHp;
 }
 
-void Character::setCurrentHp(const int hp) {
+void Creature::setCurrentHp(const int hp) {
 	m_currentHp = hp;
 }
 
-long Character::getCurrentMp() const {
+long Creature::getCurrentMp() const {
 	return m_currentMp;
 }
 
-void Character::setCurrentMp(const int mp) {
+void Creature::setCurrentMp(const int mp) {
 	m_currentMp = mp;
 }
 
-long Character::getMaxHp() const {
+long Creature::getMaxHp() const {
 	return m_maxHp;
 }
 
-long Character::getMaxMp() const {
+long Creature::getMaxMp() const {
 	return m_maxMp;
 }
 
@@ -200,7 +200,7 @@ long Character::getMaxMp() const {
  * Renvoie le nom du personnage
  * @return std::string nom du personnage
  */
-std::string Character::getName() const {
+std::string Creature::getName() const {
 	return m_sName;
 }
 
@@ -208,7 +208,7 @@ std::string Character::getName() const {
  * Définit le nom du personnage
  * @param std::string sName nom du personnage
  */
-void Character::setName(const std::string sName) {
+void Creature::setName(const std::string sName) {
 	m_sName = sName;
 }
 
@@ -217,7 +217,7 @@ void Character::setName(const std::string sName) {
  * @param EquipmentSlot slot slot dans lequel équiper l'item
  * @param Item * item item à équiper (pointeur)
  */
-void Character::addItemToEquipment(const EquipmentSlot slot, Item * item) {
+void Creature::addItemToEquipment(const EquipmentSlot slot, Item * item) {
 	if (m_equipment[slot] == NULL) {
 		m_equipment[slot] = item;
 	}
@@ -228,11 +228,11 @@ void Character::addItemToEquipment(const EquipmentSlot slot, Item * item) {
  * @param EquipmentSlot slot slot demandé
  * @return Item * item d'équipement (pointeur)
  */
-Item * Character::getEquipmentItem(const EquipmentSlot slot) const {
+Item * Creature::getEquipmentItem(const EquipmentSlot slot) const {
 	return m_equipment.find(slot)->second;
 }
 
-int Character::getBonusAttack() const {
+int Creature::getBonusAttack() const {
 	/*
 	 * Avec une arme de corps à corps, le bonus d'attaque est égal à :
 	 * Bonus de base à l'attaque + modificateur de Force
@@ -262,7 +262,7 @@ int Character::getBonusAttack() const {
 	return bonus;
 }
 
-int Character::getArmorClass() const {
+int Creature::getArmorClass() const {
 	// 10 + bonus d'armure + bonus de bouclier + modificateur de Dextérité
 	int armorClass = 10;
 
@@ -286,7 +286,7 @@ int Character::getArmorClass() const {
 	return armorClass;
 }
 
-int Character::attack(Character * target) {
+int Creature::attack(Creature * target) {
 /*
  * Pour effectuer un jet d'attaque, on jette 1d20 auquel on ajoute le bonus d'attaque du personnage.
  * Si le résultat final égale ou dépasse la CA de l'adversaire, le coup touche et inflige des dégâts.
@@ -317,7 +317,7 @@ int Character::attack(Character * target) {
  * Ajoute un item dans l'inventaire
  * @param Item item l'item à ajouter
  */
-void Character::addItemToInventory(Item * item) {
+void Creature::addItemToInventory(Item * item) {
 	m_inventory.push_back(item);
 }
 
@@ -325,7 +325,7 @@ void Character::addItemToInventory(Item * item) {
  * Renvoie le nombre d'items dans l'inventaire
  * @return int nombre d'items
  */
-unsigned int Character::getInventorySize() const {
+unsigned int Creature::getInventorySize() const {
 	return m_inventory.size();
 }
 
@@ -334,11 +334,11 @@ unsigned int Character::getInventorySize() const {
  * @param int iNumItem numéro de l'item à récupérer
  * @return Item item récupéré
  */
-Item * Character::getInventoryItem(const int iNumItem) {
+Item * Creature::getInventoryItem(const int iNumItem) {
 	return getInventoryItem(iNumItem, false);
 }
 
-Item * Character::getInventoryItem(const int iNumItem, bool extract) {
+Item * Creature::getInventoryItem(const int iNumItem, bool extract) {
 	Item * item = m_inventory.at(iNumItem);
 	if (extract) {
 		m_inventory.erase(m_inventory.begin() + iNumItem);
@@ -347,7 +347,7 @@ Item * Character::getInventoryItem(const int iNumItem, bool extract) {
 }
 
 
-void Character::deleteInventoryItem(const int iNumItem) {
+void Creature::deleteInventoryItem(const int iNumItem) {
 	delete m_inventory.at(iNumItem);
 	m_inventory.erase(m_inventory.begin() + iNumItem);
 }
@@ -357,7 +357,7 @@ void Character::deleteInventoryItem(const int iNumItem) {
  * @param unsigned int iNumItem numéro de l'item d'inventaire
  * @return bool false en cas d'échec
  */
-bool Character::equipItem(const unsigned int iNumItem) {
+bool Creature::equipItem(const unsigned int iNumItem) {
 	// on vérifie que l'item existe
 	if (m_inventory.size() <= iNumItem) {
 		return false;
@@ -444,7 +444,7 @@ bool Character::equipItem(const unsigned int iNumItem) {
  * @param EquipmentSlot slot slot d'équipement à vider
  * @return bool false en cas d'échec
  */
-bool Character::unequipItem(EquipmentSlot slot) {
+bool Creature::unequipItem(EquipmentSlot slot) {
 	// on doit retirer l'item et le mettre dans l'inventaire
 	// s'il n'y avait aucun item, on renvoie false
 	if (m_equipment[slot] == NULL) {
@@ -461,7 +461,7 @@ bool Character::unequipItem(EquipmentSlot slot) {
 	return true;
 }
 
-void Character::activateInventoryItem(const unsigned int iNumItem) {
+void Creature::activateInventoryItem(const unsigned int iNumItem) {
 	// on récup_re l'item
 	Item * item = m_inventory.at(iNumItem);
 
@@ -473,7 +473,7 @@ void Character::activateInventoryItem(const unsigned int iNumItem) {
 	}
 }
 
-bool Character::activateItem(Item * item) {
+bool Creature::activateItem(Item * item) {
 	if (item->getType() == TYPE_POTION_HEAL) {
 		m_currentHp += item->getValue();
 		if (m_currentHp > m_maxHp) {
@@ -490,7 +490,7 @@ bool Character::activateItem(Item * item) {
 	return false;
 }
 
-int Character::rollAttack() const {
+int Creature::rollAttack() const {
 	int damage = 0;
 
 	// on prend l'arme du slot de droite

@@ -1,48 +1,45 @@
-#include "characterplayer.h"
+#include "creatureplayer.h"
 
 using namespace AfroDS;
 
-CharacterPlayer::CharacterPlayer(const std::string sName) : Character(sName), m_charClass(CLASS_WARRIOR) {
+CreaturePlayer::CreaturePlayer(const std::string sName) : Creature(sName), m_job(JOB_WARRIOR) {
 	// on initialise le reste du perso
-	initCharacter();
+	initCreature();
 }
 
 
-CharacterPlayer::CharacterPlayer(const std::string sName, const CharacterClass charClass) : Character(sName), m_charClass(charClass) {
-	initCharacter();
+CreaturePlayer::CreaturePlayer(const std::string sName, const Job job) : Creature(sName), m_job(job) {
+	initCreature();
 }
-/*
-CharacterPlayer::~CharacterPlayer() {
-}
-*/
-void CharacterPlayer::initCharacter() {
+
+void CreaturePlayer::initCreature() {
 	m_move_speed = AFRODS_CHAR_SPEED;
 	m_xp = 0;
 
 	// Stats(int p_force, int p_constitution, int p_dexterity, int p_wisdom, int p_charisma, int p_intelligence)
 	// initialisation des stats du perso
-	switch (m_charClass) {
-		case CLASS_WARRIOR:
+	switch (m_job) {
+		case JOB_WARRIOR:
 			m_baseStats = Stats(18, 16, 14, 8, 10, 6);
 			m_maxHp = 30;
 			m_maxMp = 0;
 			break;
-		case CLASS_WIZARD:
+		case JOB_WIZARD:
 			m_baseStats = Stats(6, 10, 10, 14, 6, 18);
 			m_maxHp = 10;
 			m_maxMp = 20;
 			break;
-		case CLASS_RANGER:
+		case JOB_RANGER:
 			m_baseStats = Stats(14, 14, 18, 6, 8, 10);
 			m_maxHp = 25;
 			m_maxMp = 5;
 			break;
-		case CLASS_PRIEST:
+		case JOB_PRIEST:
 			m_baseStats = Stats(6, 10, 10, 18, 6, 16);
 			m_maxHp = 15;
 			m_maxMp = 15;
 			break;
-		case CLASS_MONK:
+		case JOB_MONK:
 			m_baseStats = Stats(17, 17, 17, 8, 8, 8);
 			m_maxHp = 20;
 			m_maxMp = 10;
@@ -63,7 +60,7 @@ void CharacterPlayer::initCharacter() {
  * Renvoie les stats du personnage, avec les bonus et modificateurs appliqués
  * @return Stats stats du personnage
  */
-Stats CharacterPlayer::getStats() const {
+Stats CreaturePlayer::getStats() const {
 	// on prend les stats de base
 	Stats stats = m_baseStats;
 
@@ -94,40 +91,40 @@ Stats CharacterPlayer::getStats() const {
 	return stats;
 }
 
-int CharacterPlayer::getLevel() const {
+int CreaturePlayer::getLevel() const {
 	return XpToLevel(m_xp);
 }
 
-std::string CharacterPlayer::translateClass(CharacterClass charClass) {
-	switch (charClass) {
-		case CLASS_WARRIOR:
+std::string CreaturePlayer::translateJob(Job job) {
+	switch (job) {
+		case JOB_WARRIOR:
 			return "Warrior";
 			break;
-		case CLASS_WIZARD:
+		case JOB_WIZARD:
 			return "Wizard";
 			break;
-		case CLASS_RANGER:
+		case JOB_RANGER:
 			return "Ranger";
 			break;
-		case CLASS_PRIEST:
+		case JOB_PRIEST:
 			return "Priest";
 			break;
-		case CLASS_MONK:
+		case JOB_MONK:
 			return "Monk";
 			break;
 	}
 	return "Unknown";
 }
 
-void CharacterPlayer::setClass(CharacterClass charClass) {
-	m_charClass = charClass;
+void CreaturePlayer::setJob(Job job) {
+	m_job = job;
 }
 
-CharacterClass CharacterPlayer::getClass() const {
-	return m_charClass;
+Job CreaturePlayer::getJob() const {
+	return m_job;
 }
 
-bool CharacterPlayer::hasMagic() const {
+bool CreaturePlayer::hasMagic() const {
 	if (m_maxMp > 0) {
 		return true;
 	}
@@ -138,7 +135,7 @@ bool CharacterPlayer::hasMagic() const {
  * Renvoie l'expérience du personnage
  * @return long expérience
  */
-long CharacterPlayer::getExperience() const {
+long CreaturePlayer::getExperience() const {
 	return m_xp;
 }
 
@@ -146,7 +143,7 @@ long CharacterPlayer::getExperience() const {
  * Renvoie la position X
  * @return int position X
  */
-int CharacterPlayer::getPosX() const {
+int CreaturePlayer::getPosX() const {
 	return m_position.x;
 }
 
@@ -154,7 +151,7 @@ int CharacterPlayer::getPosX() const {
  * Définit la position X
  * @param int x position X
  */
-void CharacterPlayer::setPosX(const int x) {
+void CreaturePlayer::setPosX(const int x) {
 	m_position.x = x;
 }
 
@@ -162,7 +159,7 @@ void CharacterPlayer::setPosX(const int x) {
  * Renvoie la position Y
  * @return int position Y
  */
-int CharacterPlayer::getPosY() const {
+int CreaturePlayer::getPosY() const {
 	return m_position.y;
 }
 
@@ -170,7 +167,7 @@ int CharacterPlayer::getPosY() const {
  * Définit la position Y
  * @param int y position Y
  */
-void CharacterPlayer::setPosY(const int y) {
+void CreaturePlayer::setPosY(const int y) {
 	m_position.y = y;
 }
 
@@ -178,7 +175,7 @@ void CharacterPlayer::setPosY(const int y) {
  * Renvoie la position avec un type personnalisé
  * @return AF_Coords position
  */
-Coords CharacterPlayer::getPos() const {
+Coords CreaturePlayer::getPos() const {
 	return m_position;
 }
 
@@ -186,7 +183,7 @@ Coords CharacterPlayer::getPos() const {
  * Définit la position avec un type personnalisé
  * @param AF_Coords pos position
  */
-void CharacterPlayer::setPos(const Coords pos) {
+void CreaturePlayer::setPos(const Coords pos) {
 	m_position = pos;
 }
 
@@ -195,7 +192,7 @@ void CharacterPlayer::setPos(const Coords pos) {
  * @param int x position X
  * @param int y position Y
  */
-void CharacterPlayer::setPos(const int x, const int y) {
+void CreaturePlayer::setPos(const int x, const int y) {
 	m_position.x = x;
 	m_position.y = y;
 }
@@ -203,15 +200,15 @@ void CharacterPlayer::setPos(const int x, const int y) {
 /**
  * Renvoie la vitesse de déplacement du personnage
  */
-int CharacterPlayer::getMoveSpeed() const {
+int CreaturePlayer::getMoveSpeed() const {
 	return m_move_speed;
 }
 
-void CharacterPlayer::addXp(const int xp) {
+void CreaturePlayer::addXp(const int xp) {
 	m_xp += xp;
 }
 
-int CharacterPlayer::rollAttack() const {
+int CreaturePlayer::rollAttack() const {
 	int damage = 0;
 	// on prend l'arme du slot de droite
 	if (m_equipment.find(SLOT_RIGHT_WEAPON)->second != NULL) {

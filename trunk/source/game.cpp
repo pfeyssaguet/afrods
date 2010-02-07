@@ -57,7 +57,7 @@ void Game::init() {
 	srand(time(NULL));
 
 	// Temporaire : on utilise un perso de test pour le cas où on lance le module Game directement
-	m_context->setActiveChar(Save::getInstance()->getDemoCharacter());
+	m_context->setActiveChar(Save::getInstance()->getDemoCreature());
 
 	// On lance le module splash
 	//m_context->runModule(MODULE_SPLASH);
